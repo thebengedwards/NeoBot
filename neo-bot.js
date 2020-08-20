@@ -197,7 +197,7 @@ client.on('message', message =>
 
   if (message.content === prefix + 'test')
   {
-    message.reply(`YES I AM HERE \nSpeed: \`${Date.now() - message.createdTimestamp} ms\` \nNEO version: `+version+'. Powered by Heroku');
+    message.reply(`YES I AM HERE \nSpeed: \`${Date.now() - message.createdTimestamp} ms\` \nNEO version: `+version+'. \nPowered by HEROKU');
   } else
 
   if (message.content === prefix + 'help')
