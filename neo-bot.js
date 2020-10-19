@@ -10,7 +10,6 @@ const memes = require('./neo-bot-settings.json').memes;
 const gameUpdates = require('./neo-bot-settings.json').gameUpdates;
 const updateLog = require('./neo-bot-settings.json').updateLog;
 //These are external libraries required to run additional Functions
-const chalk = require ('chalk');
 const cron = require ('cron');
 const giveMeAJoke = require('give-me-a-joke');
 const randomPuppy = require('random-puppy');
@@ -18,7 +17,7 @@ const randomPuppy = require('random-puppy');
 //When Neo is started up, this text is returned to the terminal
 client.on('ready',() =>
 {
-  console.log(chalk.bgGreen.black('I\'m Online, Running Version: '+version));
+  console.log('I\'m Online, Running Version: '+version);
 });
 
 client.on('disconnect', () =>
