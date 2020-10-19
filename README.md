@@ -9,4 +9,8 @@ Ben Edwards
 Languages in this project include:
 JavaScript
 
+To run please please use commands:
+npm install
+npm run dev
+
 Repo address: https://github.com/TheBenEdwards/NeoBot
