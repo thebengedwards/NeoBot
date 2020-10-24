@@ -1,14 +1,14 @@
 {
   "name": "neo-bot",
-  "version": "1.1.4",
+  "version": "2.0.0",
   "description": "Bot for general server managmenet and text replies",
-  "main": "bot.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node neo-bot.js"
+    "start": "node index.js"
   },
   "engines": {
-    "node": "14.8.0",
+    "node": "*",
     "npm": "*"
   },
   "author": "Ben Edwards",
