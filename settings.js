@@ -9,7 +9,3 @@ export const Settings = {
   gameUpdates: '653706378812063776',
   updateLog: '475329009694015489'
 }
-
-export const prefix = '!'
-
-export const Welcome = '308218528941473792'
