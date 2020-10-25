@@ -1,7 +1,6 @@
 // External Dependencies
 const Discord = require('discord.js');
 const settings = require('./settings.json');
-const chalk = require('chalk');
 const fs = require('fs');
 const moment = require('moment');
 
@@ -49,8 +48,6 @@ client.reload = command => {
 };
 
 client.elevation = message => {
-  /* This function should resolve to an ELEVATION level which
-     is then sent to the command handler for verification*/
   let permlvl = 0;
   const mod_role = message.guild.roles.find('name', settings.modrolename);
   if (mod_role && message.member.roles.has(mod_role.id)) permlvl = 2;
@@ -62,16 +59,13 @@ client.elevation = message => {
 
 
 var regToken = /[\w\d]{24}\.[\w\d]{6}\.[\w\d-_]{27}/g;
-// client.on('debug', e => {
-//   console.log(chalk.bgBlue.green(e.replace(regToken, 'that was redacted')));
-// });
 
 client.on('warn', e => {
-  console.log(chalk.bgYellow(e.replace(regToken, 'that was redacted')));
+  console.log(e.replace(regToken, 'that was redacted'));
 });
 
 client.on('error', e => {
-  console.log(chalk.bgRed(e.replace(regToken, 'that was redacted')));
+  console.log(e.replace(regToken, 'that was redacted'));
 });
 
 client.login(settings.token);
