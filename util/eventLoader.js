@@ -1,7 +1,7 @@
 const reqEvent = (event) => require(`../events/${event}`);
 module.exports = client => {
   client.on('ready', () => reqEvent('ready')(client));
-  client.on('ready', () => reqEvent('playing')(client));
+  client.on('ready', () => reqEvent('playing'));
   client.on('reconnecting', () => reqEvent('reconnecting')(client));
   client.on('disconnect', () => reqEvent('disconnect')(client));
   client.on('message', reqEvent('message'));
@@ -9,5 +9,5 @@ module.exports = client => {
   client.on('guildMemberRemove', reqEvent('guildMemberRemove'));
   client.on('guildBanAdd', reqEvent('guildBanAdd'));
   client.on('guildBanRemove', reqEvent('guildBanRemove'));
-  client.on('messageDelete', (client, msg) => reqEvent('messageDelete'));
+  //client.on('messageDelete', reqEvent('messageDelete'));
 };
