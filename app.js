@@ -54,12 +54,12 @@ client.elevation = message => {
   /* This function should resolve to an ELEVATION level which
      is then sent to the command handler for verification*/
   let permlvl = 0;
-  const member_role = message.guild.roles.cache.find.find('name', settings.memberrolename);
-  if (member_role && message.member.roles.cache.find.has(member_role.id)) permlvl = 1;
-  const mod_role = message.guild.roles.cache.find.find('name', settings.modrolename);
-  if (mod_role && message.member.roles.cache.find.has(mod_role.id)) permlvl = 2;
-  const admin_role = message.guild.roles.cache.find.find('name', settings.adminrolename);
-  if (admin_role && message.member.roles.cache.find.has(admin_role.id)) permlvl = 3;
+  const member_role = message.guild.roles.cache.find('name', settings.memberrolename);
+  if (member_role && message.member.roles.cache.has(member_role.id)) permlvl = 1;
+  const mod_role = message.guild.roles.cache.find('name', settings.modrolename);
+  if (mod_role && message.member.roles.cache.has(mod_role.id)) permlvl = 2;
+  const admin_role = message.guild.roles.cache.find('name', settings.adminrolename);
+  if (admin_role && message.member.roles.cache.has(admin_role.id)) permlvl = 3;
   return permlvl;
 };
 
