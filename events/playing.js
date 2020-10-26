@@ -1,4 +1,4 @@
 const version = require('../package.json').version;
 module.exports = client => {
-    client.user.setActivity('Version: '+version);
+    client.on('ready', () => {client.user.setActivity('Version: '+version)});
 };
