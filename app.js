@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
-const version = require('./package.json').version;
+client.login(process.env.BOT_TOKEN);
 //These gather information from the settings file
 const settings = require('./settings.json');
 //These are external libraries required to run additional Functions
@@ -195,6 +195,3 @@ client.on('error', e => {
 // //   client.channels.get(general).send("<@377971556959256577>, SAM ITS YOUR BIRTHDAY\nCan we all please wish him a happy Birthday!!!");
 // // });
 // // SamFBday.start()
-
-//Token is secret
-client.login(process.env.BOT_TOKEN);
