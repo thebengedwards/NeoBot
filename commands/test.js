@@ -1,3 +1,4 @@
+const version = require('../package.json').version;
 exports.run = (client, message) => {
   message.reply(`YES I AM HERE \nSpeed: \`${Date.now() - message.createdTimestamp} ms\` \nNEO version: `+version+'. \nPowered by HEROKU');
 };
