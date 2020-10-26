@@ -10,7 +10,5 @@
 
   "ownerid": "271719405384105986",
 	"modrolename": "Moderator",
-  "adminrolename": "Admin",
-  
-	"token": "process.env.BOT_TOKEN"
+  "adminrolename": "Admin"
 }

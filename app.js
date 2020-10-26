@@ -287,4 +287,4 @@ client.on('error', e => {
 // });
 
 //Token is secret
-client.login(settings.token);
+client.login(process.env.BOT_TOKEN);
