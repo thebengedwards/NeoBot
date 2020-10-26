@@ -8,9 +8,9 @@
   "gameUpdates":"653706378812063776",
   "updateLog": "475329009694015489",
 
-  "ownerid": "YOURUSERID",
-	"modrolename": "YOURMODROLENAME",
-  "adminrolename": "YOURADMINROLENAME",
+  "ownerid": "271719405384105986",
+	"modrolename": "Moderator",
+  "adminrolename": "Admin",
   
 	"token": "process.env.BOT_TOKEN"
 }
