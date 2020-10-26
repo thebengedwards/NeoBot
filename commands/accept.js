@@ -1,7 +1,7 @@
 const settings = require('../settings.json');
 exports.run = (client, message) => {
   const member_role = message.guild.roles.cache.find(name => name.name, settings.memberrolename);
-    if(message.member.roles.find(r => r.name === "Member"))
+    if(message.member.roles.cache.find(r => r.name === "Member"))
     {
       message.member.send("You already have a role dummy!");
     } else
