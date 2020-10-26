@@ -22,7 +22,7 @@ fs.readdir('./commands/', (err, files) => {
   log(`Loading a total of ${files.length} commands.`);
   files.forEach(f => {
     const props = require(`./commands/${f}`);
-    log(`Loading Command: ${props.help.name}. 👌`);
+    log(`Loading Command: ${props.help.name}. 🟩`);
     client.commands.set(props.help.name, props);
     props.conf.aliases.forEach(alias => {
       client.aliases.set(alias, props.help.name);
@@ -54,11 +54,11 @@ client.elevation = message => {
   /* This function should resolve to an ELEVATION level which
      is then sent to the command handler for verification*/
   let permlvl = 0;
-  const member_role = message.guild.roles.cache.find('name', settings.memberrolename);
+  const member_role = message.guild.roles.cache.find(name => name.name, settings.memberrolename);
   if (member_role && message.member.roles.cache.has(member_role.id)) permlvl = 1;
-  const mod_role = message.guild.roles.cache.find('name', settings.modrolename);
+  const mod_role = message.guild.roles.cache.find(name => name.name, settings.modrolename);
   if (mod_role && message.member.roles.cache.has(mod_role.id)) permlvl = 2;
-  const admin_role = message.guild.roles.cache.find('name', settings.adminrolename);
+  const admin_role = message.guild.roles.cache.find(name => name.name, settings.adminrolename);
   if (admin_role && message.member.roles.cache.has(admin_role.id)) permlvl = 3;
   return permlvl;
 };
