@@ -1,12 +1,12 @@
 exports.run = (client, message) => {
-    let memberRole = message.member.guild.roles.find("name", "Member");
+  const member_role = message.guild.roles.cache.find(name => name.name, settings.memberrolename);
     if(message.member.roles.find(r => r.name === "Member"))
     {
       message.member.send("You already have a role dummy!");
     } else
     {
       message.member.send("You have succesfully joined as a member!");
-      message.member.addRole(memberRole);
+      message.member.addRole(member_role);
     }
   };
   
