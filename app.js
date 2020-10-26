@@ -62,16 +62,16 @@ client.elevation = message => {
 };
 
 // //Neo's Client Events are here
-client.on('channelCreate', channel =>
-{
-  client.channels.get(admin).send(`A ${channel.type} channel by the name of ${channel.name} was created ${channel.createdAt} with the ID of ${channel.id}`);
-  if (channel.type === 'text') return channel.send(`This ${channel.type} channel was created ${channel.createdAt} and is called ${channel.name}.`);
-});
+// client.on('channelCreate', channel =>
+// {
+//   client.channels.get(admin).send(`A ${channel.type} channel by the name of ${channel.name} was created ${channel.createdAt} with the ID of ${channel.id}`);
+//   if (channel.type === 'text') return channel.send(`This ${channel.type} channel was created ${channel.createdAt} and is called ${channel.name}.`);
+// });
 
-client.on('channelDelete', channel => {
-  client.channels.get(admin).send(`A ${channel.type} channel by the name of ${channel.name} was successfully deleted.`);
-  client.channels.get(general).send(`Channel: ${channel.name} has been deleted`);
-});
+// client.on('channelDelete', channel => {
+//   client.channels.get(admin).send(`A ${channel.type} channel by the name of ${channel.name} was successfully deleted.`);
+//   client.channels.get(general).send(`Channel: ${channel.name} has been deleted`);
+// });
 
 // client.on('messageDelete', msg =>
 // {
@@ -181,4 +181,5 @@ client.on('channelDelete', channel => {
 // // });
 // // SamFBday.start()
 
-client.login(process.env.BOT_TOKEN);
+//client.login(process.env.BOT_TOKEN);
+client.login('NTg3OTA5MjUyODg3MjE2MTI4.XP9bKA.vNespg5NsPmI-8OvCkatppK9-E4');
