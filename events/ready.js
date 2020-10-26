@@ -1,3 +1,4 @@
-module.exports = client => { // eslint-disable-line no-unused-vars
-  console.log('I\'m Online');
+const version = require('./package.json').version;
+module.exports = client => {
+  console.log('I\'m Online, Running Version: '+version);
 };

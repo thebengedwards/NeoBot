@@ -30,25 +30,25 @@ fs.readdir('./commands/', (err, files) => {
   });
 });
 
-// client.reload = command => {
-//   return new Promise((resolve, reject) => {
-//     try {
-//       delete require.cache[require.resolve(`./commands/${command}`)];
-//       const cmd = require(`./commands/${command}`);
-//       client.commands.delete(command);
-//       client.aliases.forEach((cmd, alias) => {
-//         if (cmd === command) client.aliases.delete(alias);
-//       });
-//       client.commands.set(command, cmd);
-//       cmd.conf.aliases.forEach(alias => {
-//         client.aliases.set(alias, cmd.help.name);
-//       });
-//       resolve();
-//     } catch (e) {
-//       reject(e);
-//     }
-//   });
-// };
+client.reload = command => {
+  return new Promise((resolve, reject) => {
+    try {
+      delete require.cache[require.resolve(`./commands/${command}`)];
+      const cmd = require(`./commands/${command}`);
+      client.commands.delete(command);
+      client.aliases.forEach((cmd, alias) => {
+        if (cmd === command) client.aliases.delete(alias);
+      });
+      client.commands.set(command, cmd);
+      cmd.conf.aliases.forEach(alias => {
+        client.aliases.set(alias, cmd.help.name);
+      });
+      resolve();
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
 
 client.elevation = message => {
   /* This function should resolve to an ELEVATION level which
@@ -75,43 +75,6 @@ client.on('warn', e => {
 client.on('error', e => {
   console.log(e.replace(regToken, 'that was redacted'));
 });
-
-// //When Neo is started up, this text is returned to the terminal
-// client.on('ready',() =>
-// {
-//   console.log('I\'m Online, Running Version: '+version);
-// });
-
-// client.on('disconnect', () =>
-// {
-//   console.log(`You have been disconnected at ${new Date()}`);
-// });
-
-// client.on('reconnecting', () =>
-// {
-//   console.log(`Reconnecting at ${new Date()}`);
-// });
-
-// client.on('ready', () => {client.user.setActivity('Version: '+version)});
-
-// //Neo's Guild Events are here
-// client.on('guildMemberAdd', member => {
-//   let guild = member.guild;
-//   client.channels.get(general).send(`Please welcome ${member.user.username} to ther server!`);
-// });
-
-// client.on('guildMemberRemove', member => {
-//   let guild = member.guild;
-//   client.channels.get(general).send(`${member.user.username} has left the server! We will miss you!`);
-// });
-
-// client.on('guildBanAdd',(guild, user) => {
-//   client.channels.get(general).send(`${user.username} was just banned`);
-// });
-
-// client.on('guildBanRemove',(guild, user) => {
-//   client.channels.get(general).send(`${user.username} was just unbanned!`);
-// });
 
 // //Neo's Client Events are here
 // client.on('channelCreate', channel =>
