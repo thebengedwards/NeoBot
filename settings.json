@@ -9,6 +9,9 @@
   "updateLog": "475329009694015489",
 
   "ownerid": "271719405384105986",
-	"modrolename": "Moderator",
-  "adminrolename": "Admin"
+  
+  "adminrolename": "Admin",
+  "modrolename": "Moderator",
+  "memberrolename": "Member"
+
 }
