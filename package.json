@@ -1,6 +1,6 @@
 {
   "name": "neo-bot",
-  "version": "1.1.4",
+  "version": "2.0.0",
   "description": "Bot for general server managmenet and text replies",
   "main": "app.js",
   "scripts": {
@@ -14,9 +14,8 @@
   "author": "Ben Edwards",
   "license": "MIT",
   "dependencies": {
-    "cron": "^1.7.1",
-    "discord.js": "^11.5.1",
-    "give-me-a-joke": "^0.1.2",
-    "random-puppy": "^1.1.0"
+    "discord.js": "*",
+    "give-me-a-joke": "*",
+    "random-puppy": "*"
   }
 }
