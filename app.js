@@ -1,6 +1,5 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
-client.login(process.env.BOT_TOKEN);
 //These gather information from the settings file
 const settings = require('./settings.json');
 //These are external libraries required to run additional Functions
@@ -195,3 +194,5 @@ client.on('error', e => {
 // //   client.channels.get(general).send("<@377971556959256577>, SAM ITS YOUR BIRTHDAY\nCan we all please wish him a happy Birthday!!!");
 // // });
 // // SamFBday.start()
+
+client.login(process.env.BOT_TOKEN);
