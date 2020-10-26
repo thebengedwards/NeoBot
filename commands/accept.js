@@ -1,4 +1,4 @@
-const settings = require('./settings.json');
+const settings = require('../settings.json');
 exports.run = (client, message) => {
   const member_role = message.guild.roles.cache.find(name => name.name, settings.memberrolename);
     if(message.member.roles.find(r => r.name === "Member"))
