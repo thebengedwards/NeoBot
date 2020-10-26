@@ -1,23 +1,22 @@
 {
   "name": "neo-bot",
-  "version": "2.0.0",
+  "version": "1.1.4",
   "description": "Bot for general server managmenet and text replies",
-  "main": "app.js",
+  "main": "bot.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js"
+    "start": "node neo-bot.js"
   },
   "engines": {
-    "node": "*",
+    "node": "14.8.0",
     "npm": "*"
   },
   "author": "Ben Edwards",
   "license": "MIT",
   "dependencies": {
-    "discord.js": "*",
-    "give-me-a-joke": "*",
-    "moment": "*",
-    "ms": "*",
-    "random-puppy": "*"
+    "cron": "^1.7.1",
+    "discord.js": "^11.5.1",
+    "give-me-a-joke": "^0.1.2",
+    "random-puppy": "^1.1.0"
   }
 }
