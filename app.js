@@ -2,13 +2,13 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 const version = require('./package.json').version;
 //These gather information from the settings file
-const prefix = require('./neo-bot-settings.json').prefix;
-const welcome = require('./neo-bot-settings.json').welcome;
-const admin = require('./neo-bot-settings.json').admin;
-const general = require('./neo-bot-settings.json').general;
-const memes = require('./neo-bot-settings.json').memes;
-const gameUpdates = require('./neo-bot-settings.json').gameUpdates;
-const updateLog = require('./neo-bot-settings.json').updateLog;
+const prefix = require('./settings.json').prefix;
+const welcome = require('./settings.json').welcome;
+const admin = require('./settings.json').admin;
+const general = require('./settings.json').general;
+const memes = require('./settings.json').memes;
+const gameUpdates = require('./settings.json').gameUpdates;
+const updateLog = require('./settings.json').updateLog;
 //These are external libraries required to run additional Functions
 const giveMeAJoke = require('give-me-a-joke');
 const randomPuppy = require('random-puppy');
