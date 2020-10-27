@@ -1,8 +1,9 @@
+// Init NEO
 const Discord = require('discord.js');
 const client = new Discord.Client();
-//These gather information from the settings file
+// Data in settings
 const settings = require('./settings.json');
-//These are external libraries required to run additional Functions
+// These are external libraries required to run additional Functions
 const randomPuppy = require('random-puppy');
 const fs = require('fs');
 const moment = require('moment');
@@ -49,8 +50,6 @@ client.reload = command => {
 };
 
 client.elevation = message => {
-  /* This function should resolve to an ELEVATION level which
-     is then sent to the command handler for verification*/
   let permlvl = 0;
   const member_role = message.guild.roles.cache.find(name => name.name, settings.memberrolename);
   if (member_role && message.member.roles.cache.has(member_role.id)) permlvl = 1;
