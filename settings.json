@@ -1,17 +1,16 @@
 {
   "prefix":"!",
 
-  "welcome": "308218528941473792",
-  "mod": "770317791727190016",
-  "general":"555037465862340611",
-  "memes":"555037708150505476",
-  "gameUpdates":"653706378812063776",
-  "updateLog": "475329009694015489",
+  "welcome": "welcome",
+  "mod": "moderator-only",
+  "general":"general",
+  "memes":"memes",
+  "gameUpdates":"game-updates",
+  "updateLog": "update-log",
 
   "ownerid": "271719405384105986",
   
   "adminrolename": "Admin",
   "modrolename": "Moderator",
   "memberrolename": "Member"
-
 }
