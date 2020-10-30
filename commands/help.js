@@ -1,14 +1,26 @@
+const Discord = require('discord.js');
 const settings = require('../settings.json');
+const standardEmbed = require('../embeds/standardEmbed');
+const embed = new Discord.MessageEmbed(standardEmbed);
+
 exports.run = (client, message, params) => {
   if (!params[0]) {
     const commandNames = Array.from(client.commands.keys());
     const longest = commandNames.reduce((long, str) => Math.max(long, str.length), 0);
-    message.channel.send(`Hello, I\'m NEO, the assistant BOT for this discord server. \nI am used for mainly admin tools, but i do also have some availible user commands. \n= Command List =\n\n[Use ${settings.prefix}help <commandname> for details]\n\n${client.commands.map(c => `${settings.prefix}${c.help.name}${' '.repeat(longest - c.help.name.length)} :: ${c.help.description}`).join('\n')}`, {code:'asciidoc'});
+
+    embed.setTitle('Help');
+    embed.setDescription('Hello, I\'m NEO, the assistant for this discord server. I am used for mainly admin tools, but i do also have some availible user commands.');
+    embed.addField('Command List', `[Use ${settings.prefix}help <commandname> for details]`);
+    client.commands.map(c => embed.addField(settings.prefix + c.help.name, c.help.description, true))
+    message.channel.send({ embed });
   } else {
     let command = params[0];
     if (client.commands.has(command)) {
       command = client.commands.get(command);
-      message.channel.send(`= ${command.help.name} = \n${command.help.description}\nusage::${command.help.usage}`, {code:'asciidoc'});
+      embed.setTitle(`${command.help.name}`);
+      embed.setDescription(`${command.help.description}`);
+      embed.addField('Usage', `${command.help.usage}`);
+      message.channel.send({ embed });
     }
   }
 };

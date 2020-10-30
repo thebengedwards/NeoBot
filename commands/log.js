@@ -1,16 +1,33 @@
+const Discord = require('discord.js');
+const standardEmbed = require('../embeds/standardEmbed');
+const embed = new Discord.MessageEmbed(standardEmbed);
+
 exports.run = (client, message) => {
-    message.channel.send('Version 1.0.0 \nBirthday reminders \nJokes \nMeme of the day \nGeneral Admin Tools \n————— \nVersion 1.0.1 \nFixed Late Birthday Bug \n————— \nVersion 1.0.2 \nRemoved \"Meme of the Day\" as it wasnt working as intended \n————— \nVersion 1.1.0 \nAdded Version Log \nRole assignemnt functionality \nVersion Status Implemented \nFixed Daily Meme so it no longer simply prints a url - it now sends an image as intended \nFixed jokes commands to be more efficient and have thousands of more jokes \nChanged NEO to listen for \"!\" instead of \"~\". \n————— \nVersion 1.1.1 \nMinor Bug fixes for Version 1.1.0 \n————— \nVersion 1.1.2 \nHost issue fixed \n————— \nVersion 1.1.3 \nAdded new dates to Neo\'s Calendar \nBackend stabilty fixes \n————— \nVersion 1.1.4 \nFixed Birthday Announcements \n—————');
-  };
+  embed.setTitle('Log');
+  embed.setDescription('NEO Update Log');
+  embed.addFields(
+    { name: 'Version 1.0.0', value: 'Birthday reminders, Jokes, Meme of the day and General Mod Tools.' },
+    { name: 'Version 1.0.1', value: 'Fixed Birthday Bug.' },
+    { name: 'Version 1.0.2', value: 'Temporarily removed \'Meme of the daz\' as it was not working as intended.' },
+    { name: 'Version 1.1.0', value: 'Added Version Log, Role Assignment Functionality, Version Status, Fixed Daily Meme, Fixed Jokes, changed prefix from \'~\' to \'!\'.' },
+    { name: 'Version 1.1.1', value: 'Minor Bug Fixes.' },
+    { name: 'Version 1.1.2', value: 'Moved Host from Glitch to HEROKU.' },
+    { name: 'Version 1.1.3', value: 'Added new dates to NEO\'s calendar, Backend stability fixes.' },
+    { name: 'Version 1.1.4', value: 'Fixed Birthday Announcements.' },
+    { name: 'Version 2.0.0', value: 'Major \'Under-the-hood\' improvements, moved onto new Discord Embeds, ' },
+  );
+  return message.channel.send({ embed });
+};
   
-  exports.conf = {
-    enabled: true,
-    guildOnly: false,
-    aliases: [],
-    permLevel: 0
-  };
+exports.conf = {
+  enabled: true,
+  guildOnly: false,
+  aliases: [],
+  permLevel: 0
+};
   
-  exports.help = {
-    name: 'log',
-    description: 'Logs all the changes I have gone through',
-    usage: 'log'
-  };
+exports.help = {
+  name: 'log',
+  description: 'Logs all the changes I have gone through',
+  usage: 'log'
+};
