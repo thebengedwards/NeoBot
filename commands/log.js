@@ -8,7 +8,7 @@ exports.run = (client, message) => {
   embed.addFields(
     { name: 'Version 1.0.0', value: 'Birthday reminders, Jokes, Meme of the day and General Mod Tools.' },
     { name: 'Version 1.0.1', value: 'Fixed Birthday Bug.' },
-    { name: 'Version 1.0.2', value: 'Temporarily removed \'Meme of the daz\' as it was not working as intended.' },
+    { name: 'Version 1.0.2', value: 'Temporarily removed \'Meme of the day\' as it was not working as intended.' },
     { name: 'Version 1.1.0', value: 'Added Version Log, Role Assignment Functionality, Version Status, Fixed Daily Meme, Fixed Jokes, changed prefix from \'~\' to \'!\'.' },
     { name: 'Version 1.1.1', value: 'Minor Bug Fixes.' },
     { name: 'Version 1.1.2', value: 'Moved Host from Glitch to HEROKU.' },
