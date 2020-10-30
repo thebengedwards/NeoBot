@@ -1,24 +1,19 @@
-const Discord = require('discord.js');
-const settings = require('../settings.json');
+const Discord = require('discord.js')
+const settings = require('../settings.json')
 
 exports.run = (client, message) => {
-  const standardEmbed = require('../embeds/standardEmbed');
-  const embed = new Discord.MessageEmbed(standardEmbed);
+  const alertEmbed = require('../embeds/alertEmbed')
+  const embed = new Discord.MessageEmbed(alertEmbed)
 
   const member_role = message.guild.roles.cache.find(name => name.name, settings.memberrolename)
-    if(message.member.roles.cache.find(r => r.name === "Member"))
-    {
-      embed.setTitle('Error');
-      embed.setDescription('You already have a role!');
-      return message.member.send({ embed });
-    } else
-    {
-      embed.setTitle('Success!');
-      embed.setDescription('You have been assigned the role: MEMBER!');
-      message.member.addRole(member_role)
-      return message.member.send({ embed });
-    }
-  };
+  if(message.member.roles.cache.find(r => r.name === "Member"))
+  {
+    embed.setDescription('You already have a role!')
+    return message.channel.send({ embed })
+  } else {
+    message.member.addRole(member_role)
+  }
+};
   
 exports.conf = {
   enabled: true,

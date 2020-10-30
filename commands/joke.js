@@ -1,15 +1,15 @@
-const Discord = require('discord.js');
-const giveMeAJoke = require('give-me-a-joke');
+const Discord = require('discord.js')
+const giveMeAJoke = require('give-me-a-joke')
 
 exports.run = (client, message) => {
-  const standardEmbed = require('../embeds/standardEmbed');
-  const embed = new Discord.MessageEmbed(standardEmbed);
+  const commandEmbed = require('../embeds/commandEmbed')
+  const embed = new Discord.MessageEmbed(commandEmbed)
 
   giveMeAJoke.getRandomDadJoke(function(joke)
   {
-    embed.setTitle('Joke');
-    embed.setDescription(joke);
-    return message.reply({ embed });
+    embed.setDescription('A Random Joke')
+    embed.addField('Here you go:', joke)
+    return message.reply({ embed })
   });
 };
 

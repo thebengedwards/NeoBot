@@ -1,11 +1,11 @@
-const Discord = require('discord.js');
+const Discord = require('discord.js')
 
 exports.run = (client, message) => {
-  const standardEmbed = require('../embeds/standardEmbed');
-  const embed = new Discord.MessageEmbed(standardEmbed);
+  const commandEmbed = require('../embeds/standardEmbed')
+  const embed = new Discord.MessageEmbed(commandEmbed)
 
-  embed.setTitle('Log');
-  embed.setDescription('NEO Update Log');
+  embed.setTitle('Log')
+  embed.setDescription('NEO Update Log')
   embed.addFields(
     { name: 'Version 1.0.0', value: 'Birthday reminders, Jokes, Meme of the day and General Mod Tools.' },
     { name: 'Version 1.0.1', value: 'Fixed Birthday Bug.' },
@@ -16,8 +16,8 @@ exports.run = (client, message) => {
     { name: 'Version 1.1.3', value: 'Added new dates to NEO\'s calendar, Backend stability fixes.' },
     { name: 'Version 1.1.4', value: 'Fixed Birthday Announcements.' },
     { name: 'Version 2.0.0', value: 'Major \'Under-the-hood\' improvements, moved onto new Discord Embeds, ' },
-  );
-  return message.channel.send({ embed });
+  )
+  return message.channel.send({ embed })
 };
   
 exports.conf = {
