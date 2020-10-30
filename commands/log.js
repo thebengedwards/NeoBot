@@ -1,8 +1,9 @@
 const Discord = require('discord.js');
-const standardEmbed = require('../embeds/standardEmbed');
-const embed = new Discord.MessageEmbed(standardEmbed);
 
 exports.run = (client, message) => {
+  const standardEmbed = require('../embeds/standardEmbed');
+  const embed = new Discord.MessageEmbed(standardEmbed);
+
   embed.setTitle('Log');
   embed.setDescription('NEO Update Log');
   embed.addFields(

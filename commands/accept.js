@@ -1,9 +1,10 @@
 const Discord = require('discord.js');
 const settings = require('../settings.json');
-const standardEmbed = require('../embeds/standardEmbed');
-const embed = new Discord.MessageEmbed(standardEmbed);
 
 exports.run = (client, message) => {
+  const standardEmbed = require('../embeds/standardEmbed');
+  const embed = new Discord.MessageEmbed(standardEmbed);
+
   const member_role = message.guild.roles.cache.find(name => name.name, settings.memberrolename)
     if(message.member.roles.cache.find(r => r.name === "Member"))
     {
@@ -19,16 +20,16 @@ exports.run = (client, message) => {
     }
   };
   
-  exports.conf = {
-    enabled: true,
-    guildOnly: false,
-    aliases: [],
-    permLevel: 0
-  };
+exports.conf = {
+  enabled: true,
+  guildOnly: false,
+  aliases: [],
+  permLevel: 0
+};
   
-  exports.help = {
-    name: 'accept',
-    description: 'Add the initial member role to your account!',
-    usage: 'accept'
-  };
+exports.help = {
+  name: 'accept',
+  description: 'Add the initial member role to your account!',
+  usage: 'accept'
+};
   

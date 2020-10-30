@@ -1,6 +1,16 @@
-const version = require('../package.json').version;
+const Discord = require('discord.js');
+const settings = require('../settings.json');
+
 exports.run = (client, message) => {
-  message.reply(`YES I AM HERE \nSpeed: \`${Date.now() - message.createdTimestamp} ms\` \nNEO version: `+version+'. \nPowered by HEROKU');
+  const standardEmbed = require('../embeds/standardEmbed');
+  const embed = new Discord.MessageEmbed(standardEmbed);
+
+  embed.setTitle('Test');
+  embed.addFields(
+    { name: 'Speed:', value: `${Date.now() - message.createdTimestamp} ms` },
+    { name: 'Powered by:', value: `${settings.host}` }
+  );
+  return message.channel.send({ embed });
 };
 
 exports.conf = {

@@ -1,9 +1,10 @@
 const Discord = require('discord.js');
 const settings = require('../settings.json');
-const standardEmbed = require('../embeds/standardEmbed');
-const embed = new Discord.MessageEmbed(standardEmbed);
 
 exports.run = (client, message, params) => {
+  const standardEmbed = require('../embeds/standardEmbed');
+  const embed = new Discord.MessageEmbed(standardEmbed);
+  
   if (!params[0]) {
     const commandNames = Array.from(client.commands.keys());
     const longest = commandNames.reduce((long, str) => Math.max(long, str.length), 0);
