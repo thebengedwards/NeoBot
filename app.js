@@ -1,9 +1,6 @@
 // Init NEO
 const Discord = require('discord.js');
 const client = new Discord.Client();
-// These are the internal files that are needed
-const alertEmbed = require('./embeds/alertEmbed')
-const settings = require('./settings.json');
 // These are external libraries required to run additional Functions
 const fs = require('fs');
 const moment = require('moment');
