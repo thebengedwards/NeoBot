@@ -51,16 +51,7 @@ client.reload = command => {
 
 client.elevation = message => {
   let permlvl = 0;
-  if(message.member == null) {
-    const embed = new Discord.MessageEmbed(alertEmbed);
-
-    embed.setDescription('This is not possible');
-    embed.addField('Please message me in:', `${settings.currentServer}`)
-    permlvl = -1;
-    return permlvl, message.reply({ embed });
-
-  } else {
-    console.log(message.member)
+  try {
     const member_role = message.member.roles.cache.find(r => r.id === "Member");
     if (member_role && message.member.roles.cache.has(member_role.id)) permlvl = 1;
     const mod_role = message.member.roles.cache.find(r => r.name === "Moderator");
@@ -68,6 +59,9 @@ client.elevation = message => {
     const admin_role = message.member.roles.cache.find(r => r.name === "Admin");
     if (admin_role && message.member.roles.cache.has(admin_role.id)) permlvl = 3;
     return permlvl;
+  } 
+  catch(err) {
+    console.log('Error')
   }
 };
 

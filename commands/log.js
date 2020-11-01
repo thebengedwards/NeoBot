@@ -4,8 +4,7 @@ exports.run = (client, message) => {
   const commandEmbed = require('../embeds/commandEmbed')
   const embed = new Discord.MessageEmbed(commandEmbed)
 
-  embed.setTitle('Log')
-  embed.setDescription('NEO Update Log')
+  embed.setDescription('Log')
   embed.addFields(
     { name: 'Version 1.0.0', value: 'Birthday reminders, Jokes, Meme of the day and General Mod Tools.' },
     { name: 'Version 1.0.1', value: 'Fixed Birthday Bug.' },
@@ -29,6 +28,6 @@ exports.conf = {
   
 exports.help = {
   name: 'log',
-  description: 'Logs all the changes I have gone through',
+  description: 'Logs all the differences between previous versions',
   usage: 'log'
 };

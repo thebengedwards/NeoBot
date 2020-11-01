@@ -6,8 +6,7 @@ exports.run = (client, message, params) => {
   const embed = new Discord.MessageEmbed(commandEmbed)
   
   if (!params[0]) {
-    embed.setTitle('Help')
-    embed.setDescription('Hello, I\'m NEO, the assistant for this discord server. I am used for mainly admin tools, but i do also have some availible user commands.')
+    embed.setDescription('Help')
     embed.addField('Command List', `[Use ${settings.prefix}help <commandname> for details]`)
     client.commands.map(c => embed.addField(settings.prefix + c.help.name, c.help.description, true))
     message.channel.send({ embed });
@@ -15,8 +14,8 @@ exports.run = (client, message, params) => {
     let command = params[0]
     if (client.commands.has(command)) {
       command = client.commands.get(command)
-      embed.setTitle(`${command.help.name}`)
-      embed.setDescription(`${command.help.description}`)
+      embed.setDescription(`${command.help.name}`)
+      embed.addField('About', `${command.help.description}`)
       embed.addField('Usage', `${command.help.usage}`)
       message.channel.send({ embed })
     }
