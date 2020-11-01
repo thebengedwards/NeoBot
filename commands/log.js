@@ -1,7 +1,7 @@
 const Discord = require('discord.js')
 
 exports.run = (client, message) => {
-  const commandEmbed = require('../embeds/standardEmbed')
+  const commandEmbed = require('../embeds/commandEmbed')
   const embed = new Discord.MessageEmbed(commandEmbed)
 
   embed.setTitle('Log')

@@ -6,9 +6,6 @@ exports.run = (client, message, params) => {
   const embed = new Discord.MessageEmbed(commandEmbed)
   
   if (!params[0]) {
-    const commandNames = Array.from(client.commands.keys())
-    const longest = commandNames.reduce((long, str) => Math.max(long, str.length), 0)
-
     embed.setTitle('Help')
     embed.setDescription('Hello, I\'m NEO, the assistant for this discord server. I am used for mainly admin tools, but i do also have some availible user commands.')
     embed.addField('Command List', `[Use ${settings.prefix}help <commandname> for details]`)

@@ -11,7 +11,9 @@
 
   "ownerid": "271719405384105986",
   
-  "adminrolename": "Admin",
-  "modrolename": "Moderator",
-  "memberrolename": "Member"
+  "adminroleid": "606388933076713493",
+  "modroleid": "607186951073955844",
+  "memberroleid": "606388890701529098",
+
+  "currentServer": "HMS Underachievement"
 }

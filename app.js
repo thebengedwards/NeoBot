@@ -1,10 +1,10 @@
 // Init NEO
 const Discord = require('discord.js');
 const client = new Discord.Client();
-// Data in settings
+// These are the internal files that are needed
+const alertEmbed = require('./embeds/alertEmbed')
 const settings = require('./settings.json');
 // These are external libraries required to run additional Functions
-const randomPuppy = require('random-puppy');
 const fs = require('fs');
 const moment = require('moment');
 
@@ -51,117 +51,25 @@ client.reload = command => {
 
 client.elevation = message => {
   let permlvl = 0;
-  const member_role = message.guild.roles.cache.find(name => name.name, settings.memberrolename);
-  if (member_role && message.member.roles.cache.has(member_role.id)) permlvl = 1;
-  const mod_role = message.guild.roles.cache.find(name => name.name, settings.modrolename);
-  if (mod_role && message.member.roles.cache.has(mod_role.id)) permlvl = 2;
-  const admin_role = message.guild.roles.cache.find(name => name.name, settings.adminrolename);
-  if (admin_role && message.member.roles.cache.has(admin_role.id)) permlvl = 3;
-  return permlvl;
+  if(message.member == null) {
+    const embed = new Discord.MessageEmbed(alertEmbed);
+
+    embed.setDescription('This is not possible');
+    embed.addField('Please message me in:', `${settings.currentServer}`)
+    permlvl = -1;
+    return permlvl, message.reply({ embed });
+
+  } else {
+    console.log(message.member)
+    const member_role = message.member.roles.cache.find(r => r.id === "Member");
+    if (member_role && message.member.roles.cache.has(member_role.id)) permlvl = 1;
+    const mod_role = message.member.roles.cache.find(r => r.name === "Moderator");
+    if (mod_role && message.member.roles.cache.has(mod_role.id)) permlvl = 2;
+    const admin_role = message.member.roles.cache.find(r => r.name === "Admin");
+    if (admin_role && message.member.roles.cache.has(admin_role.id)) permlvl = 3;
+    return permlvl;
+  }
 };
-
-// //Neos Autonomous code goes here
-// //Cron uses second, minute, hour, day(of the month, 1-31), Month(of the year, 0-11), and Sunday to Saturday(0-6)
-// // let WeeklyFunnyMeme = new cron.CronJob('00 00 20 * * 5', () =>
-// // {
-// //   let subreddit = "dankmemes";
-// //   client.channels.get(memes).send("This week's Funny Meme:");
-// //   randomPuppy(subreddit).then(async url => {
-// //     await client.channels.get(memes).send({
-// //       files:
-// //       [{
-// //         attachment: url,
-// //         name: 'meme.png'
-// //       }]
-// //     })
-// //   }).catch(err => console.error(err));
-// // });
-// // WeeklyFunnyMeme.start()
-
-// // //Neos Calendar Dates go here
-// // let NewYear = new cron.CronJob('00 01 00 01 00 *', () =>
-// // {
-// //   client.channels.get(general).send("🎉 HAPPY NEW YEAR EVERYONE 🎉");
-// // });
-// // NewYear.start()
-// // let Halloween = new cron.CronJob('00 00 08 31 09 *', () =>
-// // {
-// //   client.channels.get(general).send("🎃 HAPPY HALLOWEEN EVERYONE 🎃");
-// // });
-// // Halloween.start()
-// // let Christmas = new cron.CronJob('00 00 08 25 11 *', () =>
-// // {
-// //   client.channels.get(general).send("🎅 MERRY CHRISTMAS EVERYONE 🎅");
-// // });
-// // Christmas.start()
-
-
-// // //Birthdays of Members
-// // let BenEBday = new cron.CronJob('00 00 08 14 01 *', () =>
-// // {
-// //   client.channels.get(general).send("<@271719405384105986>, BEN ITS YOUR BIRTHDAY\nCan we all please wish him a happy Birthday!!!");
-// // });
-// // BenEBday.start()
-// // let JamieSBday = new cron.CronJob('00 00 08 10 05 *', () =>
-// // {
-// //   client.channels.get(general).send("<@271744164377526274>, JAMIE ITS YOUR BIRTHDAY\nCan we all please wish him a happy Birthday!!!");
-// // });
-// // JamieSBday.start()
-// // let AlexBBday = new cron.CronJob('00 00 08 03 04 *', () =>
-// // {
-// //   client.channels.get(general).send("<@271758756595892236>, ALEX ITS YOUR BIRTHDAY\nCan we all please wish him a happy Birthday!!!");
-// // });
-// // AlexBBday.start()
-// // let EdBBday = new cron.CronJob('00 00 08 12 06 *', () =>
-// // {
-// //   client.channels.get(general).send("<@272104323729588225>, ED ITS YOUR BIRTHDAY\nCan we all please wish him a happy Birthday!!!");
-// // });
-// // EdBBday.start()
-// // let MaxDBday = new cron.CronJob('00 00 08 23 08 *', () =>
-// // {
-// //   client.channels.get(general).send("<@385480935900184579>, MAX ITS YOUR BIRTHDAY\nCan we all please wish him a happy Birthday!!!");
-// // });
-// // MaxDBday.start()
-// // let OllieMBday = new cron.CronJob('00 00 08 16 03 *', () =>
-// // {
-// //   client.channels.get(general).send("<@283292935552761857>, OLLIE ITS YOUR BIRTHDAY\nCan we all please wish him a happy Birthday!!!");
-// // });
-// // OllieMBday.start()
-// // let AlexHBday = new cron.CronJob('00 00 08 01 03 *', () =>
-// // {
-// //   client.channels.get(general).send("<@348126167062151180>, ALEX ITS YOUR BIRTHDAY\nCan we all please wish him a happy Birthday!!!");
-// // });
-// // AlexHBday.start()
-// // let DylanCBday = new cron.CronJob('00 00 08 09 06 *', () =>
-// // {
-// //   client.channels.get(general).send("<@272090190657486848>, DYLAN ITS YOUR BIRTHDAY\nCan we all please wish him a happy Birthday!!!");
-// // });
-// // DylanCBday.start()
-// // let GenMBday = new cron.CronJob('00 00 08 07 01 *', () =>
-// // {
-// //   client.channels.get(general).send("<@393047942526926850>, GEN ITS YOUR BIRTHDAY\nCan we all please wish her a happy Birthday!!!");
-// // });
-// // GenMBday.start()
-// // let MilanJBday = new cron.CronJob('00 00 08 07 10 *', () =>
-// // {
-// //   client.channels.get(general).send("<@277488461844578304>, MILAN ITS YOUR BIRTHDAY\nCan we all please wish him a happy Birthday!!!");
-// // });
-// // MilanJBday.start()
-// // let AlexTBday = new cron.CronJob('00 00 08 05 06 *', () =>
-// // {
-// //   client.channels.get(general).send("<@215951713717190656>, ALEX ITS YOUR BIRTHDAY\nCan we all please wish him a happy Birthday!!!");
-// // });
-// // AlexTBday.start()
-// // let FinEBday = new cron.CronJob('00 00 08 28 05 *', () =>
-// // {
-// //   client.channels.get(general).send("<@286255321264029697>, FIN ITS YOUR BIRTHDAY\nCan we all please wish him a happy Birthday!!!");
-// // });
-// // FinEBday.start()
-// // let SamFBday = new cron.CronJob('00 00 08 26 05 *', () =>
-// // {
-// //   client.channels.get(general).send("<@377971556959256577>, SAM ITS YOUR BIRTHDAY\nCan we all please wish him a happy Birthday!!!");
-// // });
-// // SamFBday.start()
 
 //client.login(process.env.BOT_TOKEN);
 client.login('NTg3OTA5MjUyODg3MjE2MTI4.XP9bKA.vNespg5NsPmI-8OvCkatppK9-E4');
