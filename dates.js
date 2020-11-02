@@ -119,7 +119,7 @@ const dates = [
   },
   // Calendar
   {
-    // Weekly Meme
+    // Christmas
     eventType: 'Calendar', // Event Type
     id: '🎅', // Disocrd ID
     fName: null, // First Name
@@ -128,7 +128,7 @@ const dates = [
     gender: null // for message
   },
   {
-    // Weekly Meme
+    // Halloween
     eventType: 'Calendar', // Event Type
     id: '🎃', // Disocrd ID
     fName: null, // First Name
@@ -137,7 +137,7 @@ const dates = [
     gender: null // for message
   },
   {
-    // Weekly Meme
+    // New Year
     eventType: 'Calendar', // Event Type
     id: '🎉', // Disocrd ID
     fName: null, // First Name
@@ -154,7 +154,7 @@ const dates = [
     lName: 'Weekly Meme', // Last Name
     cron: '00 00 20 * * 5', // Date in: SS MM HH DD MM(-1) DoW
     gender: null // for message
-  },
+  }
 ]
 
 module.exports = dates;
