@@ -30,17 +30,7 @@ module.exports = client => {
             const embed = new Discord.MessageEmbed(eventEmbed)
 
             let weeklyMeme = new cron.CronJob(`${event.cron}`, () => {
-                let subreddit = "dankmemes";
-                client.channels.get(memes).send("This week's Funny Meme:");
-                randomPuppy(subreddit).then(async url => {
-                    await client.channels.get(memes).send({
-                        files:
-                        [{
-                            attachment: url,
-                            name: 'meme.png'
-                        }]
-                    })
-                }).catch(err => console.error(err));
+                
             });
             weeklyMeme.start()
         } else {

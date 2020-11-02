@@ -18,7 +18,6 @@
     "discord.js": "*",
     "give-me-a-joke": "*",
     "moment": "*",
-    "ms": "*",
-    "random-puppy": "*"
+    "ms": "*"
   }
 }
