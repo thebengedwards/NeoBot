@@ -14,7 +14,7 @@ exports.run = (client, message) => {
     { name: 'Version 1.1.2', value: 'Moved Host from Glitch to HEROKU.' },
     { name: 'Version 1.1.3', value: 'Added new dates to NEO\'s calendar, Backend stability fixes.' },
     { name: 'Version 1.1.4', value: 'Fixed Birthday Announcements.' },
-    { name: 'Version 2.0.0', value: 'Major \'Under-the-hood\' improvements, New Discord Embeds, Added security, Many minor Bug Fixes, \'Weekly Meme\' Imgur mp4 bug fix, Custom API Integration, Backend Databse, Leveling system, and much more' },
+    { name: 'Version 2.0.0', value: 'Major \'Under-the-hood\' improvements, New Discord Embeds, Added security, Many minor Bug Fixes, \'Weekly Meme\' Imgur mp4 bug fix, Polling' },
   )
   return message.channel.send({ embed })
 };

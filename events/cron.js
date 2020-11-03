@@ -2,7 +2,7 @@ const Discord = require('discord.js')
 const cron = require('cron')
 const api = require("imageapi.js");
 const settings = require('../settings.json');
-const dates = require('../dates')
+const dates = require('../arrays/dates')
 
 module.exports = client => {
     dates.forEach((event) => {
@@ -32,10 +32,7 @@ module.exports = client => {
                 const embed = new Discord.MessageEmbed(eventEmbed)
 
                 var img;
-                let subreddits = [
-                    "dankmemes",
-                    "memes",
-                ];
+                let subreddits = require('../arrays/subreddits');
                 getImg = async () => {
                     let subreddit = subreddits[Math.floor(Math.random() * subreddits.length)];
                     img = await api(subreddit);
@@ -47,7 +44,8 @@ module.exports = client => {
                         embed.setDescription('Weekly Meme')
                         embed.addField(`This meme is brought to you by:`,`r/${subreddit}`)
                         embed.setImage(img);
-                        return client.channels.cache.get(settings.memes).send({ embed });
+                        return client.channels.cache.get(settings.mod).send({ embed });
+                        //return client.channels.cache.get(settings.memes).send({ embed });
                     }
                 }
                 getImg();
