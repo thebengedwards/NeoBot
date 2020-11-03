@@ -152,7 +152,7 @@ const dates = [
     id: null, // Disocrd ID
     fName: null, // First Name
     lName: 'Weekly Meme', // Last Name
-    cron: '00 51 22 * * *',
+    cron: '00 * * * * *',
     //cron: '00 00 20 * * 5', // Date in: SS MM HH DD MM(-1) DoW
     gender: null // for message
   }

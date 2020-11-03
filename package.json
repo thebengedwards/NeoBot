@@ -17,7 +17,11 @@
     "cron": "^1.8.2",
     "discord.js": "*",
     "give-me-a-joke": "*",
+    "imageapi.js": "^1.0.19",
     "moment": "*",
-    "ms": "*"
+    "ms": "*",
+    "node-fetch": "^2.6.1",
+    "random-reddit": "^1.2.0",
+    "snekfetch": "^4.0.4"
   }
 }
