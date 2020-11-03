@@ -2,14 +2,7 @@ const Discord = require('discord.js')
 const cron = require('cron')
 const settings = require('../settings.json');
 const dates = require('../dates')
-
-const { RandomReddit } = require('random-reddit')
-const reddit = new RandomReddit({
-    username: 'reelablezulu761',
-    password: 'Northcheese3191!',
-    app_id: 'pb4t17XAuDVTGA',
-    api_secret: 'x5fAKvxSdqhbZW7SMOLKhRwIRwDMsg'
-  });
+const api = require("imageapi.js");
 
 module.exports = client => {
     dates.forEach((event) => {
@@ -34,31 +27,30 @@ module.exports = client => {
             });
             calendar.start()
         } else if(event.eventType === 'WeeklyMeme') {
-            let weeklyMeme = new cron.CronJob(`${event.cron}`, async () => {
+            let weeklyMeme = new cron.CronJob(`${event.cron}`,() => {
                 const eventEmbed = require('../embeds/eventEmbed')
                 const embed = new Discord.MessageEmbed(eventEmbed)
 
-                const post = await reddit.getPost('the_donald')
-                console.log(post) // returns the reddit post object
+                var img;
+                let subreddits = [
+                    "dankmemes",
+                    "memes",
+                ];
+                getImg = async () => {
+                    let subreddit = subreddits[Math.floor(Math.random() * subreddits.length)];
+                    img = await api(subreddit);
 
-                // let options = {
-                //     imageOnly: true,
-                //     allowNSFW: true
-                //  };
-                // await reddit.getPost('memes', options).then(post => {
-
-                //     var postTitle = post.title
-                //     var content = post.text
-                //     var postURL = post.permalink
-                //     var postAuthor = post.author
-                //     var upvotes = post.upvotes
-                //     var downvotes = post.downvotes
-
-                //     embed.setDescription('Weekly Meme')
-                //     embed.addField(`${postTitle}`,`Posted by: ${postAuthor}`)
-                //     embed.setImage(postURL)
-                //     return client.channels.cache.get(settings.memes).send({ embed });
-                // })
+                    if(img.endsWith('.mp4')) {
+                        // Discord bot does not support mp4 types, so just run the function again
+                        getImg();
+                    } else {
+                        embed.setDescription('Weekly Meme')
+                        embed.addField(`This meme is brought to you by:`,`r/${subreddit}`)
+                        embed.setImage(img);
+                        return client.channels.cache.get(settings.memes).send({ embed });
+                    }
+                }
+                getImg();
             });
             weeklyMeme.start()
         } else {
