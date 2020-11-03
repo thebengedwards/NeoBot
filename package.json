@@ -17,8 +17,6 @@
     "cron": "*",
     "discord.js": "*",
     "give-me-a-joke": "*",
-    "imageapi.js": "*",
-    "moment": "*",
-    "ms": "*"
+    "imageapi.js": "*"
   }
 }

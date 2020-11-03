@@ -1,8 +1,8 @@
 const Discord = require('discord.js')
 const cron = require('cron')
+const api = require("imageapi.js");
 const settings = require('../settings.json');
 const dates = require('../dates')
-const api = require("imageapi.js");
 
 module.exports = client => {
     dates.forEach((event) => {
