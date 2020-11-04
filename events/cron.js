@@ -44,8 +44,7 @@ module.exports = client => {
                         embed.setDescription('Weekly Meme')
                         embed.addField(`This meme is brought to you by:`,`r/${subreddit}`)
                         embed.setImage(img);
-                        return client.channels.cache.get(settings.mod).send({ embed });
-                        //return client.channels.cache.get(settings.memes).send({ embed });
+                        return client.channels.cache.get(settings.memes).send({ embed });
                     }
                 }
                 getImg();
