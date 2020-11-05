@@ -3,6 +3,6 @@ const subreddits = [
     "memes",
     "prequelmemes",
     "funny"
-  ]
+]
   
-  module.exports = subreddits;
+module.exports = subreddits;
