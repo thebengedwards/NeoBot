@@ -32,7 +32,7 @@ client.elevation = message => {
     return permlvl;
   } 
   catch(err) {
-    console.log('Error')
+    
   }
 };
 

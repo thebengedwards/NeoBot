@@ -13,7 +13,9 @@ exports.run = (client, message, args) => {
             { name: 'Report:', value: `${messageText}` },
             { name: 'Please handle this report with care!', value: 'If it contains sensitive information please be professional' },
         )
-        return client.channels.cache.get(settings.mod).send({ embed });
+        
+        return client.users.fetch(settings.reportid, false).then((user) => { user.send({ embed });
+    });
     } else {
         const alertEmbed = require('../embeds/alertEmbed');
         const embed = new Discord.MessageEmbed(alertEmbed);
