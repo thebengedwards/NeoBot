@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 const version = require('../package.json').version;
-const img = require('../images/Poll.png')
+const img = 'https://i.imgur.com/WqcSB5V.png'
 
 const embed = new Discord.MessageEmbed()
 	.setColor('#FF8300')	
