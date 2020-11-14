@@ -23,7 +23,7 @@ fs.readdir('./commands/', (err, files) => {
 client.elevation = message => {
   let permlvl = 0;
   try {
-    const member_role = message.member.roles.cache.find(r => r.id === "Member");
+    const member_role = message.member.roles.cache.find(r => r.name === "Member");
     if (member_role && message.member.roles.cache.has(member_role.id)) permlvl = 1;
     const mod_role = message.member.roles.cache.find(r => r.name === "Moderator");
     if (mod_role && message.member.roles.cache.has(mod_role.id)) permlvl = 2;
@@ -32,7 +32,7 @@ client.elevation = message => {
     return permlvl;
   } 
   catch(err) {
-    
+    console.log(`Error: ${err}`)
   }
 };
 

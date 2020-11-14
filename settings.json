@@ -2,18 +2,5 @@
   "prefix":"!",
   "host": "HEROKU",
 
-  "welcome": "308218528941473792",
-  "mod": "770317791727190016",
-  "general":"555037465862340611",
-  "memes":"555037708150505476",
-  "gameUpdates":"653706378812063776",
-  "updateLog": "475329009694015489",
-
-  "reportid": "271719405384105986",
-  
-  "adminroleid": "606388933076713493",
-  "modroleid": "607186951073955844",
-  "memberroleid": "606388890701529098",
-
-  "currentServer": "HMS Underachievement"
+  "reportid": "271719405384105986"
 }

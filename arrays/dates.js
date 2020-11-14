@@ -1,3 +1,4 @@
+// This Array contains all important dates that neo needs for the cron event. Should be moved to a Database
 const dates = [
   // Birthdays
   {
@@ -7,7 +8,9 @@ const dates = [
     fName: 'Alex', // First Name
     lName: 'Booth', // Last Name
     cron: '00 00 08 03 04 *', // Date in: SS MM HH DD MM(-1) DoW
-    gender: 'him' // for message // for message
+    gender: 'him', // for message
+    serverID: '271720862606950400' // Server this birthday is sent to
+
   },
   {
     // Alex Howarth
@@ -16,7 +19,8 @@ const dates = [
     fName: 'Alex', // First Name
     lName: 'Howarth', // Last Name
     cron: '00 00 08 01 03 *', // Date in: SS MM HH DD MM(-1) DoW
-    gender: 'him' // for message
+    gender: 'him', // for message
+    serverID: '271720862606950400' // Server this birthday is sent to
   },
   {
     // Alex Tankard
@@ -25,7 +29,8 @@ const dates = [
     fName: 'Alex', // First Name
     lName: 'Tankard', // Last Name
     cron: '00 00 08 05 06 *', // Date in: SS MM HH DD MM(-1) DoW
-    gender: 'him' // for message
+    gender: 'him', // for message
+    serverID: '271720862606950400' // Server this birthday is sent to
   },
   {
     // Ben Edwards
@@ -34,7 +39,8 @@ const dates = [
     fName: 'Ben', // First Name
     lName: 'Edwards', // Last Name
     cron: '00 00 08 14 01 *', // Date in: SS MM HH DD MM(-1) DoW
-    gender: 'him' // for message
+    gender: 'him', // for message
+    serverID: '271720862606950400' // Server this birthday is sent to
   },
   {
     // Dylan Custance
@@ -43,7 +49,8 @@ const dates = [
     fName: 'Dylan', // First Name
     lName: 'Custance', // Last Name
     cron: '00 00 08 09 06 *', // Date in: SS MM HH DD MM(-1) DoW
-    gender: 'him' // for message
+    gender: 'him', // for message
+    serverID: '271720862606950400' // Server this birthday is sent to
   },
   {
     // Ed Butler
@@ -52,7 +59,8 @@ const dates = [
     fName: 'Ed', // First Name
     lName: 'Butler', // Last Name
     cron: '00 00 08 12 06 *', // Date in: SS MM HH DD MM(-1) DoW
-    gender: 'him' // for message
+    gender: 'him', // for message
+    serverID: '271720862606950400' // Server this birthday is sent to
   },
   {
     // Fin Edward
@@ -61,7 +69,8 @@ const dates = [
     fName: 'Fin', // First Name
     lName: 'Edward', // Last Name
     cron: '00 00 08 28 05 *', // Date in: SS MM HH DD MM(-1) DoW
-    gender: 'him' // for message
+    gender: 'him', // for message
+    serverID: '271720862606950400' // Server this birthday is sent to
   },
   {
     // Gen Myhan
@@ -70,7 +79,8 @@ const dates = [
     fName: 'Gen', // First Name
     lName: 'Myhan', // Last Name
     cron: '00 00 08 07 01 *', // Date in: SS MM HH DD MM(-1) DoW
-    gender: 'her' // for message
+    gender: 'her', // for message
+    serverID: '271720862606950400' // Server this birthday is sent to
   },
   {
     // Jamie Stevens
@@ -79,7 +89,8 @@ const dates = [
     fName: 'Jamie', // First Name
     lName: 'Stevens', // Last Name
     cron: '00 00 08 10 05 *', // Date in: SS MM HH DD MM(-1) DoW
-    gender: 'him' // for message
+    gender: 'him', // for message
+    serverID: '271720862606950400' // Server this birthday is sent to
   },
   {
     // Max Dalton
@@ -88,7 +99,8 @@ const dates = [
     fName: 'Max', // First Name
     lName: 'Dalton', // Last Name
     cron: '00 00 08 23 08 *', // Date in: SS MM HH DD MM(-1) DoW
-    gender: 'him' // for message // 
+    gender: 'him', // for message
+    serverID: '271720862606950400' // Server this birthday is sent to // 
   },
   {
     // Milan Jakir
@@ -97,7 +109,8 @@ const dates = [
     fName: 'Milan', // First Name
     lName: 'Jakir', // Last Name
     cron: '00 00 08 07 10 *', // Date in: SS MM HH DD MM(-1) DoW
-    gender: 'him' // for message
+    gender: 'him', // for message
+    serverID: '271720862606950400' // Server this birthday is sent to
   },
   {
     // Ollie Morrill
@@ -106,7 +119,8 @@ const dates = [
     fName: 'Ollie', // First Name
     lName: 'Morrill', // Last Name
     cron: '00 00 08 16 03 *', // Date in: SS MM HH DD MM(-1) DoW
-    gender: 'him' // for message
+    gender: 'him', // for message
+    serverID: '271720862606950400' // Server this birthday is sent to
   },
   {
     // Sam Farquhar
@@ -115,7 +129,8 @@ const dates = [
     fName: 'Sam', // First Name
     lName: 'Farquhar', // Last Name
     cron: '00 00 08 26 05 *', // Date in: SS MM HH DD MM(-1) DoW
-    gender: 'him' // for message
+    gender: 'him', // for message
+    serverID: '271720862606950400' // Server this birthday is sent to
   },
   // Calendar
   {
@@ -125,7 +140,8 @@ const dates = [
     fName: null, // First Name
     lName: 'Christmas', // Last Name
     cron: '00 00 08 25 11 *', // Date in: SS MM HH DD MM(-1) DoW
-    gender: null // for message
+    gender: null, // for message
+    serverID: 'Any' // Server this birthday is sent to
   },
   {
     // Halloween
@@ -134,7 +150,8 @@ const dates = [
     fName: null, // First Name
     lName: 'Halloween', // Last Name
     cron: '00 00 08 31 09 *', // Date in: SS MM HH DD MM(-1) DoW
-    gender: null // for message
+    gender: null, // for message
+    serverID: 'Any' // Server this birthday is sent to
   },
   {
     // New Year
@@ -143,7 +160,8 @@ const dates = [
     fName: null, // First Name
     lName: 'New Year', // Last Name
     cron: '00 01 00 01 00 *', // Date in: SS MM HH DD MM(-1) DoW
-    gender: null // for message
+    gender: null, // for message
+    serverID: 'Any' // Server this birthday is sent to
   },
   // Weekly Meme
   {
@@ -153,8 +171,10 @@ const dates = [
     fName: null, // First Name
     lName: 'Weekly Meme', // Last Name
     cron: '00 00 20 * * 5', // Date in: SS MM HH DD MM(-1) DoW
-    gender: null // for message
+    gender: null, // for message
+    serverID: 'Any' // Server this birthday is sent to
   }
 ]
 
+// This exports the array
 module.exports = dates;

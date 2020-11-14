@@ -8,6 +8,7 @@ module.exports = client => {
   // After-ready events
   client.on('disconnect', () => reqEvent('disconnect')(client));
   client.on('reconnecting', () => reqEvent('reconnecting')(client));
+  client.on('guildCreate', (guild) => reqEvent('guildJoin')(guild));
   // Repeating events
   client.on('message', reqEvent('message'));
   client.on('messageDelete', (message) => reqEvent('messageDelete')(client, message));
