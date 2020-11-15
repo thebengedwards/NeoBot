@@ -32,7 +32,6 @@ client.elevation = message => {
     const admin_role = message.member.roles.cache.find(r => r.name === "Admin");
     if (admin_role && message.member.roles.cache.has(admin_role.id)) permlvl = 3;
     if (servers.find(item => item.ownerID === message.member.id)) permlvl = 4;
-    console.log(permlvl)
     return permlvl;
   } 
   catch(err) {

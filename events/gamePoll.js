@@ -1,6 +1,6 @@
 const Discord = require('discord.js')
 const cron = require('cron')
-const settings = require('../settings.json');
+const servers = require('../arrays/servers')
 
 module.exports = client => {
     let weeklyGame = new cron.CronJob(`00 00 20 * * 5`,() => {

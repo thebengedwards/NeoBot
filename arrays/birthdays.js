@@ -132,48 +132,6 @@ const dates = [
     gender: 'him', // for message
     serverID: '271720862606950400' // Server this birthday is sent to
   },
-  // Calendar
-  {
-    // Christmas
-    eventType: 'Calendar', // Event Type
-    id: '🎅', // Disocrd ID
-    fName: null, // First Name
-    lName: 'Christmas', // Last Name
-    cron: '00 00 08 25 11 *', // Date in: SS MM HH DD MM(-1) DoW
-    gender: null, // for message
-    serverID: 'Any' // Server this birthday is sent to
-  },
-  {
-    // Halloween
-    eventType: 'Calendar', // Event Type
-    id: '🎃', // Disocrd ID
-    fName: null, // First Name
-    lName: 'Halloween', // Last Name
-    cron: '00 00 08 31 09 *', // Date in: SS MM HH DD MM(-1) DoW
-    gender: null, // for message
-    serverID: 'Any' // Server this birthday is sent to
-  },
-  {
-    // New Year
-    eventType: 'Calendar', // Event Type
-    id: '🎉', // Disocrd ID
-    fName: null, // First Name
-    lName: 'New Year', // Last Name
-    cron: '00 01 00 01 00 *', // Date in: SS MM HH DD MM(-1) DoW
-    gender: null, // for message
-    serverID: 'Any' // Server this birthday is sent to
-  },
-  // Weekly Meme
-  {
-    // Weekly Meme
-    eventType: 'WeeklyMeme', // Event Type
-    id: null, // Disocrd ID
-    fName: null, // First Name
-    lName: 'Weekly Meme', // Last Name
-    cron: '00 00 20 * * 5', // Date in: SS MM HH DD MM(-1) DoW
-    gender: null, // for message
-    serverID: 'Any' // Server this birthday is sent to
-  }
 ]
 
 // This exports the array

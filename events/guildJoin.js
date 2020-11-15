@@ -7,7 +7,9 @@ module.exports = guild => {
   embed.setDescription('Config Required');
   embed.addFields(
     { name: `NEO has joined: ${guild.name}`, value: 'A config is required' },
-    { name: 'Use \'!config\' in your server to start setting up NEO for your server.', value: 'You can see active settings by using \'!config\'.' }
+    { name: 'Use \'!config\' in your server to start setting up NEO for your server.', value: 'You can see active settings by using \'!config\'.' },
+    { name: '\u200B', value: '\u200B' },
+    { name: 'Only a server owner or a member of a role called \'Admin\' can start a config.', value: 'This is for security reasons' }
   )
 
   let channelID;

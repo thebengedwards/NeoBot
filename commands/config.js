@@ -1,6 +1,9 @@
 const Discord = require('discord.js')
-const settings = require('../settings.json')
 const servers = require('../arrays/servers')
+const birthdays = require('../arrays/birthdays')
+const calendars = require('../arrays/calendars')
+const games = require('../arrays/games')
+const subreddits = require('../arrays/subreddits')
 
 exports.run = (client, message) => {
   let server = servers.find(item => message.guild.id == item.serverID)
@@ -12,12 +15,40 @@ exports.run = (client, message) => {
       embed.setDescription('Config')
       embed.addField('Completed Setup:', server.setupComplete ? `Complete 🟩` : `Incomplete 🟥`)
       embed.addFields(
-        { name: `Admin Role:`, value: server.adminRoleID !== 0 ? `Set 🟩` : `Unset 🟥`, inline: true },
+        { name: '\u200B', value: '\u200B' },
+        { name: `Role Settings`, value: 'Please set the Roles in order to use NEO'},
+        { name: `Admin Role:`, value: server.adminRoleID !== 0 ? `Set 🟩` : `Unset 🟥`, inline: true},
+        { name: `Moderator Role:`, value: server.adminRoleID !== 0 ? `Set 🟩` : `Unset 🟥`, inline: true},
+        { name: `Member Role:`, value: server.adminRoleID !== 0 ? `Set 🟩` : `Unset 🟥`, inline: true},
+        { name: '\u200B', value: '\u200B' },
+        { name: `Channel Settings`, value: 'Please set the Channels in order to use NEO'},
         { name: `Welcome Channel:`, value: server.welcomeChannelID !== 0 ? `Set 🟩` : `Unset 🟥`, inline: true },
+        { name: `Moderator Channel:`, value: server.modChannelID !== 0 ? `Set 🟩` : `Unset 🟥`, inline: true },
+        { name: `General Channel:`, value: server.generalChannelID !== 0 ? `Set 🟩` : `Unset 🟥`, inline: true },
+        { name: `Memes Channel:`, value: server.memesChannelID !== 0 ? `Set 🟩` : `Unset 🟥`, inline: true },
+        { name: `Game Updates Channel:`, value: server.gameUpdatesChannelID !== 0 ? `Set 🟩` : `Unset 🟥`, inline: true },
+        { name: `Update Log Channel:`, value: server.updateLogChannelID !== 0 ? `Set 🟩` : `Unset 🟥`, inline: true },
+        { name: '\u200B', value: '\u200B' },
+        { name: `Events Settings`, value: 'What features are enabled/disabled'},
         { name: `Weekly Meme`, value: server.weeklyMeme ? `Enabled 🟩` : `Disabled 🟥`, inline: true },
-        { name: `Game Updates`, value: server.gameUpdates ? `Enabled 🟩` : `Disabled 🟥`, inline: true },
-        { name: `Events`, value: server.events ? `Enabled 🟩` : `Disabled 🟥`, inline: true },
-        { name: `Polls`, value: server.polls ? `Enabled 🟩` : `Disabled 🟥`, inline: true },
+        { name: `Birthdays`, value: server.birthdays ? `Enabled 🟩` : `Disabled 🟥`, inline: true},
+        { name: `Calendar`, value: server.calendar ? `Enabled 🟩` : `Disabled 🟥`, inline: true },
+        { name: `Game Polls`, value: server.polls ? `Enabled 🟩` : `Disabled 🟥`, inline: true },
+        { name: '\u200B', value: '\u200B' },
+        { name: 'Please use !help to find which commands will let you change settings', value: '!help will also tell you all available commands!' },
+        // { name: `!setAdminRole <Admin Role ID here>`, value: 'Tell NEO what your servers Admin role is'},
+        // { name: `!setModRole <Moderator Role ID here>`, value: 'Tell NEO what your servers Moderator role is'},
+        // { name: `!setMemberRole <Member Role ID here>`, value: 'Tell NEO what your servers Member role is'},
+        // { name: `!setWelcomeChannel <Welcome Channel ID here>`, value: 'Tell NEO what your servers Welcome channel is'},
+        // { name: `!setModeratorChannel <Moderator Channel ID here>`, value: 'Tell NEO what your servers Moderator channel is'},
+        // { name: `!setGeneralChannel <General Channel ID here>`, value: 'Tell NEO what your servers General channel is'},
+        // { name: `!setMemesChannel <Memes Channel ID here>`, value: 'Tell NEO what your servers Memes channel is'},
+        // { name: `!setGameUpdatesChannel <Game Updates Channel ID here>`, value: 'Tell NEO what your servers Game Updates channel is'},
+        // { name: `!setUpdateLogChannel <Update Log Channel ID here>`, value: 'Tell NEO what your servers Update Log channel is'},
+        // { name: `!toggleWeeklyMemes`, value: 'Enables/Disables Weekly memes sent to the Memes Channel'},
+        // { name: `!toggleBirthdays`, value: 'Enables/Disables Birthday events'},
+        // { name: `!toggleCalendar`, value: 'Enables/Disables Calendar events'},
+        // { name: `!toggleGamePolls`, value: 'Enables/Disables Game polls'},
       )
       return message.channel.send({ embed });
     } else {

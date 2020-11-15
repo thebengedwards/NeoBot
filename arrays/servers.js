@@ -20,8 +20,8 @@ const servers = [
         updateLogChannelID: '475329009694015489', // Channel ID for Update Log
 
         weeklyMeme: true, // Have weekly memes been enabled?
-        gameUpdates: true, // Have game updates been enabled?
-        events: true, // Have calendar and birthday events been enabled?
+        birthdays: true, // Have birthdays been enabled
+        calendar: true, // Have calendars been enabled?
         polls: true, // Have poll events been enabled
     },
     {
@@ -30,7 +30,7 @@ const servers = [
         serverID: '777212409248612393', // Disocrd ID
         ownerID: '271719405384105986', // Owner ID
         
-        setupComplete: false, // Has the bot completed setup
+        setupComplete: true, // Has the bot completed setup
 
         adminRoleID: '0', // Server Admin ID
         modRoleID: '0', // Server Moderator ID
@@ -44,8 +44,8 @@ const servers = [
         updateLogChannelID: '0', // Channel ID for Update Log
 
         weeklyMeme: false, // Have weekly memes been enabled?
-        gameUpdates: false, // Have game updates been enabled?
-        events: false, // Have calendar and birthday events been enabled?
+        birthdays: false, // Have birthdays been enabled
+        calendar: false, // Have calendars been enabled?
         polls: false, // Have poll events been enabled
     }
 ]
