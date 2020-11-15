@@ -12,6 +12,8 @@ exports.run = (client, message) => {
       embed.setDescription('Config')
       embed.addField('Completed Setup:', server.setupComplete ? `Complete 🟩` : `Incomplete 🟥`)
       embed.addFields(
+        { name: `Admin Role:`, value: server.adminRoleID !== 0 ? `Set 🟩` : `Unset 🟥`, inline: true },
+        { name: `Welcome Channel:`, value: server.welcomeChannelID !== 0 ? `Set 🟩` : `Unset 🟥`, inline: true },
         { name: `Weekly Meme`, value: server.weeklyMeme ? `Enabled 🟩` : `Disabled 🟥`, inline: true },
         { name: `Game Updates`, value: server.gameUpdates ? `Enabled 🟩` : `Disabled 🟥`, inline: true },
         { name: `Events`, value: server.events ? `Enabled 🟩` : `Disabled 🟥`, inline: true },
@@ -44,7 +46,7 @@ exports.conf = {
   enabled: true,
   guildOnly: false,
   aliases: ['c', 'config'],
-  permLevel: 0
+  permLevel: 3
 };
 
 exports.help = {
