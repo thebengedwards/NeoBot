@@ -12,14 +12,14 @@ module.exports = guild => {
   };
 
   fetch(`${PATH}/servers`, {
-    Method: 'POST',
-    Body: JSON.stringify(body),
+    method: 'POST',
+    body: JSON.stringify(body),
     headers: { 'Key': `${KEY}` },
   })
     .then(res => res.json())
     .then(json => console.log(json));
 
-  console.log(body)
+  console.log(JSON.stringify(body))
 
   const alertEmbed = require('../embeds/alertEmbed');
   const embed = new Discord.MessageEmbed(alertEmbed);
