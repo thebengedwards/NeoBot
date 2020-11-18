@@ -6,9 +6,9 @@ const KEY = process.env.API_KEY
 
 module.exports = guild => {
   const body = { 
-    "serverName": guild.name,
-    "serverID": guild.id,
-    "ownerID": guild.ownerId
+    serverName: guild.name,
+    serverID: guild.id,
+    ownerID: guild.ownerID,
   };
 
   fetch(`${PATH}/servers`, {
