@@ -13,7 +13,8 @@ module.exports = guild => {
 
   fetch(`${PATH}/servers`, {
     method: 'POST',
-    body: JSON.stringify(body)
+    body: JSON.stringify(body),
+    headers: { 'Content-Type': 'application/json' },
   })
     .then(res => res.json())
     .then(json => console.log(json));
