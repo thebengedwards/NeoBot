@@ -11,12 +11,21 @@
     "node": "*",
     "npm": "*"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TheBenEdwards/NeoBot.git"
+  },
   "author": "Ben Edwards",
   "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/TheBenEdwards/NeoBot/issues"
+  },
+  "homepage": "https://github.com/TheBenEdwards/NeoBot#readme",
   "dependencies": {
     "cron": "*",
     "discord.js": "*",
     "give-me-a-joke": "*",
-    "imageapi.js": "*"
+    "imageapi.js": "*",
+    "node-fetch": "^2.6.1"
   }
 }

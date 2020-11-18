@@ -1,6 +1,25 @@
 const Discord = require('discord.js');
+const fetch = require('node-fetch')
+
+const PATH = process.env.API_URL
+const KEY = process.env.API_KEY
 
 module.exports = guild => {
+  const body = { 
+    serverName: guild.name,
+    serverID: guild.id,
+    ownerID: guild.ownerId
+  };
+
+  fetch(`${PATH}/servers`, {
+    method: 'POST',
+    body: JSON.stringify(body),
+    headers: { 'Key': `${KEY}` },
+  })
+    .then(res => res.json())
+    .then(json => console.log(json));
+
+    console.log(`${PATH}/servers`)
   const alertEmbed = require('../embeds/alertEmbed');
   const embed = new Discord.MessageEmbed(alertEmbed);
 
@@ -27,6 +46,6 @@ module.exports = guild => {
   let channel = guild.channels.cache.get(guild.systemChannelID || channelID);
   channel.send({ embed });
 
-  // In database set guild.name, guild.id and guild.ownderID
+  // In database set guild.name, guild.id and guild.ownderID, the rest either 0 or false
 
 };
