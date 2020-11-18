@@ -14,7 +14,7 @@ module.exports = guild => {
   fetch(`${PATH}/servers`, {
     method: 'POST',
     body: JSON.stringify(body),
-    headers: { 'Key': `${KEY}` },
+    //headers: { 'Key': `${KEY}` },
   })
     .then(res => res.json())
     .then(json => console.log(json));
