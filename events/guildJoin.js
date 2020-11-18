@@ -5,21 +5,20 @@ const PATH = process.env.API_URL
 const KEY = process.env.API_KEY
 
 module.exports = guild => {
-  const body = { 
+  let body = { 
     serverName: guild.name,
     serverID: guild.id,
     ownerID: guild.ownerID,
   };
 
   fetch(`${PATH}/servers`, {
-    method: 'POST',
-    body: JSON.stringify(body),
-    //headers: { 'Key': `${KEY}` },
+    Method: 'POST',
+    Body: JSON.stringify(body),
+    headers: { 'Key': `${KEY}` },
   })
     .then(res => res.json())
     .then(json => console.log(json));
 
-  console.log(JSON.stringify(body))
   const alertEmbed = require('../embeds/alertEmbed');
   const embed = new Discord.MessageEmbed(alertEmbed);
 
