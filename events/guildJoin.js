@@ -5,7 +5,7 @@ const PATH = process.env.API_URL
 const KEY = process.env.API_KEY
 
 module.exports = guild => {
-  let body = { 
+  const body = { 
     serverName: guild.name,
     serverID: guild.id,
     ownerID: guild.ownerID,
@@ -18,6 +18,8 @@ module.exports = guild => {
   })
     .then(res => res.json())
     .then(json => console.log(json));
+
+  console.log(body)
 
   const alertEmbed = require('../embeds/alertEmbed');
   const embed = new Discord.MessageEmbed(alertEmbed);
