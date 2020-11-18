@@ -9,6 +9,7 @@ module.exports = guild => {
     serverName: guild.name,
     serverID: guild.id,
     ownerID: guild.ownerID,
+    setupComplete: false,
   };
 
   fetch(`${PATH}/servers`, {
@@ -18,8 +19,6 @@ module.exports = guild => {
   })
     .then(res => res.json())
     .then(json => console.log(json));
-
-  console.log(JSON.stringify(body))
 
   const alertEmbed = require('../embeds/alertEmbed');
   const embed = new Discord.MessageEmbed(alertEmbed);
@@ -46,7 +45,4 @@ module.exports = guild => {
 
   let channel = guild.channels.cache.get(guild.systemChannelID || channelID);
   channel.send({ embed });
-
-  // In database set guild.name, guild.id and guild.ownderID, the rest either 0 or false
-
 };
