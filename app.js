@@ -2,6 +2,7 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
 // Required for server setup
+const settings = require('./settings.json')
 const servers = require('./arrays/servers')
 // These are external libraries required to run additional Functions
 const fs = require('fs');
@@ -26,12 +27,13 @@ client.elevation = message => {
   let permlvl = 0;
   try {
     const member_role = message.member.roles.cache.find(r => r.name === "Member");
-    if (member_role && message.member.roles.cache.has(member_role.id)) permlvl = 1;
+    if (member_role && message.member.roles.cache.has(member_role.id)) permlvl = 1; // Member Level Access
     const mod_role = message.member.roles.cache.find(r => r.name === "Moderator");
-    if (mod_role && message.member.roles.cache.has(mod_role.id)) permlvl = 2;
+    if (mod_role && message.member.roles.cache.has(mod_role.id)) permlvl = 2; // Mod Level Access
     const admin_role = message.member.roles.cache.find(r => r.name === "Admin");
-    if (admin_role && message.member.roles.cache.has(admin_role.id)) permlvl = 3;
-    if (servers.find(item => item.ownerID === message.member.id)) permlvl = 4;
+    if (admin_role && message.member.roles.cache.has(admin_role.id)) permlvl = 3; // Admin Level Access
+    if (servers.find(item => item.ownerID === message.member.id)) permlvl = 4; // Server Owner Level Access
+    if (settings.reportid === message.member.id) permlvl = 5; // Dev Level Access
     return permlvl;
   } 
   catch(err) {
