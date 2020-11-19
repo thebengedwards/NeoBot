@@ -21,7 +21,6 @@ module.exports = guild => {
      },
   })
     .then(res => res.json())
-    .then(json => console.log(json));
 
   const alertEmbed = require('../embeds/alertEmbed');
   const embed = new Discord.MessageEmbed(alertEmbed);
