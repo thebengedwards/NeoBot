@@ -26,6 +26,6 @@
     "discord.js": "*",
     "give-me-a-joke": "*",
     "imageapi.js": "*",
-    "node-fetch": "^2.6.1"
+    "node-fetch": "*"
   }
 }
