@@ -6,14 +6,15 @@ const PATH = process.env.API_URL
 const KEY = process.env.API_KEY
 
 exports.run = async (client, message) => {
-  const data = await fetch(`${PATH}/servers/${message.guild.id}`, {
+  const data;
+  await fetch(`${PATH}/servers/${message.guild.id}`, {
     method: 'GET',
     headers: { 
       'Content-Type': 'application/json',
       'API_KEY' : KEY
     }})
       .then(res => res.json())
-      .then(json => console.log(json));
+      .then(json => data = json);
 
   console.log(data)
 
