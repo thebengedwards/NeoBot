@@ -7,13 +7,11 @@ const KEY = process.env.API_KEY
 
 exports.run = async (client, message) => {
   const { data } = await fetch(`${PATH}/servers/${message.guild.id}`, {
-    method: 'POST',
-    body: JSON.stringify(body),
+    method: 'GET',
     headers: { 
       'Content-Type': 'application/json',
       'API_KEY' : KEY
-    },
-  }).then(response => response.json());
+    }}).then(response => response.json());
 
   console.log(data)
 
