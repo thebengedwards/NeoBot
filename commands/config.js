@@ -1,11 +1,22 @@
 const Discord = require('discord.js')
+const fetch = require('node-fetch')
 const servers = require('../arrays/servers')
-const birthdays = require('../arrays/birthdays')
-const calendars = require('../arrays/calendars')
-const games = require('../arrays/games')
-const subreddits = require('../arrays/subreddits')
 
-exports.run = (client, message) => {
+const PATH = process.env.API_URL
+const KEY = process.env.API_KEY
+
+exports.run = async (client, message) => {
+  const { data } = await fetch(`${PATH}/servers/${message.guild.id}`, {
+    method: 'POST',
+    body: JSON.stringify(body),
+    headers: { 
+      'Content-Type': 'application/json',
+      'API_KEY' : KEY
+    },
+  }).then(response => response.json());
+
+  console.log(data)
+
   let server = servers.find(item => message.guild.id == item.serverID)
   if (server) {
     if (server.setupComplete) {
