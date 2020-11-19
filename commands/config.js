@@ -1,6 +1,5 @@
 const Discord = require('discord.js')
 const fetch = require('node-fetch')
-const servers = require('../arrays/servers')
 
 const PATH = process.env.API_URL
 const KEY = process.env.API_KEY
@@ -16,11 +15,8 @@ exports.run = async (client, message) => {
       .then(res => res.json())
       .then(json => data = json);
 
-  console.log(data)
-
-  let server = servers.find(item => message.guild.id == item.serverID)
-  if (server) {
-    if (server.setupComplete) {
+  if (data) {
+    if (data.setupComplete) {
       const commandEmbed = require('../embeds/commandEmbed')
       const embed = new Discord.MessageEmbed(commandEmbed)
 
