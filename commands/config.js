@@ -13,9 +13,8 @@ exports.run = async (client, message) => {
       'API_KEY': KEY
     }
   }).then(res => res.json());
-
-  if (!data.toLowerCase().startsWith('cannot find server with serverid of:')) {
-    if (data.setupComplete) {
+  
+  if (data.setupComplete === true) {
       const commandEmbed = require('../embeds/commandEmbed')
       const embed = new Discord.MessageEmbed(commandEmbed)
 
@@ -58,7 +57,7 @@ exports.run = async (client, message) => {
         // { name: `!toggleGamePolls`, value: 'Enables/Disables Game polls'},
       )
       return message.channel.send({ embed });
-    } else {
+    } else if (data.setupComplete === false){
       const commandEmbed = require('../embeds/commandEmbed')
       const embed = new Discord.MessageEmbed(commandEmbed)
 
@@ -76,10 +75,9 @@ exports.run = async (client, message) => {
         { name: 'Assign these channels by using the command \'!setupChannels <Welcome> <ModeratorOnly> <General> <Memes> <Games> <Updates>\'', value: 'Find the channel ID\'s by enabling Dev mode in the settings, and then right clicking the channel in the server, and select \'Copy ID\'. If you dont have a channel applicable, use 0.' },
       )
       return message.channel.send({ embed })
+    } else {
+      console.log("Error, !config used in server that was not registered upon joining")
     }
-  } else {
-    console.log(data)
-  }
 };
 
 exports.conf = {

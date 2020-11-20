@@ -5,7 +5,7 @@ const PATH = process.env.API_URL
 const KEY = process.env.API_KEY
 
 module.exports = guild => {
-  const body = { 
+  const body = {
     serverName: guild.name,
     serverID: guild.id,
     ownerID: guild.ownerID,
@@ -15,10 +15,10 @@ module.exports = guild => {
   fetch(`${PATH}/servers`, {
     method: 'POST',
     body: JSON.stringify(body),
-    headers: { 
+    headers: {
       'Content-Type': 'application/json',
-      'API_KEY' : KEY
-     },
+      'API_KEY': KEY
+    },
   })
     .then(res => res.json())
     .then(json => console.log(json));
@@ -34,18 +34,23 @@ module.exports = guild => {
     { name: 'Only a server owner or a member of a role called \'Admin\' can start a config.', value: 'This is for security reasons' }
   )
 
-  let channelID;
-  let channels = guild.channels.cache;
+  try {
+    let channelID;
+    let channels = guild.channels.cache;
 
-  channelLoop:
-  for (let key in channels) {
-    let c = channels[key];
-    if (c[1].type === "text") {
-      channelID = c[0];
-      break channelLoop;
+    channelLoop:
+    for (let key in channels) {
+      let c = channels[key];
+      if (c[1].type === "text") {
+        channelID = c[0];
+        break channelLoop;
+      }
     }
-  }
 
-  let channel = guild.channels.cache.get(guild.systemChannelID || channelID);
-  channel.send({ embed });
+    let channel = guild.channels.cache.get(guild.systemChannelID || channelID);
+    channel.send({ embed });
+  }
+  catch (err) {
+    console.log(`Error: cannot send message`)
+  }
 };
