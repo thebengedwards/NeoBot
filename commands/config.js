@@ -14,9 +14,7 @@ exports.run = async (client, message) => {
     }
   }).then(res => res.json());
 
-  console.log(data)
-
-  if (data) {
+  if (!data.toLowerCase().startsWith('cannot find server with serverid of:')) {
     if (data.setupComplete) {
       const commandEmbed = require('../embeds/commandEmbed')
       const embed = new Discord.MessageEmbed(commandEmbed)
@@ -79,6 +77,8 @@ exports.run = async (client, message) => {
       )
       return message.channel.send({ embed })
     }
+  } else {
+    console.log(data)
   }
 };
 
