@@ -13,7 +13,7 @@ exports.run = async (client, message) => {
     }
   }).then(res => res.json());
   
-  if (data.setupComplete === true) {
+  if (data.setupComplete === 1) {
       const commandEmbed = require('../embeds/commandEmbed')
       const embed = new Discord.MessageEmbed(commandEmbed)
 
@@ -56,7 +56,7 @@ exports.run = async (client, message) => {
         // { name: `!toggleGamePolls`, value: 'Enables/Disables Game polls'},
       )
       return message.channel.send({ embed });
-    } else if (data.setupComplete === false){
+    } else if (data.setupComplete === 0){
       const commandEmbed = require('../embeds/commandEmbed')
       const embed = new Discord.MessageEmbed(commandEmbed)
 
