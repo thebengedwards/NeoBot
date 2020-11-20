@@ -7,11 +7,14 @@ const KEY = process.env.API_KEY
 exports.run = async (client, message) => {
   let { data } = await fetch(`${PATH}/servers/${message.guild.id}`, {
     method: 'GET',
-    headers: { 
+    headers: {
       'Content-Type': 'application/json',
-      'API_KEY' : KEY
-    }}).then(res => res.json());
+      'API_KEY': KEY
+    }
+  }).then(res => res.json());
 
+  console.log(data)
+  
   if (data) {
     if (data.setupComplete) {
       const commandEmbed = require('../embeds/commandEmbed')
@@ -21,12 +24,12 @@ exports.run = async (client, message) => {
       embed.addField('Completed Setup:', server.setupComplete ? `Complete 🟩` : `Incomplete 🟥`)
       embed.addFields(
         { name: '\u200B', value: '\u200B' },
-        { name: `Role Settings`, value: 'Please set the Roles in order to use NEO'},
-        { name: `Admin Role:`, value: server.adminRoleID !== 0 ? `Set 🟩` : `Unset 🟥`, inline: true},
-        { name: `Moderator Role:`, value: server.adminRoleID !== 0 ? `Set 🟩` : `Unset 🟥`, inline: true},
-        { name: `Member Role:`, value: server.adminRoleID !== 0 ? `Set 🟩` : `Unset 🟥`, inline: true},
+        { name: `Role Settings`, value: 'Please set the Roles in order to use NEO' },
+        { name: `Admin Role:`, value: server.adminRoleID !== 0 ? `Set 🟩` : `Unset 🟥`, inline: true },
+        { name: `Moderator Role:`, value: server.adminRoleID !== 0 ? `Set 🟩` : `Unset 🟥`, inline: true },
+        { name: `Member Role:`, value: server.adminRoleID !== 0 ? `Set 🟩` : `Unset 🟥`, inline: true },
         { name: '\u200B', value: '\u200B' },
-        { name: `Channel Settings`, value: 'Please set the Channels in order to use NEO'},
+        { name: `Channel Settings`, value: 'Please set the Channels in order to use NEO' },
         { name: `Welcome Channel:`, value: server.welcomeChannelID !== 0 ? `Set 🟩` : `Unset 🟥`, inline: true },
         { name: `Moderator Channel:`, value: server.modChannelID !== 0 ? `Set 🟩` : `Unset 🟥`, inline: true },
         { name: `General Channel:`, value: server.generalChannelID !== 0 ? `Set 🟩` : `Unset 🟥`, inline: true },
@@ -34,9 +37,9 @@ exports.run = async (client, message) => {
         { name: `Game Updates Channel:`, value: server.gameUpdatesChannelID !== 0 ? `Set 🟩` : `Unset 🟥`, inline: true },
         { name: `Update Log Channel:`, value: server.updateLogChannelID !== 0 ? `Set 🟩` : `Unset 🟥`, inline: true },
         { name: '\u200B', value: '\u200B' },
-        { name: `Events Settings`, value: 'What features are enabled/disabled'},
+        { name: `Events Settings`, value: 'What features are enabled/disabled' },
         { name: `Weekly Meme`, value: server.weeklyMeme ? `Enabled 🟩` : `Disabled 🟥`, inline: true },
-        { name: `Birthdays`, value: server.birthdays ? `Enabled 🟩` : `Disabled 🟥`, inline: true},
+        { name: `Birthdays`, value: server.birthdays ? `Enabled 🟩` : `Disabled 🟥`, inline: true },
         { name: `Calendar`, value: server.calendar ? `Enabled 🟩` : `Disabled 🟥`, inline: true },
         { name: `Game Polls`, value: server.polls ? `Enabled 🟩` : `Disabled 🟥`, inline: true },
         { name: '\u200B', value: '\u200B' },
