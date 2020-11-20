@@ -5,7 +5,7 @@ const PATH = process.env.API_URL
 const KEY = process.env.API_KEY
 
 exports.run = async (client, message) => {
-  let { data } = await fetch(`${PATH}/servers/${message.guild.id}`, {
+  let data = await fetch(`${PATH}/servers/${message.guild.id}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -14,7 +14,7 @@ exports.run = async (client, message) => {
   }).then(res => res.json());
 
   console.log(data)
-  
+
   if (data) {
     if (data.setupComplete) {
       const commandEmbed = require('../embeds/commandEmbed')
