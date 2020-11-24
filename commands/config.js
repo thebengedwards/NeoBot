@@ -19,27 +19,27 @@ exports.run = async (client, message) => {
       const embed = new Discord.MessageEmbed(commandEmbed)
 
       embed.setDescription('Config')
-      embed.addField('Completed Setup:', server.setupComplete ? `Complete 🟩` : `Incomplete 🟥`)
+      embed.addField('Completed Setup:', data.setupComplete === 1 ? `Complete 🟩` : `Incomplete 🟥`)
       embed.addFields(
         { name: '\u200B', value: '\u200B' },
         { name: `Role Settings`, value: 'Please set the Roles in order to use NEO' },
-        { name: `Admin Role:`, value: server.adminRoleID !== '0' ? `Set 🟩` : `Unset 🟥`, inline: true },
-        { name: `Moderator Role:`, value: server.adminRoleID !== '0' ? `Set 🟩` : `Unset 🟥`, inline: true },
-        { name: `Member Role:`, value: server.adminRoleID !== '0' ? `Set 🟩` : `Unset 🟥`, inline: true },
+        { name: `Admin Role:`, value: data.adminRoleID !== '0' ? `Set 🟩` : `Unset 🟥`, inline: true },
+        { name: `Moderator Role:`, value: data.adminRoleID !== '0' ? `Set 🟩` : `Unset 🟥`, inline: true },
+        { name: `Member Role:`, value: data.adminRoleID !== '0' ? `Set 🟩` : `Unset 🟥`, inline: true },
         { name: '\u200B', value: '\u200B' },
         { name: `Channel Settings`, value: 'Please set the Channels in order to use NEO' },
-        { name: `Welcome Channel:`, value: server.welcomeChannelID !== '0' ? `Set 🟩` : `Unset 🟥`, inline: true },
-        { name: `Moderator Channel:`, value: server.modChannelID !== '0' ? `Set 🟩` : `Unset 🟥`, inline: true },
-        { name: `General Channel:`, value: server.generalChannelID !== '0' ? `Set 🟩` : `Unset 🟥`, inline: true },
-        { name: `Memes Channel:`, value: server.memesChannelID !== '0' ? `Set 🟩` : `Unset 🟥`, inline: true },
-        { name: `Game Updates Channel:`, value: server.gameUpdatesChannelID !== '0' ? `Set 🟩` : `Unset 🟥`, inline: true },
-        { name: `Update Log Channel:`, value: server.updateLogChannelID !== '0' ? `Set 🟩` : `Unset 🟥`, inline: true },
+        { name: `Welcome Channel:`, value: data.welcomeChannelID !== '0' ? `Set 🟩` : `Unset 🟥`, inline: true },
+        { name: `Moderator Channel:`, value: data.modChannelID !== '0' ? `Set 🟩` : `Unset 🟥`, inline: true },
+        { name: `General Channel:`, value: data.generalChannelID !== '0' ? `Set 🟩` : `Unset 🟥`, inline: true },
+        { name: `Memes Channel:`, value: data.memesChannelID !== '0' ? `Set 🟩` : `Unset 🟥`, inline: true },
+        { name: `Game Updates Channel:`, value: data.gameUpdatesChannelID !== '0' ? `Set 🟩` : `Unset 🟥`, inline: true },
+        { name: `Update Log Channel:`, value: data.updateLogChannelID !== '0' ? `Set 🟩` : `Unset 🟥`, inline: true },
         { name: '\u200B', value: '\u200B' },
         { name: `Events Settings`, value: 'What features are enabled/disabled' },
-        { name: `Weekly Meme`, value: server.weeklyMeme === 1 ? `Enabled 🟩` : `Disabled 🟥`, inline: true },
-        { name: `Birthdays`, value: server.birthdays === 1 ? `Enabled 🟩` : `Disabled 🟥`, inline: true },
-        { name: `Calendar`, value: server.calendar === 1 ? `Enabled 🟩` : `Disabled 🟥`, inline: true },
-        { name: `Game Polls`, value: server.polls === 1 ? `Enabled 🟩` : `Disabled 🟥`, inline: true },
+        { name: `Weekly Meme`, value: data.weeklyMeme === 1 ? `Enabled 🟩` : `Disabled 🟥`, inline: true },
+        { name: `Birthdays`, value: data.birthdays === 1 ? `Enabled 🟩` : `Disabled 🟥`, inline: true },
+        { name: `Calendar`, value: data.calendar === 1 ? `Enabled 🟩` : `Disabled 🟥`, inline: true },
+        { name: `Game Polls`, value: data.polls === 1 ? `Enabled 🟩` : `Disabled 🟥`, inline: true },
         { name: '\u200B', value: '\u200B' },
         { name: 'Please use !help to find which commands will let you change settings', value: '!help will also tell you all available commands!' },
       )
