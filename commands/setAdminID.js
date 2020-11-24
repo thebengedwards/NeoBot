@@ -28,6 +28,13 @@ exports.run = async (client, message, args) => {
                 },
             })
                 .then(res => res.json())
+
+            const commandEmbed = require('../embeds/commandEmbed')
+            const embed = new Discord.MessageEmbed(commandEmbed)
+
+            embed.setDescription('Admin ID Setup')
+            embed.addField('Admin ID has been set to:', `${adminID}`)
+            return message.channel.send({ embed });
         } else {
             const alertEmbed = require('../embeds/alertEmbed');
             const embed = new Discord.MessageEmbed(alertEmbed);
