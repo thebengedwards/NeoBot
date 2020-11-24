@@ -10,6 +10,20 @@ module.exports = guild => {
     serverID: guild.id,
     ownerID: guild.ownerID,
     setupComplete: false,
+    adminRoleID: '0',
+    modRoleID: '0',
+    memberRoleID: '0',
+    welcomeChannelID: '0',
+    modChannelID: '0',
+    generalChannelID: '0',
+    memesChannelID: '0',
+    gameUpdatesChannelID: '0',
+    updateLogChannelID: '0',
+    weeklyMeme: false,
+    birthdays: false,
+    calendar: false,
+    polls: false,
+    joinedDate: new Date,
   };
 
   fetch(`${PATH}/servers`, {
@@ -51,6 +65,6 @@ module.exports = guild => {
     channel.send({ embed });
   }
   catch (err) {
-    console.log(`Error: cannot send message`)
+    console.log(`Error 001`)
   }
 };

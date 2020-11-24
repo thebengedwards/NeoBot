@@ -13,54 +13,60 @@ exports.run = async (client, message) => {
     }
   }).then(res => res.json());
 
-  if (data.setupComplete === 1) {
-    const commandEmbed = require('../embeds/commandEmbed')
-    const embed = new Discord.MessageEmbed(commandEmbed)
+  if (data.serverID === message.guild.id) {
+    if (data.setupComplete === 1) {
+      const commandEmbed = require('../embeds/commandEmbed')
+      const embed = new Discord.MessageEmbed(commandEmbed)
 
-    embed.setDescription('Config')
-    embed.addField('Completed Setup:', server.setupComplete ? `Complete 🟩` : `Incomplete 🟥`)
-    embed.addFields(
-      { name: '\u200B', value: '\u200B' },
-      { name: `Role Settings`, value: 'Please set the Roles in order to use NEO' },
-      { name: `Admin Role:`, value: server.adminRoleID !== 0 ? `Set 🟩` : `Unset 🟥`, inline: true },
-      { name: `Moderator Role:`, value: server.adminRoleID !== 0 ? `Set 🟩` : `Unset 🟥`, inline: true },
-      { name: `Member Role:`, value: server.adminRoleID !== 0 ? `Set 🟩` : `Unset 🟥`, inline: true },
-      { name: '\u200B', value: '\u200B' },
-      { name: `Channel Settings`, value: 'Please set the Channels in order to use NEO' },
-      { name: `Welcome Channel:`, value: server.welcomeChannelID !== 0 ? `Set 🟩` : `Unset 🟥`, inline: true },
-      { name: `Moderator Channel:`, value: server.modChannelID !== 0 ? `Set 🟩` : `Unset 🟥`, inline: true },
-      { name: `General Channel:`, value: server.generalChannelID !== 0 ? `Set 🟩` : `Unset 🟥`, inline: true },
-      { name: `Memes Channel:`, value: server.memesChannelID !== 0 ? `Set 🟩` : `Unset 🟥`, inline: true },
-      { name: `Game Updates Channel:`, value: server.gameUpdatesChannelID !== 0 ? `Set 🟩` : `Unset 🟥`, inline: true },
-      { name: `Update Log Channel:`, value: server.updateLogChannelID !== 0 ? `Set 🟩` : `Unset 🟥`, inline: true },
-      { name: '\u200B', value: '\u200B' },
-      { name: `Events Settings`, value: 'What features are enabled/disabled' },
-      { name: `Weekly Meme`, value: server.weeklyMeme ? `Enabled 🟩` : `Disabled 🟥`, inline: true },
-      { name: `Birthdays`, value: server.birthdays ? `Enabled 🟩` : `Disabled 🟥`, inline: true },
-      { name: `Calendar`, value: server.calendar ? `Enabled 🟩` : `Disabled 🟥`, inline: true },
-      { name: `Game Polls`, value: server.polls ? `Enabled 🟩` : `Disabled 🟥`, inline: true },
-      { name: '\u200B', value: '\u200B' },
-      { name: 'Please use !help to find which commands will let you change settings', value: '!help will also tell you all available commands!' },
-    )
-    return message.channel.send({ embed });
-  } else if (data.setupComplete === 0) {
-    const commandEmbed = require('../embeds/commandEmbed')
-    const embed = new Discord.MessageEmbed(commandEmbed)
+      embed.setDescription('Config')
+      embed.addField('Completed Setup:', server.setupComplete ? `Complete 🟩` : `Incomplete 🟥`)
+      embed.addFields(
+        { name: '\u200B', value: '\u200B' },
+        { name: `Role Settings`, value: 'Please set the Roles in order to use NEO' },
+        { name: `Admin Role:`, value: server.adminRoleID !== '0' ? `Set 🟩` : `Unset 🟥`, inline: true },
+        { name: `Moderator Role:`, value: server.adminRoleID !== '0' ? `Set 🟩` : `Unset 🟥`, inline: true },
+        { name: `Member Role:`, value: server.adminRoleID !== '0' ? `Set 🟩` : `Unset 🟥`, inline: true },
+        { name: '\u200B', value: '\u200B' },
+        { name: `Channel Settings`, value: 'Please set the Channels in order to use NEO' },
+        { name: `Welcome Channel:`, value: server.welcomeChannelID !== '0' ? `Set 🟩` : `Unset 🟥`, inline: true },
+        { name: `Moderator Channel:`, value: server.modChannelID !== '0' ? `Set 🟩` : `Unset 🟥`, inline: true },
+        { name: `General Channel:`, value: server.generalChannelID !== '0' ? `Set 🟩` : `Unset 🟥`, inline: true },
+        { name: `Memes Channel:`, value: server.memesChannelID !== '0' ? `Set 🟩` : `Unset 🟥`, inline: true },
+        { name: `Game Updates Channel:`, value: server.gameUpdatesChannelID !== '0' ? `Set 🟩` : `Unset 🟥`, inline: true },
+        { name: `Update Log Channel:`, value: server.updateLogChannelID !== '0' ? `Set 🟩` : `Unset 🟥`, inline: true },
+        { name: '\u200B', value: '\u200B' },
+        { name: `Events Settings`, value: 'What features are enabled/disabled' },
+        { name: `Weekly Meme`, value: server.weeklyMeme === 1 ? `Enabled 🟩` : `Disabled 🟥`, inline: true },
+        { name: `Birthdays`, value: server.birthdays === 1 ? `Enabled 🟩` : `Disabled 🟥`, inline: true },
+        { name: `Calendar`, value: server.calendar === 1 ? `Enabled 🟩` : `Disabled 🟥`, inline: true },
+        { name: `Game Polls`, value: server.polls === 1 ? `Enabled 🟩` : `Disabled 🟥`, inline: true },
+        { name: '\u200B', value: '\u200B' },
+        { name: 'Please use !help to find which commands will let you change settings', value: '!help will also tell you all available commands!' },
+      )
+      return message.channel.send({ embed });
+    } else if (data.setupComplete === 0) {
+      const commandEmbed = require('../embeds/commandEmbed')
+      const embed = new Discord.MessageEmbed(commandEmbed)
 
-    embed.setDescription('Start Config')
-    embed.addFields(
-      { name: 'Welcome to the NEO setup', value: 'This message will guide you through the setup process' },
-      { name: '\u200B', value: '\u200B' },
-      { name: 'NEO uses three main roles, Admin, Moderator and Member', value: 'It doesn\'t matter if you have more roles, just assign the roles to any applicable.' },
-      { name: 'Assign these roles by using the command command \'!setAdminID <AdminID>\', \'!setModID <ModID>\', \'!setMemberID <MemberID>\'', value: 'Find the role ID\'s by enabling Dev mode in the settings, and then right clicking the role in server settings, and select \'Copy ID\'. If you wish to leave a role empty, use 0.' },
-      { name: '\u200B', value: '\u200B' },
-      { name: 'NEO can also uses a default of 6 text channels', value: 'It doesn\'t matter if you don\'t have 6 text channels, just assign these to any applicable.' },
-      { name: 'Assign these channels by using the command \'!setupChannels <Welcome> <ModeratorOnly> <General> <Memes> <Games> <Updates>\'', value: 'Find the channel ID\'s by enabling Dev mode in the settings, and then right clicking the channel in the server, and select \'Copy ID\'. If you dont have a channel applicable, use 0.' },
-      { name: '\u200B', value: '\u200B' },
-      { name: 'NEO also gives you the option to enable or disable certain features', value: 'These can be enabled or disabled at any point' },
-      { name: 'Toggle these features by using \'!toggleWeeklyMemes\',\'!toggleBirthdays\',\'!toggleCalendar\' and \'!togglePolls\'', value: 'Add a a Birthday with \'!addBirthday\', the others are all automatic.' },
-    )
-    return message.channel.send({ embed })
+      embed.setDescription('Start Config')
+      embed.addFields(
+        { name: 'Welcome to the NEO setup', value: 'This message will guide you through the setup process' },
+        { name: '\u200B', value: '\u200B' },
+        { name: 'NEO uses three main roles, Admin, Moderator and Member', value: 'It doesn\'t matter if you have more roles, just assign the roles to any applicable.' },
+        { name: 'Assign these roles by using the command command \'!setAdminID <AdminID>\', \'!setModID <ModID>\', \'!setMemberID <MemberID>\'', value: 'Find the role ID\'s by enabling Dev mode in the settings, and then right clicking the role in server settings, and select \'Copy ID\'. If you wish to leave a role empty, use 0.' },
+        { name: '\u200B', value: '\u200B' },
+        { name: 'NEO can also uses a default of 6 text channels', value: 'It doesn\'t matter if you don\'t have 6 text channels, just assign these to any applicable.' },
+        { name: 'Assign these channels by using the command \'!setupChannels <Welcome> <ModeratorOnly> <General> <Memes> <Games> <Updates>\'', value: 'Find the channel ID\'s by enabling Dev mode in the settings, and then right clicking the channel in the server, and select \'Copy ID\'. If you dont have a channel applicable, use 0.' },
+        { name: '\u200B', value: '\u200B' },
+        { name: 'NEO also gives you the option to enable or disable certain features', value: 'These can be enabled or disabled at any point' },
+        { name: 'Toggle these features by using \'!toggleWeeklyMemes\',\'!toggleBirthdays\',\'!toggleCalendar\' and \'!togglePolls\'', value: 'Add a a Birthday with \'!addBirthday\', the others are all automatic.' },
+      )
+      return message.channel.send({ embed })
+    } else {
+      console.log('Error 003')
+    }
+  } else {
+    console.log('Error 002')
   }
 };
 
