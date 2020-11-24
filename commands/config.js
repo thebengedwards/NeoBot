@@ -45,6 +45,33 @@ exports.run = async (client, message) => {
       )
       return message.channel.send({ embed });
     } else if (data.setupComplete === 0) {
+
+      const body = {
+        serverName: data.serverName,
+        setupComplete: true,
+        adminRoleID: data.adminRoleID,
+        modRoleID: data.modRoleID,
+        memberRoleID: data.memberRoleID,
+        welcomeChannelID: data.welcomeChannelID,
+        modChannelID: data.modChannelID,
+        generalChannelID: data.generalChannelID,
+        memesChannelID: data.memesChannelID,
+        gameUpdatesChannelID: data.gameUpdatesChannelID,
+        updateLogChannelID: data.updateLogChannelID,
+        weeklyMeme: data.weeklyMeme,
+        birthdays: data.birthdays,
+        calendar: data.calendar,
+        polls: data.polls,
+      }
+      fetch(`${PATH}/servers/${data.serverID}`, {
+        method: 'PUT',
+        body: JSON.stringify(body),
+        headers: {
+          'Content-Type': 'application/json',
+          'API_KEY': KEY
+        },
+      })
+        .then(res => res.json())
       const commandEmbed = require('../embeds/commandEmbed')
       const embed = new Discord.MessageEmbed(commandEmbed)
 
@@ -60,6 +87,8 @@ exports.run = async (client, message) => {
         { name: '\u200B', value: '\u200B' },
         { name: 'NEO also gives you the option to enable or disable certain features', value: 'These can be enabled or disabled at any point' },
         { name: 'Toggle these features by using \'!toggleWeeklyMemes\',\'!toggleBirthdays\',\'!toggleCalendar\' and \'!togglePolls\'', value: 'Add a a Birthday with \'!addBirthday\', the others are all automatic.' },
+        { name: '\u200B', value: '\u200B' },
+        { name: 'DO NOT DELETE THIS MESSAGE', value: 'It can only appear once, and is intended to help you set up NEO. It should be pinned.' },
       )
       return message.channel.send({ embed })
     } else {
