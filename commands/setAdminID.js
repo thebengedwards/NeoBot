@@ -50,6 +50,6 @@ exports.conf = {
 
 exports.help = {
     name: 'setAdminID',
-    description: `Set the admin Id for ${message.guild.name}`,
+    description: `Set the admin Id for your server`,
     usage: 'setAdminID <Admin ID here>'
 };
