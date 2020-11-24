@@ -2,7 +2,6 @@ const Discord = require('discord.js');
 const servers = require('../arrays/servers')
 
 exports.run = (client, message, args) => {
-  try{
   let server = servers.find(item => message.guild.id == item.serverID)
   if (server) {
     const alertEmbed = require('../embeds/alertEmbed');
@@ -21,9 +20,6 @@ exports.run = (client, message, args) => {
         .then(messages => message.channel.bulkDelete(messages));
     }
   }
-} catch(err) {
-  console.log('error, but caught')
-}
 };
 
 exports.conf = {
