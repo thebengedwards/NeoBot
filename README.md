@@ -27,3 +27,5 @@ Error Codes:
 002: In config cannot serverID does not equal a guild.id, could be critical
 003: Error with setupComplete, it is not 0 or 1
 004: Error in setAdminID - serverID does not a guild.id, could be critical
+005: Error in setModID - serverID does not a guild.id, could be critical
+006: Error in setMemberID - serverID does not a guild.id, could be critical
