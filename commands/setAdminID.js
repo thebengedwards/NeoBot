@@ -16,7 +16,21 @@ exports.run = async (client, message, args) => {
     if (data.serverID === message.guild.id) {
         const adminID = args.join(' ');
         const body = {
+            serverName: data.serverName,
+            setupComplete: data.setupComplete,
             adminRoleID: adminID,
+            modRoleID: data.modRoleID,
+            memberRoleID: data.memberRoleID,
+            welcomeChannelID: data.welcomeChannelID,
+            modChannelID: data.modChannelID,
+            generalChannelID: data.generalChannelID,
+            memesChannelID: data.memesChannelID,
+            gameUpdatesChannelID: data.gameUpdatesChannelID,
+            updateLogChannelID: data.updateLogChannelID,
+            weeklyMeme: data.weeklyMeme,
+            birthdays: data.birthdays,
+            calendar: data.calendar,
+            polls: data.polls,
         }
         if (adminID) {
             fetch(`${PATH}/servers/${data.serverID}`, {
