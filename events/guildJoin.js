@@ -23,7 +23,7 @@ module.exports = guild => {
     birthdays: false,
     calendar: false,
     polls: false,
-    joinedDate: new Date,
+    joinedDate: new Date(),
   };
 
   fetch(`${PATH}/servers`, {
