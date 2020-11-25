@@ -34,8 +34,8 @@ exports.run = async(client, message, args) => {
             })
                 .then(res => res.json())
 
-            const alertEmbed = require('../embeds/alertEmbed');
-            const embed = new Discord.MessageEmbed(alertEmbed);
+            const commandEmbed = require('../embeds/commandEmbed');
+            const embed = new Discord.MessageEmbed(commandEmbed);
 
             embed.setDescription('Birthday added!');
             embed.addFields(
@@ -48,7 +48,7 @@ exports.run = async(client, message, args) => {
             const embed = new Discord.MessageEmbed(alertEmbed);
 
             embed.setDescription('Incorrect usage of birthdayAdd');
-            embed.addField('Use like this:', '!birthdayAdd <DiscordID> <First Name> <Last Name> <DD MM YYYY> <Gender>');
+            embed.addField('Use like this:', '!birthdayAdd <DiscordID> <First Name> <Last Name> <YYYY-MM-DD> <Gender>');
             return message.channel.send({ embed });
         }
     }
@@ -64,5 +64,5 @@ exports.conf = {
 exports.help = {
     name: 'birthdayAdd',
     description: 'Add a birthday to your server!',
-    usage: 'birthdayAdd <DiscordID> <First Name> <Last Name> <DD MM YYYY> <Gender>'
+    usage: 'birthdayAdd <DiscordID> <First Name> <Last Name> <YYYY-MM-DD> <Gender>'
 };

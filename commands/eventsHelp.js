@@ -26,7 +26,7 @@ exports.run = async(client, message) => {
             { name: 'Polls', value: 'If Enabled, NEO will send a poll asking if anyone wants to play a specific game at 20:00 GMT on a Friday into the General Channel' },
             { name: 'What if I haven\'t set up the channels used by these functions?', value: 'They will be sent nowehere. You need to have the channels set up for these functions to work.' }, 
             { name: 'I have set up a channel but nothing is coming through?', value: 'It is highly likely you have set up the channel incorrectly, if you need more help use !report to rpeort the issue.' },
-            { name: 'Birthdays is a customizable Event type. Use \'!birthdayAdd\' to add a birthday alert. Use like this:', value: '!birthdayAdd <DiscordID> <First Name> <Last Name> <DD MM YYYY> <Gender>' }, 
+            { name: 'Birthdays is a customizable Event type. Use \'!birthdayAdd\' to add a birthday alert. Use like this:', value: '!birthdayAdd <DiscordID> <First Name> <Last Name> <YYYY-MM-DD> <Gender>' }, 
         )
         return message.channel.send({ embed })
     } else {
