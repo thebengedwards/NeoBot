@@ -11,7 +11,7 @@ exports.run = (client, message, params) => {
     if (!params[0]) {
       embed.setDescription('Help')
       embed.addField('Command List', `[Use ${settings.prefix}help <commandname> for details]`)
-      client.commands.map(c => embed.addField(settings.prefix + c.help.name, c.help.description, true))
+      client.commands.map(item => {if(item.conf.permLevel < 3){embed.addField(settings.prefix + item.help.name, item.help.description, true)}})
       return message.channel.send({ embed });
     } else {
       let command = params[0]
@@ -20,7 +20,7 @@ exports.run = (client, message, params) => {
         embed.setDescription(`${command.help.name}`)
         embed.addField('About', `${command.help.description}`)
         embed.addField('Usage', `${command.help.usage}`)
-        message.channel.send({ embed })
+        return message.channel.send({ embed })
       }
     }
   }

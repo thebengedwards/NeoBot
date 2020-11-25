@@ -29,3 +29,10 @@ Error Codes:
 004: Error in setAdminID - serverID does not a guild.id, could be critical
 005: Error in setModID - serverID does not a guild.id, could be critical
 006: Error in setMemberID - serverID does not a guild.id, could be critical
+007: Error in setWelcomeChannel - serverID does not a guild.id, could be critical
+008: Error in setModChannel - serverID does not a guild.id, could be critical
+009: Error in setGeneralChannel - serverID does not a guild.id, could be critical
+010: Error in setMemesChannel - serverID does not a guild.id, could be critical
+011: Error in setGameChannel - serverID does not a guild.id, could be critical
+012: Error in setUpdateChannel - serverID does not a guild.id, could be critical
+

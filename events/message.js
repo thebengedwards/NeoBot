@@ -22,8 +22,15 @@ module.exports = message => {
     cmd = client.commands.get(client.aliases.get(command));
   }
   if (cmd) {
-    if (perms < cmd.conf.permLevel) return;
-    cmd.run(client, message, params, perms);
+    if (perms < cmd.conf.permLevel) {
+      const alertEmbed = require('../embeds/alertEmbed')
+      const embed = new Discord.MessageEmbed(alertEmbed)
+      
+      embed.setDescription('You do not have permission to use this command')
+      return message.channel.send({ embed })
+    } else {
+      cmd.run(client, message, params, perms);
+    }
   }
 
 };

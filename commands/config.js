@@ -80,15 +80,15 @@ exports.run = async (client, message) => {
         { name: 'Welcome to the NEO setup', value: 'This message will guide you through the setup process' },
         { name: '\u200B', value: '\u200B' },
         { name: 'NEO uses three main roles, Admin, Moderator and Member', value: 'It doesn\'t matter if you have more roles, just assign the roles to any applicable.' },
-        { name: 'Assign these roles by using the command command \'!setAdminID <AdminID>\', \'!setModID <ModID>\', \'!setMemberID <MemberID>\'', value: 'Find the role ID\'s by enabling Dev mode in the settings, and then right clicking the role in server settings, and select \'Copy ID\'. If you wish to reset a role once set, use 0.' },
+        { name: 'Assign these roles by using the command command \'!setAdminID <AdminID>\', \'!setModID <ModID>\', \'!setMemberID <MemberID>\'', value: 'Find the role ID\'s by enabling Dev mode in the settings, and then right clicking the role in server settings, and select \'Copy ID\'. If you wish to reset a role once set, use 0. Use \'!roleHelp\' for more information.' },
         { name: '\u200B', value: '\u200B' },
         { name: 'NEO can also use a default of 6 text channels', value: 'It doesn\'t matter if you don\'t have 6 text channels, just assign these to any applicable.' },
-        { name: 'Assign these channels by using the command \'!setupChannels <Welcome> <ModeratorOnly> <General> <Memes> <Games> <Updates>\'', value: 'Find the channel ID\'s by enabling Dev mode in the settings, and then right clicking the channel in the server, and select \'Copy ID\'. If you dont have a channel applicable, use 0.' },
+        { name: 'Assign these channels by using the command \'!setWelcomeChannel <ChannelID>\', \'!setModChannel <ChannelID>\', \'!setGeneralChannel <ChannelID>\', \'!setMemesChannel <ChannelID>\', \'!setGameChannel <ChannelID>\', \'!setUpdateChannel <ChannelID>\',', value: 'Find the channel ID\'s by enabling Dev mode in the settings, and then right clicking the channel in the server, and select \'Copy ID\'. If you dont have a channel applicable, use 0. Use \'!channelHelp\' for more information.' },
         { name: '\u200B', value: '\u200B' },
         { name: 'NEO also gives you the option to enable or disable certain features', value: 'These can be enabled or disabled at any point' },
-        { name: 'Toggle these features by using \'!toggleWeeklyMemes\',\'!toggleBirthdays\',\'!toggleCalendar\' and \'!togglePolls\'', value: 'Add a a Birthday with \'!addBirthday\', the others are all automatic.' },
+        { name: 'Toggle these features by using \'!toggleWeeklyMemes\',\'!toggleBirthdays\',\'!toggleCalendar\' and \'!togglePolls\'', value: 'These options are either on or off. Use \'!eventsHelp\' for more information.' },
         { name: '\u200B', value: '\u200B' },
-        { name: 'DO NOT DELETE THIS MESSAGE', value: 'It can only appear once, and is intended to help you set up NEO. It should be pinned.' },
+        { name: '⚠️ PLEASE DO NOT DELETE THIS MESSAGE ⚠️', value: 'It can only appear once, and is intended to help you set up NEO. It should be pinned, or copied.' },
       )
       return message.channel.send({ embed })
     } else {
