@@ -18,10 +18,10 @@ exports.run = async(client, message, args) => {
             const body = {
                 serverID: message.guild.id,
                 discordID: args[0],
-                fName: args[1],
-                lName: args[2],
+                fName: args[1].toLowerCase(),
+                lName: args[2].toLowerCase(),
                 cron: args[3],
-                gender: args[4],
+                gender: args[4].toLowerCase(),
             };
 
             fetch(`${PATH}/birthdays`, {
