@@ -1,9 +1,19 @@
 const Discord = require('discord.js')
-const servers = require('../arrays/servers')
+const fetch = require('node-fetch')
 
-exports.run = (client, message) => {
-  let server = servers.find(item => message.guild.id == item.serverID)
-  if (server) {
+const PATH = process.env.API_URL
+const KEY = process.env.API_KEY
+
+exports.run = async (client, message) => {
+  let data = await fetch(`${PATH}/servers/${message.guild.id}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'API_KEY': KEY
+    }
+  }).then(res => res.json());
+
+  if (data.serverID === message.guild.id) {
     if (message.member.roles.cache.find(r => r.name === "Member")) {
       const alertEmbed = require('../embeds/alertEmbed')
       const embed = new Discord.MessageEmbed(alertEmbed)
@@ -15,10 +25,10 @@ exports.run = (client, message) => {
       const embed = new Discord.MessageEmbed(commandEmbed)
 
       embed.setDescription(`Please welcome ${message.member} to the server!`)
-      message.member.roles.add(server.memberRoleID)
+      message.member.roles.add(data.memberRoleID)
       message.channel.messages.fetch({ limit: 1 })
         .then(messages => message.channel.bulkDelete(messages));
-      return client.channels.cache.get(server.generalChannelID).send({ embed });
+      return client.channels.cache.get(data.generalChannelID).send({ embed });
     }
   }
 };

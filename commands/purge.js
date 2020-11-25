@@ -1,9 +1,19 @@
 const Discord = require('discord.js');
-const servers = require('../arrays/servers')
+const fetch = require('node-fetch')
+
+const PATH = process.env.API_URL
+const KEY = process.env.API_KEY
 
 exports.run = (client, message, args) => {
-  let server = servers.find(item => message.guild.id == item.serverID)
-  if (server) {
+  let data = await fetch(`${PATH}/servers/${message.guild.id}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'API_KEY': KEY
+    }
+  }).then(res => res.json());
+
+  if (data.serverID === message.guild.id) {
     const alertEmbed = require('../embeds/alertEmbed');
     const embed = new Discord.MessageEmbed(alertEmbed);
 
@@ -19,6 +29,8 @@ exports.run = (client, message, args) => {
       message.channel.messages.fetch({ limit: messagecount })
         .then(messages => message.channel.bulkDelete(messages));
     }
+  } else {
+    console.log('Error')
   }
 };
 

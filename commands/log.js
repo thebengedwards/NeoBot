@@ -1,9 +1,19 @@
 const Discord = require('discord.js')
-const servers = require('../arrays/servers')
+const fetch = require('node-fetch')
 
-exports.run = (client, message) => {
-  let server = servers.find(item => message.guild.id == item.serverID)
-  if (server) {
+const PATH = process.env.API_URL
+const KEY = process.env.API_KEY
+
+exports.run = async(client, message) => {
+  let data = await fetch(`${PATH}/servers/${message.guild.id}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'API_KEY': KEY
+    }
+  }).then(res => res.json());
+
+  if (data.serverID === message.guild.id) {
     const commandEmbed = require('../embeds/commandEmbed')
     const embed = new Discord.MessageEmbed(commandEmbed)
 
@@ -17,9 +27,11 @@ exports.run = (client, message) => {
       { name: 'Version 1.1.2', value: 'Moved Host from Glitch to HEROKU.' },
       { name: 'Version 1.1.3', value: 'Added new dates to NEO\'s calendar, Backend stability fixes.' },
       { name: 'Version 1.1.4', value: 'Fixed Birthday Announcements.' },
-      { name: 'Version 2.0.0', value: 'Major \'Under-the-hood\' improvements, New Discord Embeds, Admin Purges, Added security, Many minor Bug Fixes, \'Weekly Meme\' Imgur mp4 bug fix, Game Polling, Reporting through direct messages, Profanity Filtering' },
+      { name: 'Version 2.0.0', value: 'Major \'Under-the-hood\' improvements, New Discord Embeds, Admin Purges, Added security, Many minor Bug Fixes, \'Weekly Meme\' Imgur mp4 bug fix, Game Polling, Reporting through direct messages, API Integration, Database Management Abilities, ' },
     )
     return message.channel.send({ embed })
+  } else {
+    console.log('Error')
   }
 };
 

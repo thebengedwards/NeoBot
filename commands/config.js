@@ -40,8 +40,6 @@ exports.run = async (client, message) => {
         { name: `Birthdays`, value: data.birthdays === 1 ? `Enabled 🟩` : `Disabled 🟥`, inline: true },
         { name: `Calendar`, value: data.calendar === 1 ? `Enabled 🟩` : `Disabled 🟥`, inline: true },
         { name: `Game Polls`, value: data.polls === 1 ? `Enabled 🟩` : `Disabled 🟥`, inline: true },
-        { name: '\u200B', value: '\u200B' },
-        { name: 'Please use !help to find which commands will let you change settings', value: '!help will also tell you all available commands!' },
       )
       return message.channel.send({ embed });
     } else if (data.setupComplete === 0) {
@@ -72,6 +70,7 @@ exports.run = async (client, message) => {
         },
       })
         .then(res => res.json())
+        
       const commandEmbed = require('../embeds/commandEmbed')
       const embed = new Discord.MessageEmbed(commandEmbed)
 

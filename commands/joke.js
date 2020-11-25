@@ -1,18 +1,30 @@
 const Discord = require('discord.js')
 const giveMeAJoke = require('give-me-a-joke')
-const servers = require('../arrays/servers')
+const fetch = require('node-fetch')
 
-exports.run = (client, message) => {
-  let server = servers.find(item => message.guild.id == item.serverID)
-  if (server) {
+const PATH = process.env.API_URL
+const KEY = process.env.API_KEY
+
+exports.run = async(client, message) => {
+  let data = await fetch(`${PATH}/servers/${message.guild.id}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'API_KEY': KEY
+    }
+  }).then(res => res.json());
+
+  if (data.serverID === message.guild.id) {
     const commandEmbed = require('../embeds/commandEmbed')
     const embed = new Discord.MessageEmbed(commandEmbed)
 
     giveMeAJoke.getRandomDadJoke(function (joke) {
       embed.setDescription('A Random Joke')
       embed.addField('Here you go:', joke)
-      return message.reply({ embed })
+      return message.channel.send({ embed })
     });
+  } else {
+    console.log('Error')
   }
 };
 
