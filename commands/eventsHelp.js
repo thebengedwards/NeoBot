@@ -4,7 +4,7 @@ const fetch = require('node-fetch')
 const PATH = process.env.API_URL
 const KEY = process.env.API_KEY
 
-exports.run = async (client, message) => {
+exports.run = async(client, message) => {
     let data = await fetch(`${PATH}/servers/${message.guild.id}`, {
         method: 'GET',
         headers: {

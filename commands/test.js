@@ -5,7 +5,7 @@ const settings = require('../settings.json')
 const PATH = process.env.API_URL
 const KEY = process.env.API_KEY
 
-exports.run = (client, message) => {
+exports.run = async(client, message) => {
   let data = await fetch(`${PATH}/servers/${message.guild.id}`, {
     method: 'GET',
     headers: {
