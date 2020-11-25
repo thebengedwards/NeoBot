@@ -1,6 +1,5 @@
 const Discord = require('discord.js')
 const fetch = require('node-fetch')
-const settings = require('../settings.json')
 
 const PATH = process.env.API_URL
 const KEY = process.env.API_KEY
