@@ -14,7 +14,7 @@ exports.run = async(client, message, args) => {
     }).then(res => res.json());
 
     if (data.serverID === message.guild.id) {
-        if (args) {
+        if (args.length !== 5) {
             const body = {
                 serverID: message.guild.id,
                 discordID: args[0],
