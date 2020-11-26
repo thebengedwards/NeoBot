@@ -5,7 +5,7 @@ const moment = require('moment')
 const PATH = process.env.API_URL
 const KEY = process.env.API_KEY
 
-exports.run = async(client, message, args) => {
+exports.run = async (client, message, args) => {
     let data = await fetch(`${PATH}/servers/${message.guild.id}`, {
         method: 'GET',
         headers: {
@@ -19,23 +19,22 @@ exports.run = async(client, message, args) => {
             const body = {
                 discordID: args[0],
             };
-
-            fetch(`${PATH}/birthdays/${message.guild.id}`, {
-                method: 'DELETE',
+            let birthday = await fetch(`${PATH}/birthday/${message.guild.id}`, {
+                method: 'GET',
                 body: JSON.stringify(body),
                 headers: {
                     'Content-Type': 'application/json',
                     'API_KEY': KEY
-                },
-            })
-                .then(res => res.json())
+                }
+            }).then(res => res.json());
 
             const commandEmbed = require('../embeds/commandEmbed');
             const embed = new Discord.MessageEmbed(commandEmbed);
 
-            embed.setDescription('Birthday deleted!');
+            embed.setDescription('All Birthdays');
             embed.addFields(
-                { name: `You have deleted user <@${args[0]}> from the birthday list.`, value: `Birthday messages will no longer be sent.` },
+                { name: `Found Birthday of: ${birthday.fName} ${birthday.lName}`, value: `Discord ID: ${birthday.discordID}` },
+                { name: `Birthday: ${birthday.cron}`, value: `Gender: ${birthday.gender}` },
                 { name: 'To see all birthdays on your server, use \'!birthdayAll\'. It will be sent to the mod channel.', value: 'To add a birthday, use \'!birthdayAdd\', to update a birthday, use \'!birthdayUpdate\', to see a birthday use \'!birthdayGet\'.' },
             )
             return message.channel.send({ embed })
@@ -43,8 +42,8 @@ exports.run = async(client, message, args) => {
             const alertEmbed = require('../embeds/alertEmbed');
             const embed = new Discord.MessageEmbed(alertEmbed);
 
-            embed.setDescription('Incorrect usage of birthdayDelete');
-            embed.addField('Use like this:', '!birthdayDelete <DiscordID>');
+            embed.setDescription('Incorrect usage of birthdayGet');
+            embed.addField('Use like this:', '!birthdayGet <DiscordID>');
             return message.channel.send({ embed });
         }
     }
@@ -58,7 +57,7 @@ exports.conf = {
 };
 
 exports.help = {
-    name: 'birthdayDelete',
-    description: 'Delete a birthday from your server',
-    usage: 'birthdayDelete <DiscordID>'
+    name: 'birthdayGet',
+    description: 'View a single birthday on your server',
+    usage: 'birthdayGet'
 };

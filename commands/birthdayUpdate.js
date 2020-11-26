@@ -15,13 +15,18 @@ exports.run = async(client, message, args) => {
     }).then(res => res.json());
 
     if (data.serverID === message.guild.id) {
-        if (args.length === 1) {
+        if (args.length === 5) {
             const body = {
+                serverID: message.guild.id,
                 discordID: args[0],
+                fName: args[1].toLowerCase(),
+                lName: args[2].toLowerCase(),
+                cron: args[3],
+                gender: args[4].toLowerCase(),
             };
 
             fetch(`${PATH}/birthdays/${message.guild.id}`, {
-                method: 'DELETE',
+                method: 'PUT',
                 body: JSON.stringify(body),
                 headers: {
                     'Content-Type': 'application/json',
@@ -33,9 +38,9 @@ exports.run = async(client, message, args) => {
             const commandEmbed = require('../embeds/commandEmbed');
             const embed = new Discord.MessageEmbed(commandEmbed);
 
-            embed.setDescription('Birthday deleted!');
+            embed.setDescription('Birthday Updated!');
             embed.addFields(
-                { name: `You have deleted user <@${args[0]}> from the birthday list.`, value: `Birthday messages will no longer be sent.` },
+                { name: `You have updated: ${args[1]} ${args[2]} on the birthday list`, value: `Date: ${moment(args[3]).format('Do MMMM YYYY')}` },
                 { name: 'To see all birthdays on your server, use \'!birthdayAll\'. It will be sent to the mod channel.', value: 'To add a birthday, use \'!birthdayAdd\', to update a birthday, use \'!birthdayUpdate\', to see a birthday use \'!birthdayGet\'.' },
             )
             return message.channel.send({ embed })
@@ -43,8 +48,8 @@ exports.run = async(client, message, args) => {
             const alertEmbed = require('../embeds/alertEmbed');
             const embed = new Discord.MessageEmbed(alertEmbed);
 
-            embed.setDescription('Incorrect usage of birthdayDelete');
-            embed.addField('Use like this:', '!birthdayDelete <DiscordID>');
+            embed.setDescription('Incorrect usage of birthdayUpdate');
+            embed.addField('Use like this:', '!birthdayUpdate <DiscordID of the user you want to update> <First Name> <Last Name> <YYYY-MM-DD> <Gender>');
             return message.channel.send({ embed });
         }
     }
@@ -58,7 +63,7 @@ exports.conf = {
 };
 
 exports.help = {
-    name: 'birthdayDelete',
-    description: 'Delete a birthday from your server',
-    usage: 'birthdayDelete <DiscordID>'
+    name: 'birthdayUpdate',
+    description: 'Update a birthday on your server.',
+    usage: 'birthdayUpdate <DiscordID> <First Name> <Last Name> <YYYY-MM-DD> <Gender>'
 };

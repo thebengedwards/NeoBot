@@ -1,3 +1,5 @@
+// Critical .env setup
+require('dotenv').config()
 // Init NEO
 const Discord = require('discord.js');
 const client = new Discord.Client();

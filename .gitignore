@@ -3,3 +3,7 @@
 
 # files
 package-lock.json
+.env
+
+# MacOS Specific
+.DS_Store

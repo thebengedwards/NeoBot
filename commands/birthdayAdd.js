@@ -1,5 +1,6 @@
 const Discord = require('discord.js')
 const fetch = require('node-fetch')
+const moment = require('moment')
 
 const PATH = process.env.API_URL
 const KEY = process.env.API_KEY
@@ -39,8 +40,8 @@ exports.run = async(client, message, args) => {
 
             embed.setDescription('Birthday added!');
             embed.addFields(
-                { name: `You have added: ${args[1]} ${args[2]} to the birthday list`, value: `Date: ${args[3]}` },
-                { name: 'To see all birthdays on your server, use \'!birthdayAll\'. It will be sent to the mod channel.', value: 'To remove a birthday, use \'!birthdayDelete\'' },
+                { name: `You have added: ${args[1]} ${args[2]} to the birthday list`, value: `Date: ${moment(args[3]).format('Do MMMM YYYY')}` },
+                { name: 'To see all birthdays on your server, use \'!birthdayAll\'. It will be sent to the mod channel.', value: 'To add a birthday, use \'!birthdayAdd\', to update a birthday, use \'!birthdayUpdate\', to see a birthday use \'!birthdayGet\'.' },
             )
             return message.channel.send({ embed })
         } else {

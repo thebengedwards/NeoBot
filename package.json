@@ -24,8 +24,10 @@
   "dependencies": {
     "cron": "*",
     "discord.js": "*",
+    "dotenv": "*",
     "give-me-a-joke": "*",
     "imageapi.js": "*",
+    "moment": "*",
     "node-fetch": "*"
   }
 }
