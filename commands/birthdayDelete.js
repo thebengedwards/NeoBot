@@ -36,7 +36,7 @@ exports.run = async(client, message, args) => {
             embed.setDescription('Birthday deleted!');
             embed.addFields(
                 { name: `You have deleted user <@${args[0]}> from the birthday list.`, value: `Birthday messages will no longer be sent.` },
-                { name: 'To see all birthdays on your server, use \'!birthdayAll\'. It will be sent to the mod channel.', value: 'To add a birthday, use \'!birthdayAdd\', to update a birthday, use \'!birthdayUpdate\', to see a birthday use \'!birthdayGet\'.' },
+                { name: 'To see all birthdays on your server, use \'!birthdayAll\'. It will be sent to the mod channel.', value: 'To add a birthday, use \'!birthdayAdd\', to update a birthday, use \'!birthdayUpdate\', to see a birthday use \'!birthdayView\'.' },
             )
             return message.channel.send({ embed })
         } else {

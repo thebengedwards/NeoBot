@@ -21,7 +21,8 @@ exports.run = async (client, message) => {
                 'Content-Type': 'application/json',
                 'API_KEY': KEY
             }
-        }).then(res => res.json());
+        })
+            .then(res => res.json());
 
         const commandEmbed = require('../embeds/commandEmbed');
         const embed = new Discord.MessageEmbed(commandEmbed);
@@ -29,7 +30,7 @@ exports.run = async (client, message) => {
         embed.setDescription('All Birthdays');
         embed.addFields(
             { name: `Below are all the birthdays saved to this server.`, value: `Please be carful with this information` },
-            { name: 'To see all birthdays on your server, use \'!birthdayAll\'. It will be sent to the mod channel.', value: 'To add a birthday, use \'!birthdayAdd\', to update a birthday, use \'!birthdayUpdate\', to see a birthday use \'!birthdayGet\'.' },
+            { name: 'To see all birthdays on your server, use \'!birthdayAll\'. It will be sent to the mod channel.', value: 'To add a birthday, use \'!birthdayAdd\', to update a birthday, use \'!birthdayUpdate\', to see a birthday use \'!birthdayView\'.' },
         )
         message.channel.send({ embed })
         birthdays.forEach(item => message.channel.send(`${item.discordID}, ${item.fName} ${item.lName}, ${moment(item.cron).format('Do MMMM YYYY')}, ${item.gender}`))

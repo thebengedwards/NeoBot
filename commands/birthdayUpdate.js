@@ -33,7 +33,7 @@ exports.run = async(client, message, args) => {
                     'API_KEY': KEY
                 },
             })
-                .then(res => res.json())
+                .then(res => res.json());
 
             const commandEmbed = require('../embeds/commandEmbed');
             const embed = new Discord.MessageEmbed(commandEmbed);
@@ -41,7 +41,7 @@ exports.run = async(client, message, args) => {
             embed.setDescription('Birthday Updated!');
             embed.addFields(
                 { name: `You have updated: ${args[1]} ${args[2]} on the birthday list`, value: `Date: ${moment(args[3]).format('Do MMMM YYYY')}` },
-                { name: 'To see all birthdays on your server, use \'!birthdayAll\'. It will be sent to the mod channel.', value: 'To add a birthday, use \'!birthdayAdd\', to update a birthday, use \'!birthdayUpdate\', to see a birthday use \'!birthdayGet\'.' },
+                { name: 'To see all birthdays on your server, use \'!birthdayAll\'. It will be sent to the mod channel.', value: 'To add a birthday, use \'!birthdayAdd\', to update a birthday, use \'!birthdayUpdate\', to see a birthday use \'!birthdayView\'.' },
             )
             return message.channel.send({ embed })
         } else {

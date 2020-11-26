@@ -19,31 +19,34 @@ exports.run = async (client, message, args) => {
             const body = {
                 discordID: args[0],
             };
-            let birthday = await fetch(`${PATH}/birthday/${message.guild.id}`, {
-                method: 'GET',
+            let birthday;
+            await fetch(`${PATH}/birthdays/${message.guild.id}`, {
+                method: 'PUT',
                 body: JSON.stringify(body),
                 headers: {
                     'Content-Type': 'application/json',
                     'API_KEY': KEY
                 }
-            }).then(res => res.json());
+            })
+                .then(res => res.json())
+                .then(json => birthday = json);
 
             const commandEmbed = require('../embeds/commandEmbed');
             const embed = new Discord.MessageEmbed(commandEmbed);
 
-            embed.setDescription('All Birthdays');
+            embed.setDescription('View Birthday');
             embed.addFields(
                 { name: `Found Birthday of: ${birthday.fName} ${birthday.lName}`, value: `Discord ID: ${birthday.discordID}` },
-                { name: `Birthday: ${birthday.cron}`, value: `Gender: ${birthday.gender}` },
-                { name: 'To see all birthdays on your server, use \'!birthdayAll\'. It will be sent to the mod channel.', value: 'To add a birthday, use \'!birthdayAdd\', to update a birthday, use \'!birthdayUpdate\', to see a birthday use \'!birthdayGet\'.' },
+                { name: `Birthday: ${moment(birthday.cron).format('Do MMMM YYYY')}`, value: `Gender: ${birthday.gender}` },
+                { name: 'To see all birthdays on your server, use \'!birthdayAll\'. It will be sent to the mod channel.', value: 'To add a birthday, use \'!birthdayAdd\', to update a birthday, use \'!birthdayUpdate\', to see a birthday use \'!birthdayView\'.' },
             )
             return message.channel.send({ embed })
         } else {
             const alertEmbed = require('../embeds/alertEmbed');
             const embed = new Discord.MessageEmbed(alertEmbed);
 
-            embed.setDescription('Incorrect usage of birthdayGet');
-            embed.addField('Use like this:', '!birthdayGet <DiscordID>');
+            embed.setDescription('Incorrect usage of birthdayView');
+            embed.addField('Use like this:', '!birthdayView <DiscordID>');
             return message.channel.send({ embed });
         }
     }
@@ -57,7 +60,7 @@ exports.conf = {
 };
 
 exports.help = {
-    name: 'birthdayGet',
+    name: 'birthdayView',
     description: 'View a single birthday on your server',
-    usage: 'birthdayGet'
+    usage: 'birthdayView'
 };
