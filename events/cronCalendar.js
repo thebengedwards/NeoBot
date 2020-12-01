@@ -1,9 +1,20 @@
 const Discord = require('discord.js')
+const fetch = require('node-fetch')
 const cron = require('cron')
-const servers = require('../arrays/servers')
-const calendars = require('../arrays/calendars')
+const moment = require('moment')
 
-module.exports = client => {
+const PATH = process.env.API_URL
+const KEY = process.env.API_KEY
+
+module.exports = async(client) => {
+    let data = await fetch(`${PATH}/servers`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'API_KEY': KEY
+        }
+    }).then(res => res.json());
+
     servers.forEach((server) => {
         if (server.calendar) {
             calendars.forEach((calendar) => {

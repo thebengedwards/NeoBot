@@ -15,17 +15,13 @@ exports.run = async(client, message, args) => {
     }).then(res => res.json());
 
     if (data.serverID === message.guild.id) {
-        if (args.length === 5) {
+        if (args.length === 2) {
             const body = {
-                serverID: message.guild.id,
-                discordID: args[0],
-                fName: args[1].toLowerCase(),
-                lName: args[2].toLowerCase(),
-                cron: args[3],
-                gender: args[4].toLowerCase(),
+                name: args[0].toLowerCase(),
+                cron: args[1],
             };
 
-            fetch(`${PATH}/birthdays`, {
+            fetch(`${PATH}/calendars`, {
                 method: 'POST',
                 body: JSON.stringify(body),
                 headers: {
@@ -38,18 +34,18 @@ exports.run = async(client, message, args) => {
             const commandEmbed = require('../embeds/commandEmbed');
             const embed = new Discord.MessageEmbed(commandEmbed);
 
-            embed.setDescription('Birthday added!');
+            embed.setDescription('Calendar added!');
             embed.addFields(
-                { name: `You have added: ${args[1]} ${args[2]} to the birthday list`, value: `Date: ${moment(args[3]).format('Do MMMM YYYY')}` },
-                { name: 'To see all birthdays on your server, use \'!birthdayAll\'. It will be sent to the mod channel.', value: 'To add a birthday, use \'!birthdayAdd\', to update a birthday, use \'!birthdayUpdate\', to see a birthday use \'!birthdayView\', to delete a birthday use \'!birthdayDelete\'.' },
+                { name: `You have added: ${args[0]} to the calendar list.`, value: `Date: ${moment(new Date(args[1])).format('Do MMMM')} every year` },
+                { name: 'This command is dev only. DO NOT USE IT', value: 'To add a calendar, use \'!calendarAdd\', to view a calendar, use \'!calendarView\', to see all calendars use \'!calendarAll\',to delete a calendar use \'!calendarDelete\'.' },
             )
             return message.channel.send({ embed })
         } else {
             const alertEmbed = require('../embeds/alertEmbed');
             const embed = new Discord.MessageEmbed(alertEmbed);
 
-            embed.setDescription('Incorrect usage of birthdayAdd');
-            embed.addField('Use like this:', '!birthdayAdd <DiscordID> <First Name> <Last Name> <YYYY-MM-DD> <Gender>');
+            embed.setDescription('Incorrect usage of calendarAdd');
+            embed.addField('Use like this:', '!calendarAdd <Name> <MM-DD>');
             return message.channel.send({ embed });
         }
     }
@@ -59,11 +55,11 @@ exports.conf = {
     enabled: true,
     guildOnly: false,
     aliases: [],
-    permLevel: 3
+    permLevel: 5
 };
 
 exports.help = {
-    name: 'birthdayAdd',
-    description: 'Add a birthday to your server!',
-    usage: 'birthdayAdd <DiscordID> <First Name> <Last Name> <YYYY-MM-DD> <Gender>'
+    name: 'calendarAdd',
+    description: 'Add a calendar to NEO.',
+    usage: 'calendarAdd <Name> <MM-DD>'
 };

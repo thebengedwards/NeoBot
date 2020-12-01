@@ -16,13 +16,8 @@ exports.run = async(client, message, args) => {
 
     if (data.serverID === message.guild.id) {
         if (args.length === 1) {
-            const body = {
-                discordID: args[0],
-            };
-
-            fetch(`${PATH}/birthdays/${message.guild.id}`, {
+            fetch(`${PATH}/calendars/${args[0]}`, {
                 method: 'DELETE',
-                body: JSON.stringify(body),
                 headers: {
                     'Content-Type': 'application/json',
                     'API_KEY': KEY
@@ -33,18 +28,18 @@ exports.run = async(client, message, args) => {
             const commandEmbed = require('../embeds/commandEmbed');
             const embed = new Discord.MessageEmbed(commandEmbed);
 
-            embed.setDescription('Birthday deleted!');
+            embed.setDescription('Calendar deleted!');
             embed.addFields(
-                { name: `You have deleted user <@${args[0]}> from the birthday list.`, value: `Birthday messages will no longer be sent.` },
-                { name: 'To see all birthdays on your server, use \'!birthdayAll\'. It will be sent to the mod channel.', value: 'To add a birthday, use \'!birthdayAdd\', to update a birthday, use \'!birthdayUpdate\', to see a birthday use \'!birthdayView\', to delete a birthday use \'!birthdayDelete\'.' },
+                { name: `You have deleted calendar ${args[0]} from the calendar list.`, value: `Calendar can easily be re-added` },
+                { name: 'This command is dev only. DO NOT USE IT', value: 'To add a calendar, use \'!calendarAdd\', to view a calendar, use \'!calendarView\', to see all calendars use \'!calendarAll\',to delete a calendar use \'!calendarDelete\'.' },
             )
             return message.channel.send({ embed })
         } else {
             const alertEmbed = require('../embeds/alertEmbed');
             const embed = new Discord.MessageEmbed(alertEmbed);
 
-            embed.setDescription('Incorrect usage of birthdayDelete');
-            embed.addField('Use like this:', '!birthdayDelete <DiscordID>');
+            embed.setDescription('Incorrect usage of calendarDelete');
+            embed.addField('Use like this:', '!calendarDelete <Name>');
             return message.channel.send({ embed });
         }
     }
@@ -54,11 +49,11 @@ exports.conf = {
     enabled: true,
     guildOnly: false,
     aliases: [],
-    permLevel: 3
+    permLevel: 5
 };
 
 exports.help = {
-    name: 'birthdayDelete',
-    description: 'Delete a birthday from your server',
-    usage: 'birthdayDelete <DiscordID>'
+    name: 'calendarDelete',
+    description: 'Delete a calendar from NEO',
+    usage: 'calendarDelete <Name>'
 };

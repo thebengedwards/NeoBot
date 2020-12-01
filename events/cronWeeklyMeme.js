@@ -12,7 +12,7 @@ module.exports = client => {
 
                 var img;
                 let subreddits = require('../arrays/subreddits');
-                getImg = async () => {
+                getImg = async() => {
                     let subreddit = subreddits[Math.floor(Math.random() * subreddits.length)];
                     img = await api(subreddit.name);
 

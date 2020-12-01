@@ -8,7 +8,7 @@ module.exports = client => {
         const embed = new Discord.MessageEmbed(pollEmbed)
 
         let games = require('../arrays/games');
-        getGame = async () => {
+        getGame = async() => {
             let game = games[Math.floor(Math.random() * games.length)];
 
             embed.setDescription('Game poll')

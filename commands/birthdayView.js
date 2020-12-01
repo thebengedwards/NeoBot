@@ -5,7 +5,7 @@ const moment = require('moment')
 const PATH = process.env.API_URL
 const KEY = process.env.API_KEY
 
-exports.run = async (client, message, args) => {
+exports.run = async(client, message, args) => {
     let data = await fetch(`${PATH}/servers/${message.guild.id}`, {
         method: 'GET',
         headers: {
@@ -38,7 +38,7 @@ exports.run = async (client, message, args) => {
             embed.addFields(
                 { name: `Found Birthday of: ${birthday.fName} ${birthday.lName}`, value: `Discord ID: ${birthday.discordID}` },
                 { name: `Birthday: ${moment(birthday.cron).format('Do MMMM YYYY')}`, value: `Gender: ${birthday.gender}` },
-                { name: 'To see all birthdays on your server, use \'!birthdayAll\'. It will be sent to the mod channel.', value: 'To add a birthday, use \'!birthdayAdd\', to update a birthday, use \'!birthdayUpdate\', to see a birthday use \'!birthdayView\'.' },
+                { name: 'To see all birthdays on your server, use \'!birthdayAll\'. It will be sent to the mod channel.', value: 'To add a birthday, use \'!birthdayAdd\', to update a birthday, use \'!birthdayUpdate\', to see a birthday use \'!birthdayView\', to delete a birthday use \'!birthdayDelete\'.' },
             )
             return message.channel.send({ embed })
         } else {
