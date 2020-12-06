@@ -15,7 +15,17 @@ module.exports = async(client) => {
         }
     }).then(res => res.json());
 
-    servers.forEach((server) => {
+    data.map( async (item) => {
+        if (item.calendar === 1) {
+            let birthdays = await fetch(`${PATH}/birthdays/${item.serverID}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'API_KEY': KEY
+                }
+            })
+                .then(res => res.json());
+
         if (server.calendar) {
             calendars.forEach((calendar) => {
                 let event = new cron.CronJob(`${calendar.cron}`, () => {
