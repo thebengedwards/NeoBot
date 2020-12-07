@@ -6,7 +6,7 @@ const moment = require('moment')
 const PATH = process.env.API_URL
 const KEY = process.env.API_KEY
 
-module.exports = async(client) => {
+module.exports = async (client) => {
     let data = await fetch(`${PATH}/servers`, {
         method: 'GET',
         headers: {
@@ -15,29 +15,33 @@ module.exports = async(client) => {
         }
     }).then(res => res.json());
 
-    data.map( async (item) => {
+    data.map(async (item) => {
         if (item.calendar === 1) {
-            let birthdays = await fetch(`${PATH}/birthdays/${item.serverID}`, {
+            let calendars = await fetch(`${PATH}/calendars`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
                     'API_KEY': KEY
                 }
-            })
-                .then(res => res.json());
+            }).then(res => res.json());
 
-        if (server.calendar) {
-            calendars.forEach((calendar) => {
-                let event = new cron.CronJob(`${calendar.cron}`, () => {
-                    const eventEmbed = require('../embeds/eventEmbed')
-                    const embed = new Discord.MessageEmbed(eventEmbed)
-    
-                    embed.setDescription('Calendar')
-                    embed.addField(`${calendar.id} HAPPY ${calendar.lName.toUpperCase()} EVERYONE! ${calendar.id}`, `@everyone, have a great ${calendar.lName}.`)
-                    return client.channels.cache.get(server.generalChannelID).send({ embed });
-                });
-                event.start()
+            if (calendars) {
+                calendars.map((item2) => {
+                    let calendar = moment(new Date(item2.cron)).format('DD MM')
+                    let split = calendar.split(" ")
+
+                    let event = new cron.CronJob(`00 00 08 ${split[0]} ${split[1] - 1} *`, () => {
+                        const eventEmbed = require('../embeds/eventEmbed')
+                        const embed = new Discord.MessageEmbed(eventEmbed)
+
+                        embed.setDescription('Calendar')
+                        embed.addField(`HAPPY ${item2.name.toUpperCase()} EVERYONE!`, `@everyone, have a great ${item2.name}.`)
+                        return client.channels.cache.get(item.generalChannelID).send({ embed });
+                    });
+                    event.start()
+                }
+                )
             }
-        )}
+        }
     })
 };
