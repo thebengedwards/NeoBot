@@ -15,7 +15,7 @@
   <h3 align="center">NeoBot</h3>
 
   <p align="center">
-    A Discord Bot for friendly Discord Servers!
+    A response and task Bot for Discord Servers!
     <br />
     <a href="https://github.com/theBenEdwards/NeoBot"><strong>Explore the docs »</strong></a>
     <br />
@@ -39,7 +39,7 @@
       </ul>
     </li>
     <li>
-      <a href="#getting-started">Getting Started</a>
+      <a href="#cloning">Cloning</a>
       <ul>
         <li><a href="#prerequisites">Prerequisites</a></li>
         <li><a href="#installation">Installation</a></li>
@@ -57,6 +57,8 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
+This is the NeoBot 
+
 There are many great README templates available on GitHub, however, I didn't find one that really suit my needs so I created this enhanced one. I want to create a README template so amazing that it'll be the last one you ever need -- I think this is it.
 
 Here's why:
@@ -70,13 +72,18 @@ A list of commonly used resources that I find helpful are listed in the acknowle
 
 ### Built With
 
-This section should list any major frameworks that you built your project using. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
-* [Bootstrap](https://getbootstrap.com)
-* [JQuery](https://jquery.com)
-* [Laravel](https://laravel.com)
+* [nodejs](https://nodejs.org/)
+* [cron](https://www.npmjs.com/package/cron)
+* [discord.js](https://www.npmjs.com/package/discord.js?source=post_page-----7b5fe27cb6fa----------------------)
+* [dotenv](https://www.npmjs.com/package/dotenv)
+* [give-me-a-joke](https://www.npmjs.com/package/give-me-a-joke)
+* [imageapi.js](https://www.npmjs.com/package/imageapi.js)
+* [moment](https://www.npmjs.com/package/moment)
+* [node-fetch](https://www.npmjs.com/package/node-fetch)
+* [Heroku](https://devcenter.heroku.com/)
 
 <!-- GETTING STARTED -->
-## Getting Started
+## Cloning
 
 This is an example of how you may give instructions on setting up your project locally.
 To get a local copy up and running follow these simple example steps.
@@ -156,6 +163,6 @@ Project Link: [https://github.com/your_username/repo_name](https://github.com/yo
 [issues-shield]: https://img.shields.io/github/issues/theBenEdwards/NeoBot.svg?style=for-the-badge
 [issues-url]: https://github.com/theBenEdwards/NeoBot/issues
 [license-shield]: https://img.shields.io/github/license/theBenEdwards/NeoBot.svg?style=for-the-badge
-[license-url]: https://github.com/theBenEdwards/NeoBot/blob/main/LICENSE
+[license-url]: https://github.com/theBenEdwards/NeoBot/blob/main/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/benjamin-edwards-75b87a196
