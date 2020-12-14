@@ -129,7 +129,7 @@ In order to create a version of this bot you will have to substitute these varia
 
 The BOT_TOKEN is what nodejs uses to connect your bot to discord. To create a bot token:
 
-1. Create a new bot application at the [https://discord.com/developers/applications](Discord Developer Portal)
+1. Create a new bot application at the [Discord Developer Portal](https://discord.com/developers/applications)
 2. Go to 'Bot' option
 3. Add a new Bot to the app
 4. Click on _'Click to Reveal Token_
