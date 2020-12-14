@@ -53,7 +53,22 @@
         <li><a href="#executing">Executing</a></li>
       </ul>
     </li>
-    <li><a href="#usage">Usage</a></li>
+    <li>
+      <a href="#usage">Usage</a>
+      <ul>
+        <li><a href="#permission-levels">Permission Levels</a></li>
+        <li>
+          <a href="#configuring">Configuring</a>
+          <ul>
+            <li><a href="#identifications">Identifications</a></li>
+            <li><a href="#channels">Channels</a></li>
+            <li><a href="#functions">Functions</a></li>
+          </ul>
+        </li>
+        <li><a href="#general-usage">General Usage</a></li>
+        <li><a href="#error-reporting">Error Reporting</a></li>
+      </ul>
+    </li>
     <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
@@ -232,6 +247,45 @@ If you have feedback on which roles should have or should not have access to cer
 
 In order to configure and activate NeoBot, when first joining the server NeoBot will ask for a `!config` command to be sent. This sets up the server on the database and allows further data to be assigned to datapoints on the database.
 
+#### Identifications
+
+NeoBot uses 3 main roles to communicate to - member, moderator and admin. If you do not have these roles do not worry, simply assign the already exisiting roles in your server to the roles that should have these permissions.
+To set these roles or change them, follow these instructions:
+
+1. Turn on discord dev mode (in user settings)
+2. Right click on the role in role menu of the server and select `Copy ID`
+3. Type `!setAdminID`/`!setModID`/`!setMemberID` followed by the role ID you have copied
+4. The result should look something like this:
+```sh
+!setAdminID 1234567890
+```
+5. If this does not work, try setting it again.
+6. For changing the ID follow steps 1-5 again.
+
+#### Channels
+
+NeoBot uses 6 main channels to communicate to - welcome, mod, general, memes, game and update channels. These are used by various functions and need to be logged for a function to work correctly. Not all channels need to be used, but if you dont set them you might not see some functionality work.
+To set these channels or to change them, follow these instructions:
+
+1. Turn on discord dev mode (in user settings)
+2. Right click on the channel select `Copy ID`
+3. Type `!setWelcomeChannel`/`!setModChannel`/`!setGeneralChannel`/`!setMemesChannel`/`!setGameChannel`/`!setUpdateChannel` followed by the channel ID you have copied
+4. The result should look something like this:
+```sh
+!setWelcomeChannel 1234567890
+```
+5. If this does not work, try setting it again.
+6. For changing the ID follow steps 1-5 again.
+
+#### Functions
+
+NeoBot uses 4 main functions - birthdays, calendar, polls and weeklyMemes. These are mostly automated and rely on other data within the database, however as server Admins/Owners you can enable or disable these functions
+To enable/disable these functions, follow these instructions:
+
+1. Type `!toggleBirthdays`/`!toggleCalendar`/`!togglePolls`/`!toggleWeeklyMemes`
+2. This should enable/disable the setting you wish to toggle.
+5. If this does not work, try step 1 again.
+
 ### General Usage
 
 General usage here
@@ -279,9 +333,11 @@ Project Link: [https://github.com/your_username/repo_name](https://github.com/yo
 
 <!-- ACKNOWLEDGEMENTS -->
 ## Acknowledgements
+* [An Idiots Guide]()
+* [Discord.js]()
+* [GitHub]()
+* [Heroku]()
 * [Img Shields](https://shields.io)
-* [Choose an Open Source License](https://choosealicense.com)
-* [GitHub Pages](https://pages.github.com)
 
 <!-- MARKDOWN LINKS & IMAGES -->
 [contributors-shield]: https://img.shields.io/github/contributors/theBenEdwards/NeoBot.svg?style=for-the-badge
