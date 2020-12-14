@@ -39,7 +39,7 @@
       </ul>
     </li>
     <li>
-      <a href="#cloning">Cloning</a>
+      <a href="#getting-started">Getting Started</a>
       <ul>
         <li><a href="#prerequisites">Prerequisites</a></li>
         <li>
@@ -96,7 +96,7 @@ This is the list of dependencies and tools we used to create this project:
 * [Heroku](https://devcenter.heroku.com/)
 
 <!-- GETTING STARTED -->
-## Cloning
+## Getting Started
 
 To just 'check out' the project and see how we got the code to work, clone the repo. This will create a completely detached directory for you to do whatever you want to the code. 
 
