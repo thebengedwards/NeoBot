@@ -66,7 +66,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-Hello, and welcome to the NeoBot Discord.js Bot project. This project has been going since 2018 when Ben, the developer, though about creating his own discord bot for his discord server. Discord bots have been around for as long as we can remember, and creating his own was be a fun little project. The project since then has grown into something much larger, with a whole backend API being added in version 2.0.0 to hold and process data for later use!
+Hello, and welcome to the NeoBot Discord.js project. This project has been going since 2018 when Ben, the lead developer, thought about creating his own discord bot for his discord server. Discord bots have been around for as long as we can remember, and creating our own was a fun little project. The project since then has grown into something much larger, with a whole backend API being added in version 2.0.0 to hold and process data for later use!
 
 When the bot was in early development, there were few public repos that the author could reference on how to use certain functions, and JavaScript was a newly learnt langauge of the developer, and therefore found already exisitng bots on GitHub very useful.
 
@@ -129,7 +129,7 @@ In order to create a version of this bot you will have to substitute these varia
 
 The BOT_TOKEN is what nodejs uses to connect your bot to discord. To create a bot token:
 
-1. Create a new bot application at [https://discord.com/developers/applications](https://discord.com/developers)
+1. Create a new bot application at the [https://discord.com/developers/applications](Discord Developer Portal)
 2. Go to 'Bot' option
 3. Add a new Bot to the app
 4. Click on _'Click to Reveal Token_
