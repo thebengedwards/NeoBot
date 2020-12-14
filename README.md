@@ -50,7 +50,7 @@
             <li><a href="#api-url">API_URL</a></li>
           </ul>
         </li>
-        <li><a href="#installation">Installation</a></li>
+        <li><a href="#executing">Executing</a></li>
       </ul>
     </li>
     <li><a href="#usage">Usage</a></li>
@@ -98,7 +98,12 @@ This is the list of dependencies and tools we used to create this project:
 <!-- GETTING STARTED -->
 ## Cloning
 
-To just 'check out' the project and see how we got the code to work, use `git clone https://github.com/TheBenEdwards/NeoBot`. This will create a completely detached directory for you to do whatever you want to the code. 
+To just 'check out' the project and see how we got the code to work, clone the repo. This will create a completely detached directory for you to do whatever you want to the code. 
+
+* Clone the repo
+```sh
+git clone https://github.com/theBenEdwards/NeoBot.git
+```
 
 To create a feature, see <a href="#contributing">Contributing</a> instructions below!
 
@@ -132,13 +137,15 @@ The BOT_TOKEN is what nodejs uses to connect your bot to discord. To create a bo
 1. Create a new bot application at the [Discord Developer Portal](https://discord.com/developers/applications)
 2. Go to 'Bot' option
 3. Add a new Bot to the app
-4. Click on _'Click to Reveal Token_
+4. Click on _'Click to Reveal Token'_
 5. Copy the very long token, and paste in the .env file with BOT_TOKEN
 
 * Define like this:
 ```sh
 BOT_TOKEN=[BOT_TOKEN_HERE]
 ```
+
+This is a required step.
 
 #### API_KEY
 
@@ -151,6 +158,8 @@ If you do not have an API, either create arrays to subsitute for the api calls, 
 API_KEY=[PASSWORD HERE]
 ```
 
+This is an optional step.
+
 #### API_URL
 
 API_URL is the link to the API itself. 
@@ -159,24 +168,24 @@ Similarily to API_KEY, either create arrays to subsitute for the api calls, impo
 
 * Define like this:
 ```sh
-API_URL=[https://api-url-here/API]
+API_URL=[https://api-url-here/]
 ```
 
-### Installation
+This is an optional step.
 
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
-   ```sh
-   git clone https://github.com/your_username_/Project-Name.git
-   ```
-3. Install NPM packages
-   ```sh
-   npm install
-   ```
-4. Enter your API in `config.js`
-   ```JS
-   const API_KEY = 'ENTER YOUR API';
-   ```
+### Executing
+
+Once all the dependencies are ready and the .env file or the arrays are set up, we can get the bot running.
+
+* Double check npm packages are installed
+```sh
+npm install
+```
+
+* Then, compile and run the bot locally
+```sh
+node app.js
+```
 
 <!-- USAGE EXAMPLES -->
 ## Usage
