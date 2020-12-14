@@ -190,6 +190,54 @@ node app.js
 <!-- USAGE EXAMPLES -->
 ## Usage
 
+This section is primarily meant for server owners and admins, as it covers the basics, setup and usages of the bot on a discord server.
+
+### Permission Levels
+
+NeoBot has 6 main permission levels:
+
+* @everyone - people who do not have a role
+```sh
+permlvl: 0
+```
+
+* @members - members have basic access to low-tier commands
+```sh
+permlvl: 1
+```
+
+* @moderators - moderators have more advanced server commands
+```sh
+permlvl: 2
+```
+
+* @admins - admins have access to almost all commands
+```sh
+permlvl: 3
+```
+
+* @owners - owners have access to all commands
+```sh
+permlvl: 4
+```
+
+* @developers - developers have access to all commands
+```sh
+permlvl: 5
+```
+
+If you have feedback on which roles should have or should not have access to certain commands, please send in feedback.
+
+### Configuring
+
+In order to configure and activate NeoBot, when first joining the server NeoBot will ask for a `!config` command to be sent. This sets up the server on the database and allows further data to be assigned to datapoints on the database.
+
+### General Usage
+
+General usage here
+
+### Error Reporting
+
 Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
 
 _For more examples, please refer to the [Documentation](https://example.com)_
