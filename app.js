@@ -43,5 +43,4 @@ client.elevation = message => {
   }
 };
 
-//client.login(process.env.BOT_TOKEN);
-client.login('NTg3OTA5MjUyODg3MjE2MTI4.XP9bKA.vNespg5NsPmI-8OvCkatppK9-E4');
+client.login(process.env.BOT_TOKEN);
