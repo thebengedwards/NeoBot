@@ -271,7 +271,7 @@ To set these channels or to change them, follow these instructions:
 2. Right click on the channel select `Copy ID`
 3. Type `!setWelcomeChannel`/`!setModChannel`/`!setGeneralChannel`/`!setMemesChannel`/`!setGameChannel`/`!setUpdateChannel` followed by the channel ID you have copied
 4. The result should look something like this:
-```sh
+```
 !setWelcomeChannel 1234567890
 ```
 5. If this does not work, try setting it again.
