@@ -256,7 +256,7 @@ To set these roles or change them, follow these instructions:
 2. Right click on the role in role menu of the server and select `Copy ID`
 3. Type `!setAdminID`/`!setModID`/`!setMemberID` followed by the role ID you have copied
 4. The result should look something like this:
-```sh
+```
 !setAdminID 1234567890
 ```
 5. If this does not work, try setting it again.
@@ -284,6 +284,10 @@ To enable/disable these functions, follow these instructions:
 
 1. Type `!toggleBirthdays`/`!toggleCalendar`/`!togglePolls`/`!toggleWeeklyMemes`
 2. This should enable/disable the setting you wish to toggle.
+4. The result should look something like this:
+```
+!toggleBirthdays
+```
 5. If this does not work, try step 1 again.
 
 ### General Usage
