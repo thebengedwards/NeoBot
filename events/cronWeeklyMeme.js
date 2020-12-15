@@ -29,27 +29,21 @@ module.exports = async (client) => {
                 return item.subredditName;
             });
 
-            //let event = new cron.CronJob(`00 00 20 * * 5`, () => {
-            let event = new cron.CronJob(`00 * * * * *`, () => {
+            let event = new cron.CronJob(`00 00 20 * * 5`, () => {
                 const eventEmbed = require('../embeds/eventEmbed')
                 const embed = new Discord.MessageEmbed(eventEmbed)
 
                 let img;
-                console.log('HELPHELLO')
-                console.log(subreddits)
                 getImg = async () => {
                     let subreddit = subreddits[Math.floor(Math.random() * subreddits.length)];
-                    img = await api(subreddit.name);
-
-                    console.log('HELP')
-                    console.log(`Subreddit: ${subreddit}`)
+                    img = await api(subreddit);
 
                     if (img.endsWith('.mp4')) {
                         // Discord bot does not support mp4 types, so just run the function again
                         getImg();
                     } else {
                         embed.setDescription('Weekly Meme')
-                        embed.addField(`This meme is brought to you by:`, `r/${subreddit.name}`)
+                        embed.addField(`This meme is brought to you by:`, `r/${subreddit}`)
                         embed.setImage(img);
                         return client.channels.cache.get(item.memesChannelID).send({ embed });
                     }
