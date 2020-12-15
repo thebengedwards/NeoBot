@@ -1,5 +1,5 @@
-const Discord = require('discord.js')
-const fetch = require('node-fetch')
+const Discord = require("discord.js")
+const fetch = require("node-fetch")
 
 const PATH = process.env.API_URL
 const KEY = process.env.API_KEY
@@ -11,7 +11,8 @@ exports.run = async(client, message) => {
             'Content-Type': 'application/json',
             'API_KEY': KEY
         }
-    }).then(res => res.json());
+    })
+        .then(res => res.json());
 
     if (data.serverID === message.guild.id) {
         const commandEmbed = require('../embeds/commandEmbed')
@@ -41,7 +42,7 @@ exports.conf = {
 };
 
 exports.help = {
-    name: 'roleHelp',
+    name: 'helpRoles',
     description: 'Provides information about roles',
-    usage: 'roleHelp'
+    usage: 'helpRoles'
 };

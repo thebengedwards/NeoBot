@@ -1,17 +1,18 @@
-const Discord = require('discord.js');
-const fetch = require('node-fetch')
+const Discord = require("discord.js");
+const fetch = require("node-fetch")
 
 const PATH = process.env.API_URL
 const KEY = process.env.API_KEY
 
-exports.run = async(client, message, args) => {
+exports.run = async (client, message, args) => {
   let data = await fetch(`${PATH}/servers/${message.guild.id}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
       'API_KEY': KEY
     }
-  }).then(res => res.json());
+  })
+    .then(res => res.json());
 
   if (data.serverID === message.guild.id) {
     const alertEmbed = require('../embeds/alertEmbed');

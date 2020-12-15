@@ -1,18 +1,18 @@
-const Discord = require('discord.js')
-const fetch = require('node-fetch')
-const moment = require('moment')
+const Discord = require("discord.js")
+const fetch = require("node-fetch")
 
 const PATH = process.env.API_URL
 const KEY = process.env.API_KEY
 
-exports.run = async(client, message, args) => {
+exports.run = async (client, message, args) => {
     let data = await fetch(`${PATH}/servers/${message.guild.id}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
             'API_KEY': KEY
         }
-    }).then(res => res.json());
+    })
+        .then(res => res.json());
 
     if (data.serverID === message.guild.id) {
         if (args.length === 4) {
@@ -49,7 +49,7 @@ exports.run = async(client, message, args) => {
             embed.setDescription('Incorrect usage of gameAdd');
             embed.addField('Use like this:', '!gameAdd <Game_Name> <Game_Type> <Rating> <Play With>');
             embed.addField('IMPORTANT:', 'Use \'_\' instead of [space], a parser removes this from the message');
-            
+
             return message.channel.send({ embed });
         }
     }

@@ -1,18 +1,18 @@
 // Critical .env setup
-require('dotenv').config()
+require("dotenv").config()
 // Init NEO
-const Discord = require('discord.js');
+const Discord = require("discord.js");
 const client = new Discord.Client();
 // Required for server setup
-const settings = require('./settings.json')
+const settings = require("./settings.json")
 // These are external libraries required to run additional Functions
-const fs = require('fs');
-const fetch = require('node-fetch')
+const fs = require("fs");
+const fetch = require("node-fetch")
 
 const PATH = process.env.API_URL
 const KEY = process.env.API_KEY
 
-require('./util/eventLoader')(client);
+require("./util/eventLoader")(client);
 
 client.commands = new Discord.Collection();
 client.aliases = new Discord.Collection();

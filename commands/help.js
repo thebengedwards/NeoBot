@@ -1,19 +1,20 @@
-const Discord = require('discord.js')
-const fetch = require('node-fetch')
-const settings = require('../settings.json')
+const Discord = require("discord.js")
+const fetch = require("node-fetch")
+const settings = require("../settings.json")
 
 const PATH = process.env.API_URL
 const KEY = process.env.API_KEY
 
-exports.run = async(client, message, args) => {
+exports.run = async (client, message, args) => {
   let data = await fetch(`${PATH}/servers/${message.guild.id}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
       'API_KEY': KEY
     }
-  }).then(res => res.json());
-  
+  })
+    .then(res => res.json());
+
   if (data.serverID === message.guild.id) {
     const commandEmbed = require('../embeds/commandEmbed')
     const embed = new Discord.MessageEmbed(commandEmbed)
@@ -21,7 +22,7 @@ exports.run = async(client, message, args) => {
     if (!args[0]) {
       embed.setDescription('Help')
       embed.addField('Command List', `[Use ${settings.prefix}help <commandname> for details]`)
-      client.commands.map(item => {if(item.conf.permLevel < 3){embed.addField(settings.prefix + item.help.name, item.help.description, true)}})
+      client.commands.map(item => { if (item.conf.permLevel < 3) { embed.addField(settings.prefix + item.help.name, item.help.description, true) } })
       return message.channel.send({ embed });
     } else {
       let command = args[0]

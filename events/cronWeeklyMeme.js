@@ -1,6 +1,6 @@
-const Discord = require('discord.js')
-const fetch = require('node-fetch')
-const cron = require('cron')
+const Discord = require("discord.js")
+const fetch = require("node-fetch")
+const cron = require("cron")
 const api = require("imageapi.js");
 
 const PATH = process.env.API_URL
@@ -13,7 +13,8 @@ module.exports = async (client) => {
             'Content-Type': 'application/json',
             'API_KEY': KEY
         }
-    }).then(res => res.json());
+    })
+        .then(res => res.json());
 
     data.map(async (item) => {
         if (item.weeklyMeme === 1) {
@@ -23,7 +24,8 @@ module.exports = async (client) => {
                     'Content-Type': 'application/json',
                     'API_KEY': KEY
                 }
-            }).then(res => res.json());
+            })
+                .then(res => res.json());
 
             subreddits = subredditsJson.map(item => {
                 return item.subredditName;

@@ -1,7 +1,7 @@
-const Discord = require('discord.js')
-const fetch = require('node-fetch')
-const cron = require('cron')
-const moment = require('moment')
+const Discord = require("discord.js")
+const fetch = require("node-fetch")
+const cron = require("cron")
+const moment = require("moment")
 
 const PATH = process.env.API_URL
 const KEY = process.env.API_KEY
@@ -13,7 +13,8 @@ module.exports = async (client) => {
             'Content-Type': 'application/json',
             'API_KEY': KEY
         }
-    }).then(res => res.json());
+    })
+        .then(res => res.json());
 
     data.map(async (item) => {
         if (item.birthdays === 1) {
@@ -23,7 +24,8 @@ module.exports = async (client) => {
                     'Content-Type': 'application/json',
                     'API_KEY': KEY
                 }
-            }).then(res => res.json());
+            })
+                .then(res => res.json());
 
             if (birthdays) {
                 birthdays.map(async (item2) => {

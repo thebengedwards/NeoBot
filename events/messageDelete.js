@@ -1,6 +1,6 @@
-const Discord = require('discord.js')
-const fetch = require('node-fetch')
-const moment = require('moment')
+const Discord = require("discord.js")
+const fetch = require("node-fetch")
+const moment = require("moment")
 
 const PATH = process.env.API_URL
 const KEY = process.env.API_KEY
@@ -12,7 +12,8 @@ module.exports = async (client, message) => {
             'Content-Type': 'application/json',
             'API_KEY': KEY
         }
-    }).then(res => res.json());
+    })
+        .then(res => res.json());
 
     if (data.serverID === message.guild.id) {
         const alertEmbed = require('../embeds/alertEmbed')

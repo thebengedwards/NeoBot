@@ -1,5 +1,5 @@
-const Discord = require('discord.js')
-const settings = require('../settings.json');
+const Discord = require("discord.js")
+const settings = require("../settings.json");
 
 module.exports = async (message) => {
   const client = message.client;
@@ -25,12 +25,11 @@ module.exports = async (message) => {
     if (perms < cmd.conf.permLevel) {
       const alertEmbed = require('../embeds/alertEmbed')
       const embed = new Discord.MessageEmbed(alertEmbed)
-      
+
       embed.setDescription('You do not have permission to use this command')
       return message.channel.send({ embed })
     } else {
       cmd.run(client, message, params, perms);
     }
   }
-
 };

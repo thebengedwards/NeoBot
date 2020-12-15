@@ -1,6 +1,6 @@
-const Discord = require('discord.js')
-const fetch = require('node-fetch')
-const cron = require('cron')
+const Discord = require("discord.js")
+const fetch = require("node-fetch")
+const cron = require("cron")
 
 const PATH = process.env.API_URL
 const KEY = process.env.API_KEY
@@ -12,7 +12,8 @@ module.exports = async (client) => {
             'Content-Type': 'application/json',
             'API_KEY': KEY
         }
-    }).then(res => res.json());
+    })
+        .then(res => res.json());
 
     data.map(async (item) => {
         if (item.weeklyMeme === 1) {
@@ -22,7 +23,8 @@ module.exports = async (client) => {
                     'Content-Type': 'application/json',
                     'API_KEY': KEY
                 }
-            }).then(res => res.json());
+            })
+                .then(res => res.json());
 
             let weeklyGame = new cron.CronJob(`00 00 20 * * 5`, () => {
                 const pollEmbed = require('../embeds/pollEmbed')
@@ -34,7 +36,7 @@ module.exports = async (client) => {
 
                     embed.setDescription('Game poll')
                         .addFields(
-                            { name: `Would anyone be up for a game of ${game.gameName}?`, value: `Can be played with ${game.playWith} others.` },
+                            { name: `🎮 Would anyone be up for a game of ${game.gameName}? 🎮`, value: `Can be played with ${game.playWith} others.` },
                             { name: '\u200B', value: '\u200B' },
                             { name: 'Game Type:', value: `${game.gameType}`, inline: true },
                             { name: 'Game Rating:', value: `${game.gameRating}`, inline: true },
