@@ -46,7 +46,7 @@ client.elevation = async (message) => {
     const admin_role = message.member.roles.cache.find(r => r.name === "Admin");
     if (admin_role && message.member.roles.cache.has(admin_role.id)) permlvl = 3; // Admin Level Access
     if (server.ownerID === message.member.id) permlvl = 4; // Server Owner Level Access
-    // if (settings.reportid === message.member.id) permlvl = 5; // Dev Level Access
+    if (settings.reportid === message.member.id) permlvl = 5; // Dev Level Access
     return permlvl;
   }
   catch (err) {

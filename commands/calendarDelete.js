@@ -1,6 +1,5 @@
 const Discord = require('discord.js')
 const fetch = require('node-fetch')
-const moment = require('moment')
 
 const PATH = process.env.API_URL
 const KEY = process.env.API_KEY
@@ -16,7 +15,7 @@ exports.run = async(client, message, args) => {
 
     if (data.serverID === message.guild.id) {
         if (args.length === 1) {
-            fetch(`${PATH}/calendars/${args[0]}`, {
+            fetch(`${PATH}/calendars/${args[0].toLowerCase().replace('_', ' ')}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
@@ -40,6 +39,7 @@ exports.run = async(client, message, args) => {
 
             embed.setDescription('Incorrect usage of calendarDelete');
             embed.addField('Use like this:', '!calendarDelete <Name>');
+            embed.addField('IMPORTANT:', 'Use \'_\' instead of [space], a parser removes this from the message');
             return message.channel.send({ embed });
         }
     }

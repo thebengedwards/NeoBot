@@ -11,7 +11,7 @@ module.exports = client => {
   client.on('ready', () => reqEvent('cronBirthday')(client));
   client.on('ready', () => reqEvent('cronCalendar')(client));
   client.on('ready', () => reqEvent('cronWeeklyMeme')(client));
-  client.on('ready', () => reqEvent('gamePoll')(client));
+  client.on('ready', () => reqEvent('cronGamePoll')(client));
   // Repeating events
   client.on('message', reqEvent('message'));
   client.on('messageDelete', (message) => reqEvent('messageDelete')(client, message));

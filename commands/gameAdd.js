@@ -15,13 +15,15 @@ exports.run = async(client, message, args) => {
     }).then(res => res.json());
 
     if (data.serverID === message.guild.id) {
-        if (args.length === 2) {
+        if (args.length === 4) {
             const body = {
-                name: args[0].toLowerCase().replace('_', ' '),
-                cron: args[1],
+                gameName: args[0].toLowerCase().replace('_', ' '),
+                gameType: args[1].toLowerCase().replace('_', ' '),
+                gameRating: args[2],
+                playWith: args[3],
             };
 
-            fetch(`${PATH}/calendars`, {
+            fetch(`${PATH}/games`, {
                 method: 'POST',
                 body: JSON.stringify(body),
                 headers: {
@@ -34,19 +36,20 @@ exports.run = async(client, message, args) => {
             const commandEmbed = require('../embeds/commandEmbed');
             const embed = new Discord.MessageEmbed(commandEmbed);
 
-            embed.setDescription('Calendar added!');
+            embed.setDescription('Game added!');
             embed.addFields(
-                { name: `You have added: ${args[0].toLowerCase().replace('_', ' ')} to the calendar list.`, value: `Date: ${moment(new Date(args[1])).format('Do MMMM')} every year` },
-                { name: 'This command is dev only. DO NOT USE IT', value: 'To add a calendar, use \'!calendarAdd\', to view a calendar, use \'!calendarView\', to see all calendars use \'!calendarAll\',to delete a calendar use \'!calendarDelete\'.' },
+                { name: `You have added: ${args[0].toLowerCase().replace('_', ' ')} to the game list.`, value: `Game Type: ${args[1].toLowerCase().replace('_', ' ')}, Rating: ${args[2]}, Play with: ${args[3]} others.` },
+                { name: 'This command is dev only. DO NOT USE IT', value: 'To add a game, use \'!gameAdd\', to view a game, use \'!gameView\', to see all games use \'!gameAll\', to update a game use \'!gameUpdate\',to delete a game use \'!gameDelete\'.' },
             )
             return message.channel.send({ embed })
         } else {
             const alertEmbed = require('../embeds/alertEmbed');
             const embed = new Discord.MessageEmbed(alertEmbed);
 
-            embed.setDescription('Incorrect usage of calendarAdd');
-            embed.addField('Use like this:', '!calendarAdd <Name> <MM-DD>');
+            embed.setDescription('Incorrect usage of gameAdd');
+            embed.addField('Use like this:', '!gameAdd <Game_Name> <Game_Type> <Rating> <Play With>');
             embed.addField('IMPORTANT:', 'Use \'_\' instead of [space], a parser removes this from the message');
+            
             return message.channel.send({ embed });
         }
     }
@@ -60,7 +63,7 @@ exports.conf = {
 };
 
 exports.help = {
-    name: 'calendarAdd',
-    description: 'Add a calendar to NEO.',
-    usage: 'calendarAdd <Name> <MM-DD>'
+    name: 'gameAdd',
+    description: 'Add a game to NEO.',
+    usage: 'gameAdd <Game_Name> <Game_Type> <Rating> <Play With>.'
 };

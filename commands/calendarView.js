@@ -17,7 +17,7 @@ exports.run = async(client, message, args) => {
     if (data.serverID === message.guild.id) {
         if (args.length === 1) {
             let calendar;
-            await fetch(`${PATH}/calendars/"${args[0].toLowerCase()}"`, {
+            await fetch(`${PATH}/calendars/"${args[0].toLowerCase().replace('_', ' ')}"`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -54,6 +54,7 @@ exports.run = async(client, message, args) => {
 
             embed.setDescription('Incorrect usage of calendarView');
             embed.addField('Use like this:', '!calendarView <Name>');
+            embed.addField('IMPORTANT:', 'Use \'_\' instead of [space], a parser removes this from the message');
             return message.channel.send({ embed });
         }
     }
@@ -69,5 +70,5 @@ exports.conf = {
 exports.help = {
     name: 'calendarView',
     description: 'View a single calendar on NEO',
-    usage: 'calendarView'
+    usage: 'calendarView <Name>'
 };

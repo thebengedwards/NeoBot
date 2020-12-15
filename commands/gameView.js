@@ -1,5 +1,6 @@
 const Discord = require('discord.js')
 const fetch = require('node-fetch')
+const moment = require('moment')
 
 const PATH = process.env.API_URL
 const KEY = process.env.API_KEY
@@ -15,8 +16,8 @@ exports.run = async(client, message, args) => {
 
     if (data.serverID === message.guild.id) {
         if (args.length === 1) {
-            let subreddit;
-            await fetch(`${PATH}/subreddits/"${args[0].toLowerCase()}"`, {
+            let game;
+            await fetch(`${PATH}/games/"${args[0].toLowerCase().replace('_', ' ')}"`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -24,26 +25,28 @@ exports.run = async(client, message, args) => {
                 }
             })
                 .then(res => res.json())
-                .then(json => subreddit = json);
+                .then(json => game = json);
 
-            if (subreddit.message) {
+            if (game.message) {
                 const commandEmbed = require('../embeds/commandEmbed');
                 const embed = new Discord.MessageEmbed(commandEmbed);
 
-                embed.setDescription('View Subreddit');
+                embed.setDescription('View Game');
                 embed.addFields(
-                    { name: `${subreddit.message}`, value: `Please try again.` },
-                    { name: 'This command is dev only. DO NOT USE IT', value: 'To add a subreddit, use \'!subredditAdd\', to view a subreddit, use \'!subredditView\', to see all subreddits use \'!subredditAll\',to delete a subreddit use \'!subredditDelete\'.' },
+                    { name: `${game.message}`, value: `Please try again.` },
+                    { name: 'This command is dev only. DO NOT USE IT', value: 'To add a game, use \'!gameAdd\', to view a game, use \'!gameView\', to see all games use \'!gameAll\', to update a game use \'!gameUpdate\',to delete a game use \'!gameDelete\'.' },
                 )
+                embed.addField('IMPORTANT:', 'Use \'_\' instead of [space], a parser removes this from the message');
+
                 return message.channel.send({ embed })
             } else {
                 const commandEmbed = require('../embeds/commandEmbed');
                 const embed = new Discord.MessageEmbed(commandEmbed);
 
-                embed.setDescription('View Subreddit');
+                embed.setDescription('View Game');
                 embed.addFields(
-                    { name: `Found Subreddit: ${subreddit.subredditName}`, value: `This subreddit will be used by the weekly memes function.` },
-                    { name: 'This command is dev only. DO NOT USE IT', value: 'To add a subreddit, use \'!subredditAdd\', to view a subreddit, use \'!subredditView\', to see all subreddits use \'!subredditAll\',to delete a subreddit use \'!subredditDelete\'.' },
+                    { name: `Found Game: ${game.gameName}`, value: `Game Type: ${game.gameType}, Rating: ${game.gameRating}, Play with: ${game.playWith} others.` },
+                    { name: 'This command is dev only. DO NOT USE IT', value: 'To add a game, use \'!gameAdd\', to view a game, use \'!gameView\', to see all games use \'!gameAll\', to update a game use \'!gameUpdate\',to delete a game use \'!gameDelete\'.' },
                 )
                 return message.channel.send({ embed })
             }
@@ -51,8 +54,9 @@ exports.run = async(client, message, args) => {
             const alertEmbed = require('../embeds/alertEmbed');
             const embed = new Discord.MessageEmbed(alertEmbed);
 
-            embed.setDescription('Incorrect usage of subredditView');
-            embed.addField('Use like this:', '!subredditView <Subreddit Name>');
+            embed.setDescription('Incorrect usage of gameView');
+            embed.addField('Use like this:', '!gameView <Name>');
+            embed.addField('IMPORTANT:', 'Use \'_\' instead of [space], a parser removes this from the message');
             return message.channel.send({ embed });
         }
     }
@@ -66,7 +70,7 @@ exports.conf = {
 };
 
 exports.help = {
-    name: 'subredditView',
-    description: 'View a single subreddit on NEO',
-    usage: 'subredditView <Subreddit Name>'
+    name: 'gameView',
+    description: 'View a single game on NEO',
+    usage: 'gameView <Game_Name>'
 };
