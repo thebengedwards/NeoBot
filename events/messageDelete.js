@@ -1,14 +1,27 @@
 const Discord = require('discord.js')
-const servers = require('../arrays/servers')
+const fetch = require('node-fetch')
+const moment = require('moment')
 
-module.exports = (client, message) => {
-    let server = servers.find(item => message.guild.id == item.serverID)
-    if (server) {
+const PATH = process.env.API_URL
+const KEY = process.env.API_KEY
+
+module.exports = async (client, message) => {
+    let data = await fetch(`${PATH}/servers/${message.guild.id}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'API_KEY': KEY
+        }
+    }).then(res => res.json());
+
+    if (data.serverID === message.guild.id) {
         const alertEmbed = require('../embeds/alertEmbed')
         const embed = new Discord.MessageEmbed(alertEmbed)
 
         embed.setDescription(`A Message was deleted from ${message.channel}`)
         embed.addField(`Sent by: ${message.author.tag}`, `\'${message.cleanContent}\'`)
-        return client.channels.cache.get(server.modChannelID).send({ embed });
+        embed.addField(`Deleted Date: ${moment(new Date()).format('Do MMMM YYYY')}`, `Deleted Time: ${moment(new Date()).format('HH:mm:ss')}`)
+
+        return client.channels.cache.get(data.modChannelID).send({ embed });
     }
 };
