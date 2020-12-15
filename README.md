@@ -292,7 +292,183 @@ To enable/disable these functions, follow these instructions:
 
 ### General Usage
 
-General usage here
+NeoBot has many commands. This list will break down what types of users can use what commands, judging by which role a user has. Commands are usable by users with the respective level, and users with a higher permission level can also access the command.
+
+#### Everyone - Level 0
+
+* When first joining a server, a user can be displayed with a T&C's and can use !accept to assign themselves the role of 'Member'.
+```
+!accept
+```
+
+* A quick test to see if NeoBot is active.
+```
+!test
+```
+
+#### Member - Level 1
+
+* Show all the commands below permission level 3 with some helpful tips.
+```
+!help
+```
+
+* Show an automated joke.
+```
+!joke
+```
+
+* Show all the updates and changes NeoBot has gone through.
+```
+!log
+```
+
+#### Moderator - Level 2
+
+* Shows more help for channel setups.
+```
+!helpChannels
+```
+
+* Shows more help for Event setups.
+```
+!helpEvents
+```
+
+* Shows more help for Role setups.
+```
+!helpRoles
+```
+
+* Sends a message to the developers with any feedback. Usable outside servers as well.
+```
+!report
+```
+
+#### Admin - Level 3
+
+Administrators have many commands, and is broken down into several sections, as they make use of many server commands.
+
+##### General
+
+* Delete a certain amount of messages.
+```
+!purge
+```
+
+* Configure your server, see the status of your settings.
+```
+!config
+```
+
+##### Birthday
+
+* Add a birthday to your server.
+```
+!birthdayAdd
+```
+
+* Show all birthdays on your server.
+```
+!birthdayAll
+```
+
+* Delete a birthday from your server.
+```
+!birthdayDelete
+```
+
+* Update a birthday on your server.
+```
+!birthdayUpdate
+```
+
+* View a single birthday on your server.
+```
+!birthdayView
+```
+
+##### Roles
+
+* Set the Admin ID for your server.
+```
+!setAdminID
+```
+
+* Set the Moderator ID for your server.
+```
+!setModID
+```
+
+* Set the Member ID for your server.
+```
+!setMemberID
+```
+
+##### Channels
+
+* Set the General Channel for your server.
+```
+!setGeneralChannel
+```
+
+* Set the Moderator Channel for your server.
+```
+!setModChannel
+```
+
+* Set the Memes Channel for your server.
+```
+!setMemesChannel
+```
+
+* Set the Game Channel for your server.
+```
+!setGameChannel
+```
+
+* Set the Update Channel for your server.
+```
+!setUpdateChannel
+```
+
+##### Functions
+
+* Toggle Birthday alerts.
+```
+!toggleBirthdays
+```
+
+* Toggle Calendar alerts.
+```
+!toggleCalendar
+```
+
+* Toggle Game Polls.
+```
+!togglePolls
+```
+
+* Toggle Weekly Memes.
+```
+!toggleWeeklyMemes
+```
+
+#### Owner - Level 4
+
+Owners have access to all previous levels, and should be treated as admin-level users
+
+#### Developer - Level 5
+
+Developers have access to specific commands used by functions that are active accross all servers. This means that these need to be locked down more tightly than the other functions. If a user would like to add to these functions, please use either !report on Discord or try adding an issue above.
+
+Developers have many commands, and is broken down into several sections, as they make use of many NeoBot commands.
+
+##### Calendar
+
+##### Game
+
+##### Subreddit
 
 ### Error Reporting
 
