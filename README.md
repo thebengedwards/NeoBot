@@ -65,7 +65,17 @@
             <li><a href="#functions">Functions</a></li>
           </ul>
         </li>
-        <li><a href="#general-usage">General Usage</a></li>
+        <li>
+          <a href="#general-usage">General Usage</a>
+          <ul>
+            <li><a href="#everyone">Everyone</a></li>
+            <li><a href="#member">Member</a></li>
+            <li><a href="#moderator">Moderator</a></li>
+            <li><a href="#admin">Administrator</a></li>
+            <li><a href="#owner">Owner</a></li>
+            <li><a href="#developer">Developer</a></li>
+          </ul>
+        </li>
         <li><a href="#error-reporting">Error Reporting</a></li>
       </ul>
     </li>
@@ -294,7 +304,7 @@ To enable/disable these functions, follow these instructions:
 
 NeoBot has many commands. This list will break down what types of users can use what commands, judging by which role a user has. Commands are usable by users with the respective level, and users with a higher permission level can also access the command.
 
-#### Everyone - Level 0
+#### Everyone
 
 * When first joining a server, a user can be displayed with a T&C's and can use !accept to assign themselves the role of 'Member'.
 ```
@@ -306,7 +316,7 @@ NeoBot has many commands. This list will break down what types of users can use 
 !test
 ```
 
-#### Member - Level 1
+#### Member
 
 * Show all the commands below permission level 3 with some helpful tips.
 ```
@@ -323,7 +333,7 @@ NeoBot has many commands. This list will break down what types of users can use 
 !log
 ```
 
-#### Moderator - Level 2
+#### Moderator
 
 * Shows more help for channel setups.
 ```
@@ -345,7 +355,7 @@ NeoBot has many commands. This list will break down what types of users can use 
 !report
 ```
 
-#### Admin - Level 3
+#### Administrator - Level 3
 
 Administrators have many commands, and is broken down into several sections, as they make use of many server commands.
 
