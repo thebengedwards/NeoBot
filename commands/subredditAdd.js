@@ -35,7 +35,7 @@ exports.run = async (client, message, args) => {
 
             embed.setDescription('Subreddit added!');
             embed.addFields(
-                { name: `You have added subreddit ${args[0]}`, value: `Enjoy!` },
+                { name: `You have added subreddit:`, value: `r/${args[0]}` },
                 { name: 'This command is dev only. DO NOT USE IT', value: 'To add a subreddit, use \'!subredditAdd\', to view a subreddit, use \'!subredditView\', to see all subreddits use \'!subredditAll\',to delete a subreddit use \'!subredditDelete\'.' },
             )
             return message.channel.send({ embed })
