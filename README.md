@@ -578,7 +578,7 @@ Always start the branch with `feature`. If not, the Pull Request will be ignored
 <!-- LICENSE -->
 ## License
 
-Distributed under the MIT License. See [`LICENSE`](https://github.com/TheBenEdwards/NeoBot/blob/main/LICENSE.txt) for more information.
+Distributed under the MIT License. See [LICENSE](https://github.com/TheBenEdwards/NeoBot/blob/main/LICENSE.txt) for more information.
 
 <!-- THE TEAM -->
 ## The Team
