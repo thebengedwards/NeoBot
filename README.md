@@ -153,7 +153,7 @@ This will install all the necessary packages from npm.
 
 Environment Variables are used by developers to securely store sensitive data such as BOT_TOKEN and API_KEY. These must not be released to the public and therefore must be hidden.
 
-In order to create a version of this bot you will have to substitute these variables with your own.
+In order to create a version of NeoBot, you will have to substitute these variables with your own.
 
 #### BOT_TOKEN
 
@@ -216,6 +216,8 @@ node app.js
 ## Usage
 
 This section is primarily meant for server owners and admins, as it covers the basics, setup and usages of the bot on a discord server.
+
+When being added to a server through the portal, you must make sure the bot is added with the `Administrator` permissions, as if NeoBot does not have the necessary permissions, Discord will throw a DiscordApiError, which will not allow the bot to function properly. Please make sure you add permissions correctly.
 
 ### Permission Levels
 
@@ -299,6 +301,9 @@ To enable/disable these functions, follow these instructions:
 !toggleBirthdays
 ```
 5. If this does not work, try step 1 again.
+
+Birthdays, calendars, polls and weelyMemes all operate the [cron](https://www.npmjs.com/package/cron) package, which allows for these to be scripted to appear ar certain times. When the NeoBot is started, the onReady() event runs the initial cron, which loads all the scripted events. This means that if a new event is added, it will not be added to the cron list until the bot has been redeployed. Heroku fixes this, as every 24 hours it restarts all dynos, resulting in the app being redpolyed.
+Therefore, for safety, all events should be added at least 2 days before the event day actually occurs, as the cron package will then recieve the new event.
 
 ### General Usage
 
@@ -476,15 +481,81 @@ Developers have many commands, and is broken down into several sections, as they
 
 ##### Calendar
 
+* Add a calendar to the database.
+```
+!calendarAdd
+```
+
+* See all calendars on the database.
+```
+!calendarAll
+```
+
+* Delete a calendar from the database.
+```
+!calendarDelete
+```
+
+* View a calendar on the database.
+```
+!calendarView
+```
+
 ##### Game
+
+* Add a game to the database.
+```
+!gameAdd
+```
+
+* See all games on the database.
+```
+!gameAll
+```
+
+* Delete a game from the database.
+```
+!gameDelete
+```
+
+* Update a game on the database.
+```
+!gameUpdate
+```
+
+* View a game on the database.
+```
+!gameView
+```
 
 ##### Subreddit
 
+* Add a subreddit to the database.
+```
+!subredditAdd
+```
+
+* See all subreddits on the database.
+```
+!subredditAll
+```
+
+* Delete a subreddit from the database.
+```
+!subredditDelete
+```
+
+* View a subreddit on the database.
+```
+!subredditView
+```
+
 ### Error Reporting
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+If you encounter any issues while using this bot either on Discord or while trying to run the bot yourself, please either use !report on Discord, or report an issue here: [Issues](https://github.com/TheBenEdwards/NeoBot/issues) (Requires a GitHub Account).
 
-_For more examples, please refer to the [Documentation](https://example.com)_
+_When submitting a report, please try to add a 'how to replicate' section on how the team can try to fix the issue._
+_Fake or false reports will be ignored, so only genuine tickets will be reviewed._
 
 <!-- ROADMAP -->
 ## Roadmap
@@ -517,16 +588,18 @@ Lead Programmer - Ben Edwards
 <!-- CONTACT -->
 ## Contact
 
-Your Name - [@your_twitter](https://twitter.com/your_username) - email@example.com
+Discord Bot: [top.gg](https://top.gg/)
 
-Project Link: [https://github.com/your_username/repo_name](https://github.com/your_username/repo_name)
+Twitter - [Ben Edwards](https://twitter.com/Edwards_Ben60)
+
+GitHub: [NeoBot](https://github.com/TheBenEdwards/NeoBot)
 
 <!-- ACKNOWLEDGEMENTS -->
 ## Acknowledgements
-* [An Idiots Guide]()
-* [Discord.js]()
-* [GitHub]()
-* [Heroku]()
+* [An Idiots Guide](https://www.youtube.com/playlist?list=PLR2_rarYLHfg6ZJqq0WTMmI9uLcd7_GRO)
+* [Discord.js](https://discord.js.org/)
+* [GitHub](https://github.com/)
+* [Heroku](https://devcenter.heroku.com/)
 * [Img Shields](https://shields.io)
 
 <!-- MARKDOWN LINKS & IMAGES -->
