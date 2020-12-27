@@ -27,6 +27,8 @@ module.exports = async (client) => {
             })
                 .then(res => res.json());
 
+            console.log('cronBirthday has been run')
+
             if (birthdays) {
                 birthdays.map(async (item2) => {
                     let birthday = moment(new Date(item2.cron)).format('DD MM')

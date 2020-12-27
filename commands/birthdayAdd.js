@@ -1,7 +1,7 @@
 const Discord = require("discord.js")
 const fetch = require("node-fetch")
 const moment = require("moment")
-const cronBirthday = require("../events/test")
+const cronBirthday = require("../events/cronBirthday")
 
 const PATH = process.env.API_URL
 const KEY = process.env.API_KEY
