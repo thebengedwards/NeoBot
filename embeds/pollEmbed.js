@@ -7,7 +7,7 @@ const embed = new Discord.MessageEmbed()
 	.setTitle('Poll')
 	.setThumbnail(img)
 	.setTimestamp()
-	.setFooter(`NEO Version: ${version}`)
+	.setFooter(`[(i)](${message.url} "NEO Version ${version}")`)
 ;
 
 module.exports = (embed);
