@@ -360,7 +360,7 @@ NeoBot has many commands. This list will break down what types of users can use 
 !report
 ```
 
-#### Administrator - Level 3
+#### Administrator
 
 Administrators have many commands, and is broken down into several sections, as they make use of many server commands.
 
@@ -469,11 +469,11 @@ Administrators have many commands, and is broken down into several sections, as 
 !toggleWeeklyMemes
 ```
 
-#### Owner - Level 4
+#### Owner
 
 Owners have access to all previous levels, and should be treated as admin-level users
 
-#### Developer - Level 5
+#### Developer
 
 Developers have access to specific commands used by functions that are active accross all servers. This means that these need to be locked down more tightly than the other functions. If a user would like to add to these functions, please use either !report on Discord or try adding an issue above.
 
