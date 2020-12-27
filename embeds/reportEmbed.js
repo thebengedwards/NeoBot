@@ -4,10 +4,10 @@ const img = "https://i.imgur.com/WqcSB5V.png"
 
 const embed = new Discord.MessageEmbed()
 	.setColor('#FF8300')	
-	.setTitle('Report')
+	.setTitle('**Report**')
 	.setThumbnail(img)
 	.setTimestamp()
-	.setFooter(`[(i)](${message.url} "NEO Version ${version}")`)
+	.setFooter(`NEO Version: ${version} [(i)](${message.url} "NEO Version ${version}")`)
 ;
 
 module.exports = (embed);

@@ -7,7 +7,7 @@ const embed = new Discord.MessageEmbed()
 	.setTitle('**Alert**')
 	.setThumbnail(img)
 	.setTimestamp()
-	.setFooter(`[(i)](${message.url} "NEO Version ${version}")`)
+	.setFooter(`NEO Version: ${version} [(i)](${message.url} "NEO Version ${version}")`)
 ;
 
 module.exports = (embed);
