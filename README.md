@@ -600,7 +600,11 @@ GitHub: [NeoBot](https://github.com/TheBenEdwards/NeoBot)
 * [Heroku](https://devcenter.heroku.com/)
 * [Img Shields](https://shields.io)
 
-<iframe src="https://discord.com/widget?id=271720862606950400&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
+<!-- INVITE NEOBOT -->
+## INVITE
+Invite NeoBot to your Server:
+
+* [Invite NeoBot](https://discord.com/oauth2/authorize?client_id=587909252887216128&scope=bot&permissions=2147483647)
 
 <!-- MARKDOWN LINKS & IMAGES -->
 [contributors-shield]: https://img.shields.io/github/contributors/theBenEdwards/NeoBot.svg?style=for-the-badge
