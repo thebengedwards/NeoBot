@@ -85,6 +85,7 @@
     <li><a href="#the-team">The Team</a></li>
     <li><a href="#contact">Contact</a></li>
     <li><a href="#acknowledgements">Acknowledgements</a></li>
+    <li><a href="#invite">Invite</a></li>
   </ol>
 </details>
 
@@ -601,7 +602,7 @@ GitHub: [NeoBot](https://github.com/TheBenEdwards/NeoBot)
 * [Img Shields](https://shields.io)
 
 <!-- INVITE NEOBOT -->
-## INVITE
+## Invite
 Invite NeoBot to your Server:
 
 * [Invite NeoBot](https://discord.com/oauth2/authorize?client_id=587909252887216128&scope=bot&permissions=2147483647)
