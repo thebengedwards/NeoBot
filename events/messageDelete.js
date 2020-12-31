@@ -15,7 +15,7 @@ module.exports = async (client, message) => {
     })
         .then(res => res.json());
 
-    if (data.serverID === message.guild.id) {
+    if (data.serverID === message.guild.id && data.modChannelID !== '0') {
         const alertEmbed = require('../embeds/alertEmbed')
         const embed = new Discord.MessageEmbed(alertEmbed)
 

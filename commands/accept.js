@@ -14,7 +14,7 @@ exports.run = async(client, message) => {
   })
     .then(res => res.json());
 
-  if (data.serverID === message.guild.id) {
+  if (data.serverID === message.guild.id && data.generalChannelID !== '0') {
     if (message.member.roles.cache.find(r => r.name === "Member")) {
       const alertEmbed = require('../embeds/alertEmbed')
       const embed = new Discord.MessageEmbed(alertEmbed)
@@ -27,8 +27,6 @@ exports.run = async(client, message) => {
 
       embed.setDescription(`Please welcome ${message.member} to the server!`)
       message.member.roles.add(data.memberRoleID)
-      message.channel.messages.fetch({ limit: 1 })
-        .then(messages => message.channel.bulkDelete(messages));
       return client.channels.cache.get(data.generalChannelID).send({ embed });
     }
   }

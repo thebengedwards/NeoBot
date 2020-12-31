@@ -588,8 +588,6 @@ Lead Programmer - Ben Edwards
 <!-- CONTACT -->
 ## Contact
 
-Discord Bot: [top.gg](https://top.gg/)
-
 Twitter - [Ben Edwards](https://twitter.com/Edwards_Ben60)
 
 GitHub: [NeoBot](https://github.com/TheBenEdwards/NeoBot)
@@ -601,6 +599,8 @@ GitHub: [NeoBot](https://github.com/TheBenEdwards/NeoBot)
 * [GitHub](https://github.com/)
 * [Heroku](https://devcenter.heroku.com/)
 * [Img Shields](https://shields.io)
+
+<iframe src="https://discord.com/widget?id=271720862606950400&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
 
 <!-- MARKDOWN LINKS & IMAGES -->
 [contributors-shield]: https://img.shields.io/github/contributors/theBenEdwards/NeoBot.svg?style=for-the-badge

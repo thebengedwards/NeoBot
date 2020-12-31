@@ -25,6 +25,7 @@ exports.run = async (client, message, args) => {
       embed.addFields(
         { name: 'Report By:', value: `${message.author.tag}` },
         { name: 'Report:', value: `${messageText}` },
+        { name: `From Server: ${message.guild.name}`, value: `Server ID: ${message.guild.id}`},
         { name: 'Please handle this report with care!', value: 'If it contains sensitive information please be professional' },
       )
 

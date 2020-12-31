@@ -16,7 +16,7 @@ module.exports = async (client) => {
         .then(res => res.json());
 
     data.map(async (item) => {
-        if (item.weeklyMeme === 1) {
+        if (item.weeklyMeme === 1 && item.generalChannelID !== '0') {
             let gamesJson = await fetch(`${PATH}/games`, {
                 method: 'GET',
                 headers: {

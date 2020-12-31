@@ -16,6 +16,7 @@ exports.run = async (client, message) => {
 
   if (data.serverID === message.guild.id) {
     if (data.setupComplete === 1) {
+
       const commandEmbed = require('../embeds/commandEmbed')
       const embed = new Discord.MessageEmbed(commandEmbed)
 
@@ -87,6 +88,8 @@ exports.run = async (client, message) => {
         { name: '\u200B', value: '\u200B' },
         { name: 'NEO also gives you the option to enable or disable certain features', value: 'These can be enabled or disabled at any point' },
         { name: 'Toggle these features by using \'!toggleWeeklyMemes\',\'!toggleBirthdays\',\'!toggleCalendar\' and \'!togglePolls\'', value: 'These options are either on or off. Use \'!helpEvents\' for more information.' },
+        { name: '\u200B', value: '\u200B' },
+        { name: 'Please also move the automatic NeoBot role to either the top or just below the admin role of the roles list', value: 'This is to allow for the roles functions to work properly.' },
         { name: '\u200B', value: '\u200B' },
         { name: '⚠️ PLEASE DO NOT DELETE THIS MESSAGE ⚠️', value: 'It can only appear once, and is intended to help you set up NEO. It should be pinned, or copied.' },
       )
