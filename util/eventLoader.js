@@ -25,12 +25,28 @@ module.exports = client => {
   // Message Events
   client.on('message', (message) => reqEvent('message')(message));
   client.on('messageDelete', (message) => reqEvent('messageDelete')(client, message));
-  //client.on('messageDeleteBulk', (messages) => reqEvent('messageDelete')(client, messages));
+  //client.on('messageDeleteBulk', () => reqEvent('')());
+  //client.on('messageReactionAdd', () => reqEvent('')());
+  //client.on('messageReactionRemove', () => reqEvent('')());
+  //client.on('messageReactionRemoveAll', () => reqEvent('')());
+  //client.on('messageUpdate', () => reqEvent('')());
+  // Presence Events
+  //client.on('presenceUpdate', () => reqEvent('')());
   // Ready Events
   client.on('ready', () => reqEvent('ready')(client));
   // Role Events
-
+  //client.on('roleCreate', () => reqEvent('')());
+  //client.on('roleDelete', () => reqEvent('')());
+  //client.on('roleUpdate', () => reqEvent('')());
   // Shard Events
   client.on('shardDisconnect', () => reqEvent('shardDisconnect')(client));
+  //client.on('shardError', () => reqEvent('')());
   client.on('shardReconnecting', () => reqEvent('shardReconnecting')(client));
+  //client.on('shardResume', () => reqEvent('')());
+  // Typing Events
+  //client.on('typingStart', () => reqEvent('')());
+  // User Events
+  //client.on('userUpdate', () => reqEvent('')());
+  // Voice State Events
+  //client.on('voiceStateUpdate', () => reqEvent('')());
 };
