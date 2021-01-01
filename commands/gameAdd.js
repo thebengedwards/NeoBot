@@ -47,9 +47,10 @@ exports.run = async (client, message, args) => {
             const embed = new Discord.MessageEmbed(alertEmbed);
 
             embed.setDescription('Incorrect usage of gameAdd');
-            embed.addField('Use like this:', '!gameAdd <Game_Name> <Game_Type> <Rating> <Play With>');
-            embed.addField('IMPORTANT:', 'Use \'_\' instead of [space], a parser removes this from the message');
-
+            embed.addFields(
+                { name: 'Use like this:', value: '!gameAdd <Game_Name> <Game_Type> <Rating> <Play With>' },
+                { name: 'IMPORTANT:', value: 'Use \'_\' instead of [space], a parser removes this from the message' }
+            )
             return message.channel.send({ embed });
         }
     }

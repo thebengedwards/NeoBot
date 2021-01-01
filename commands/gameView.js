@@ -35,9 +35,8 @@ exports.run = async (client, message, args) => {
                 embed.addFields(
                     { name: `${game.message}`, value: `Please try again.` },
                     { name: 'This command is dev only. DO NOT USE IT', value: 'To add a game, use \'!gameAdd\', to view a game, use \'!gameView\', to see all games use \'!gameAll\', to update a game use \'!gameUpdate\',to delete a game use \'!gameDelete\'.' },
+                    { name: 'IMPORTANT:', value: 'Use \'_\' instead of [space], a parser removes this from the message' },
                 )
-                embed.addField('IMPORTANT:', 'Use \'_\' instead of [space], a parser removes this from the message');
-
                 return message.channel.send({ embed })
             } else {
                 const commandEmbed = require('../embeds/commandEmbed');
@@ -55,8 +54,10 @@ exports.run = async (client, message, args) => {
             const embed = new Discord.MessageEmbed(alertEmbed);
 
             embed.setDescription('Incorrect usage of gameView');
-            embed.addField('Use like this:', '!gameView <Name>');
-            embed.addField('IMPORTANT:', 'Use \'_\' instead of [space], a parser removes this from the message');
+            embed.addFields(
+                { name: 'Use like this:', value: '!gameView <Name>' },
+                { name: 'IMPORTANT:', value: 'Use \'_\' instead of [space], a parser removes this from the message' },
+            )
             return message.channel.send({ embed });
         }
     }

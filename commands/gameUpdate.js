@@ -49,8 +49,10 @@ exports.run = async (client, message, args) => {
             const embed = new Discord.MessageEmbed(alertEmbed);
 
             embed.setDescription('Incorrect usage of gameUpdate');
-            embed.addField('Use like this:', '!gameUpdate <Game_Name of the game you want to update> <Game_Type> <Rating> <Play With>');
-            embed.addField('IMPORTANT:', 'Use \'_\' instead of [space], a parser removes this from the message');
+            embed.addFields(
+                { name: 'Use like this:', value: '!gameUpdate <Game_Name of the game you want to update> <Game_Type> <Rating> <Play With>' },
+                { name: 'IMPORTANT:', value: 'Use \'_\' instead of [space], a parser removes this from the message' }
+            )
             return message.channel.send({ embed });
         }
     }

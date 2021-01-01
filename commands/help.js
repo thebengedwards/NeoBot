@@ -29,8 +29,10 @@ exports.run = async (client, message, args) => {
       if (client.commands.has(command)) {
         command = client.commands.get(command)
         embed.setDescription(`${command.help.name}`)
-        embed.addField('About', `${command.help.description}`)
-        embed.addField('Usage', `${command.help.usage}`)
+        embed.addFields(
+          { name: 'About', value: `${command.help.description}` },
+          { name: 'Usage', value: `${command.help.usage}` },
+        )
         return message.channel.send({ embed })
       }
     }

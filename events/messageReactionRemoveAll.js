@@ -1,6 +1,5 @@
 const Discord = require("discord.js")
 const fetch = require("node-fetch")
-const moment = require("moment")
 
 const PATH = process.env.API_URL
 const KEY = process.env.API_KEY
@@ -16,15 +15,15 @@ module.exports = async (client, message) => {
         .then(res => res.json());
 
     if (data.serverID === message.guild.id && data.modChannelID !== '0') {
-        const alertEmbed = require('../embeds/alertEmbed')
-        const embed = new Discord.MessageEmbed(alertEmbed)
+        const eventEmbed = require('../embeds/eventEmbed')
+        const embed = new Discord.MessageEmbed(eventEmbed)
 
-        embed.setDescription(`A Message was deleted from ${message.channel}`)
+        embed.setDescription(`All Reactions Removed!`)
         embed.addFields(
-            { name: `Sent by: ${message.author.tag}`, value: message.content !== '' ? `${message.content}` : `Embed Type: ${message.embeds[0].title}, Embed Name: ${message.embeds[0].description}` },
-            { name: `Deleted Date: ${moment(new Date()).format('Do MMMM YYYY')}`, value: `Deleted Time: ${moment(new Date()).format('HH:mm:ss')}` },
+            { name: `Message`, value: message.content !== '' ? `${message.content}.` : `Embed Type: ${messageReaction.message.embeds[0].title}, Embed Name: ${messageReaction.message.embeds[0].description}` },
+            { name: `By`, value: `${message.author.username}` },
+            { name: `In Channel`, value: `${message.channel.name}` },
         )
-
         return client.channels.cache.get(data.modChannelID).send({ embed });
     }
 };

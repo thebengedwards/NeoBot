@@ -21,8 +21,18 @@ exports.run = async (client, message) => {
 
     embed.setDescription('Test')
     embed.addFields(
-      { name: 'Speed:', value: `${Date.now() - message.createdTimestamp} ms` },
-      { name: 'Powered by:', value: `${settings.host}` }
+      { name: `Hello ${message.author.username}`, value: `NeoBot is currently available` },
+      { name: '\u200B', value: `---CURRENT SERVER---` },
+      { name: 'Name:', value: `${message.guild.name}`, inline: true },
+      { name: 'Members:', value: `${message.guild.memberCount}`, inline: true },
+      { name: 'Region:', value: `${message.guild.region}`, inline: true },
+      { name: '\u200B', value: `---ABOUT NEOBOT---` },
+      { name: 'Active Servers', value: `${client.guilds.cache.size}`, inline: true },
+      { name: 'Available Commands:', value: `${client.commands.size}`, inline: true },
+      { name: 'Verified:', value: `${client.user.verified}`, inline: true },
+      { name: '\u200B', value: `---DATA---` },
+      { name: 'Response Speed:', value: `${Date.now() - message.createdTimestamp} ms`, inline: true },
+      { name: 'Powered by:', value: `${settings.host}`, inline: true }
     )
     return message.channel.send({ embed })
   }

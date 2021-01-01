@@ -5,7 +5,9 @@ const moment = require("moment")
 const PATH = process.env.API_URL
 const KEY = process.env.API_KEY
 
-module.exports = async (client, message) => {
+module.exports = async (client, messages) => {
+    let message = messages.find(item => item.content.startsWith('!purge'))
+
     let data = await fetch(`${PATH}/servers/${message.guild.id}`, {
         method: 'GET',
         headers: {
@@ -19,12 +21,11 @@ module.exports = async (client, message) => {
         const alertEmbed = require('../embeds/alertEmbed')
         const embed = new Discord.MessageEmbed(alertEmbed)
 
-        embed.setDescription(`A Message was deleted from ${message.channel}`)
+        embed.setDescription(`Purge detected in chanel: ${message.channel.name}`)
         embed.addFields(
-            { name: `Sent by: ${message.author.tag}`, value: message.content !== '' ? `${message.content}` : `Embed Type: ${message.embeds[0].title}, Embed Name: ${message.embeds[0].description}` },
+            { name: `Purged by: ${message.author.username}`, value: `Messages Deleted: ${message.content.charAt(message.content.length - 1)}` },
             { name: `Deleted Date: ${moment(new Date()).format('Do MMMM YYYY')}`, value: `Deleted Time: ${moment(new Date()).format('HH:mm:ss')}` },
         )
-
         return client.channels.cache.get(data.modChannelID).send({ embed });
     }
 };

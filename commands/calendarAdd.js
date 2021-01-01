@@ -46,8 +46,10 @@ exports.run = async (client, message, args) => {
             const embed = new Discord.MessageEmbed(alertEmbed);
 
             embed.setDescription('Incorrect usage of calendarAdd');
-            embed.addField('Use like this:', '!calendarAdd <Name> <MM-DD>');
-            embed.addField('IMPORTANT:', 'Use \'_\' instead of [space], a parser removes this from the message');
+            embed.addFields(
+                { name: 'Use like this:', value: '!calendarAdd <Name> <MM-DD>' },
+                { name: 'IMPORTANT:', value: 'Use \'_\' instead of [space], a parser removes this from the message' }
+            )
             return message.channel.send({ embed });
         }
     }

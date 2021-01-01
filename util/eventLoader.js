@@ -23,15 +23,15 @@ module.exports = client => {
   client.on('inviteCreate', (invite) => reqEvent('inviteCreate')(client, invite));
   client.on('inviteDelete', (invite) => reqEvent('inviteDelete')(client, invite));
   // Message Events
-  client.on('message', (message) => reqEvent('message')(message));
+  client.on('message', (message) => reqEvent('message')(client, message));
   client.on('messageDelete', (message) => reqEvent('messageDelete')(client, message));
-  //client.on('messageDeleteBulk', () => reqEvent('')());
-  //client.on('messageReactionAdd', () => reqEvent('')());
-  //client.on('messageReactionRemove', () => reqEvent('')());
-  //client.on('messageReactionRemoveAll', () => reqEvent('')());
-  //client.on('messageUpdate', () => reqEvent('')());
+  client.on('messageDeleteBulk', (messages) => reqEvent('messageDeleteBulk')(client, messages));
+  client.on('messageReactionAdd', (messageReaction, user) => reqEvent('messageReactionAdd')(client, messageReaction, user));
+  client.on('messageReactionRemove', (messageReaction, user) => reqEvent('messageReactionRemove')(client, messageReaction, user));
+  client.on('messageReactionRemoveAll', (message) => reqEvent('messageReactionRemoveAll')(client, message));
+  client.on('messageUpdate', (oldMessage, newMessage) => reqEvent('messageUpdate')(client, oldMessage, newMessage));
   // Presence Events
-  //client.on('presenceUpdate', () => reqEvent('')());
+  client.on('presenceUpdate', (oldMember, newMember) => reqEvent('presenceUpdate')(client, oldMember, newMember));
   // Ready Events
   client.on('ready', () => reqEvent('ready')(client));
   // Role Events
