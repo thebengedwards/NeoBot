@@ -5,10 +5,10 @@ const cronPolls = require("../crons/polls")
 const cronWeeklyMemes = require("../crons/weeklyMemes")
 
 module.exports = client => {
-  cronBirthdays()
-  cronCalendars()
-  cronPolls()
-  cronWeeklyMemes()
+  cronBirthdays(client)
+  cronCalendars(client)
+  cronPolls(client)
+  cronWeeklyMemes(client)
 
   client.user.setActivity(`Version: ${version}`);
 

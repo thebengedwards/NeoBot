@@ -31,13 +31,13 @@ module.exports = client => {
   client.on('messageReactionRemoveAll', (message) => reqEvent('messageReactionRemoveAll')(client, message));
   client.on('messageUpdate', (oldMessage, newMessage) => reqEvent('messageUpdate')(client, oldMessage, newMessage));
   // Presence Events
-  client.on('presenceUpdate', (oldMember, newMember) => reqEvent('presenceUpdate')(client, oldMember, newMember));
+  //client.on('presenceUpdate', (oldMember, newMember) => reqEvent('presenceUpdate')(client, oldMember, newMember));
   // Ready Events
   client.on('ready', () => reqEvent('ready')(client));
   // Role Events
-  //client.on('roleCreate', () => reqEvent('')());
-  //client.on('roleDelete', () => reqEvent('')());
-  //client.on('roleUpdate', () => reqEvent('')());
+  client.on('roleCreate', (role) => reqEvent('roleCreate')(client, role));
+  client.on('roleDelete', (role) => reqEvent('roleDelete')(client, role));
+  client.on('roleUpdate', (oldRole, newRole) => reqEvent('roleUpdate')(client, oldRole, newRole));
   // Shard Events
   client.on('shardDisconnect', () => reqEvent('shardDisconnect')(client));
   //client.on('shardError', () => reqEvent('')());

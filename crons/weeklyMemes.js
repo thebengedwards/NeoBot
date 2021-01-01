@@ -40,14 +40,14 @@ module.exports = async (client) => {
                     let subreddit = subreddits[Math.floor(Math.random() * subreddits.length)];
                     img = await api(subreddit);
 
-                    if (img.endsWith('.mp4')) {
-                        // Discord bot does not support mp4 types, so just run the function again
-                        getImg();
-                    } else {
+                    if (img.endsWith('.png') || img.endsWith('.jpg') || img.endsWith('.gif')) {
                         embed.setDescription('Weekly Meme')
                         embed.addField(`This meme is brought to you by:`, `r/${subreddit}`)
                         embed.setImage(img);
                         return client.channels.cache.get(item.memesChannelID).send({ embed });
+                    } else {
+                        // Discord bot does not support mp4 types, so just run the function again
+                        getImg();
                     }
                 }
                 getImg();
