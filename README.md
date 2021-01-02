@@ -388,123 +388,124 @@ NeoBot has many commands. This list will break down what types of users can use 
   Administrators have many commands, and is broken down into several sections, as they make use of many server commands.
 
   <details>
-    <summary>General</summary>
+  <summary>General</summary>
     
   * Delete a certain amount of messages.
-    ```
-    !purge
-    ```
+  ```
+  !purge
+  ```
     
   * Configure your server, see the status of your settings.
-    ```
-    !config
-    ```
+  ```
+  !config
+  ```
+  </details>
+
+  <details>
+  <summary>Birthday</summary>
+    
+  * Add a birthday to your server.
+  ```
+  !birthdayAdd
+  ```
+
+  * Show all birthdays on your server.
+  ```
+  !birthdayAll
+  ```
+
+  * Delete a birthday from your server.
+  ```
+  !birthdayDelete
+  ```
+
+  * Update a birthday on your server.
+  ```
+  !birthdayUpdate
+  ```
+
+  * View a single birthday on your server.
+  ```
+  !birthdayView
+  ```
+  </details>
+
+  <details>
+  <summary>Roles</summary>
+  * Set the Admin ID for your server.
+  ```
+  !setAdminID
+  ```
+
+  * Set the Moderator ID for your server.
+  ```
+  !setModID
+  ```
+
+  * Set the Member ID for your server.
+  ```
+  !setMemberID
+  ```
+  </details>
+
+  <details>
+  <summary>Channels</summary>
+  * Set the General Channel for your server.
+  ```
+  !setGeneralChannel
+  ```
+
+  * Set the Moderator Channel for your server.
+  ```
+  !setModChannel
+  ```
+
+  * Set the Memes Channel for your server.
+  ```
+  !setMemesChannel
+  ```
+
+  * Set the Game Channel for your server.
+  ```
+  !setGameChannel
+  ```
+
+  * Set the Update Channel for your server.
+  ```
+  !setUpdateChannel
+  ```
+  </details>
+
+  <details>
+  <summary>Functions</summary>
+  * Toggle Birthday alerts.
+  ```
+  !toggleBirthdays
+  ```
+
+  * Toggle Calendar alerts.
+  ```
+  !toggleCalendar
+  ```
+
+  * Toggle Game Polls.
+  ```
+  !togglePolls
+  ```
+
+  * Toggle Weekly Memes.
+  ```
+  !toggleWeeklyMemes
+  ```
   </details>
 
 </details>
 
-#### Administrator
+<details>
+  <summary>Moderator</summary>
 
-Administrators have many commands, and is broken down into several sections, as they make use of many server commands.
-
-##### General
-
-##### Birthday
-
-* Add a birthday to your server.
-```
-!birthdayAdd
-```
-
-* Show all birthdays on your server.
-```
-!birthdayAll
-```
-
-* Delete a birthday from your server.
-```
-!birthdayDelete
-```
-
-* Update a birthday on your server.
-```
-!birthdayUpdate
-```
-
-* View a single birthday on your server.
-```
-!birthdayView
-```
-
-##### Roles
-
-* Set the Admin ID for your server.
-```
-!setAdminID
-```
-
-* Set the Moderator ID for your server.
-```
-!setModID
-```
-
-* Set the Member ID for your server.
-```
-!setMemberID
-```
-
-##### Channels
-
-* Set the General Channel for your server.
-```
-!setGeneralChannel
-```
-
-* Set the Moderator Channel for your server.
-```
-!setModChannel
-```
-
-* Set the Memes Channel for your server.
-```
-!setMemesChannel
-```
-
-* Set the Game Channel for your server.
-```
-!setGameChannel
-```
-
-* Set the Update Channel for your server.
-```
-!setUpdateChannel
-```
-
-##### Functions
-
-* Toggle Birthday alerts.
-```
-!toggleBirthdays
-```
-
-* Toggle Calendar alerts.
-```
-!toggleCalendar
-```
-
-* Toggle Game Polls.
-```
-!togglePolls
-```
-
-* Toggle Weekly Memes.
-```
-!toggleWeeklyMemes
-```
-
-#### Owner
-
-Owners have access to all previous levels, and should be treated as admin-level users
+  Owners have access to all previous levels, and should be treated as admin-level users. This permission level is needed for early server-bot setup and configuration.
+</details>
 
 #### Developer
 
