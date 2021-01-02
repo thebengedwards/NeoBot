@@ -20,7 +20,7 @@ module.exports = async (client, message) => {
 
         embed.setDescription(`All Reactions Removed!`)
         embed.addFields(
-            { name: `Message`, value: message.content !== '' ? `${message.content}.` : `Embed Type: ${messageReaction.message.embeds[0].title}, Embed Name: ${messageReaction.message.embeds[0].description}` },
+            { name: `Message`, value: message.content !== '' ? `${message.content}` : `Embed Type: ${messageReaction.message.embeds[0].title}, Embed Name: ${messageReaction.message.embeds[0].description}` },
             { name: `By`, value: `${message.author.username}` },
             { name: `In Channel`, value: `${message.channel.name}` },
         )
