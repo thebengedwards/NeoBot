@@ -318,7 +318,7 @@ To enable/disable these functions, follow these instructions:
 ```
 5. If this does not work, try step 1 again.
 
-Birthdays, calendars, polls and weelyMemes all operate the [cron](https://www.npmjs.com/package/cron) package, which allows for these to be scripted to appear ar certain times. When the NeoBot is started, the onReady() event runs the initial cron, which loads all the scripted events. This means that if a new event is added, it will not be added to the cron list until the bot has been redeployed. Heroku fixes this, as every 24 hours it restarts all dynos, resulting in the app being redpolyed.
+Birthdays, calendars, polls and weelyMemes all operate the [cron](https://www.npmjs.com/package/cron) package, which allows for these to be scripted to appear ar certain times. When the NeoBot is started, the onReady() event runs the cron events, which loads all the scripted events. This means that if a new event is added, it will not be added to the cron list until the bot has been redeployed. Heroku fixes this, as every 24 hours it restarts all dynos, resulting in the app being redpolyed.
 Therefore, for safety, all events should be added at least 2 days before the event day actually occurs, as the cron package will then recieve the new event.
 
 ### General Usage
@@ -512,88 +512,95 @@ NeoBot has many commands. This list will break down what types of users can use 
   Owners have access to all previous levels, and should be treated as admin-level users. This permission level is needed for early server-bot setup and configuration.
 </details>
 
-#### Developer
+<details>
+  <summary>Developer</summary>
 
-Developers have access to specific commands used by functions that are active accross all servers. This means that these need to be locked down more tightly than the other functions. If a user would like to add to these functions, please use either !report on Discord or try adding an issue above.
+  Developers have access to specific commands used by functions that are active accross all servers. This means that these need to be locked down more tightly than the other functions. If a user would like to add to these functions, please use either !report on Discord or try adding an issue above.
 
-Developers have many commands, and is broken down into several sections, as they make use of many NeoBot commands.
+  Developers have many commands, and is broken down into several sections, as they make use of many NeoBot commands.
+  <blockquote>
+  <details>
+  <summary>Calendar</summary>
 
-##### Calendar
+  * Add a calendar to the database.
+  ```
+  !calendarAdd
+  ```
 
-* Add a calendar to the database.
-```
-!calendarAdd
-```
+  * See all calendars on the database.
+  ```
+  !calendarAll
+  ```
 
-* See all calendars on the database.
-```
-!calendarAll
-```
+  * Delete a calendar from the database.
+  ```
+  !calendarDelete
+  ```
 
-* Delete a calendar from the database.
-```
-!calendarDelete
-```
+  * View a calendar on the database.
+  ```
+  !calendarView
+  ```
+  </details>
 
-* View a calendar on the database.
-```
-!calendarView
-```
+  <details>
+  <summary>Game</summary>
 
-##### Game
+  * Add a game to the database.
+  ```
+  !gameAdd
+  ```
 
-* Add a game to the database.
-```
-!gameAdd
-```
+  * See all games on the database.
+  ```
+  !gameAll
+  ```
 
-* See all games on the database.
-```
-!gameAll
-```
+  * Delete a game from the database.
+  ```
+  !gameDelete
+  ```
 
-* Delete a game from the database.
-```
-!gameDelete
-```
+  * Update a game on the database.
+  ```
+  !gameUpdate
+  ```
 
-* Update a game on the database.
-```
-!gameUpdate
-```
+  * View a game on the database.
+  ```
+  !gameView
+  ```
+  </details>
 
-* View a game on the database.
-```
-!gameView
-```
+  <details>
+  <summary>Subreddit</summary>
 
-##### Subreddit
+  * Add a subreddit to the database.
+  ```
+  !subredditAdd
+  ```
 
-* Add a subreddit to the database.
-```
-!subredditAdd
-```
+  * See all subreddits on the database.
+  ```
+  !subredditAll
+  ```
 
-* See all subreddits on the database.
-```
-!subredditAll
-```
+  * Delete a subreddit from the database.
+  ```
+  !subredditDelete
+  ```
 
-* Delete a subreddit from the database.
-```
-!subredditDelete
-```
+  * View a subreddit on the database.
+  ```
+  !subredditView
+  ```
+  </details>
 
-* View a subreddit on the database.
-```
-!subredditView
-```
+  </blockquote>
+
+</details>
 
 ### Events
-
-#### Enabled
-
-#### Disabled
 
 ### Error Reporting
 
