@@ -611,8 +611,12 @@ NeoBot has many commands. This list will break down what types of users can use 
 
 #### Events
 
+NeoBot has many Events. This list will break down what types of events there are, what they do and which ones are active or not. Events can be triggered by anyone, and are automatic.
+
 <details>
   <summary>Channel Events</summary>
+
+  Channel Events are related to server channels.
   <blockquote>
   <details>
   <summary>channelCreate</summary>
@@ -644,56 +648,99 @@ NeoBot has many commands. This list will break down what types of users can use 
 
 <details>
   <summary>Emoji Events</summary>
+
+  Emoji Events are related to server emojis.
+  <blockquote>
+
+  <details>
+  <summary>emojiCreate</summary>
+
+  NeoBot sends a message to the Mod Channel whenever an emoji is created, containing various emoji details.
+  </details>
+
+  <details>
+  <summary>emojiDelete</summary>
+
+  NeoBot sends a message to the Mod Channel whenever an emoji is deleted, containing various emoji details.
+  </details>
+
+  <details>
+  <summary>emojiUpdate</summary>
+
+  NeoBot sends a message to the Mod Channel whenever an emoji is update, containing various emoji details.
+  </details>
+
+  </blockquote>
   
 </details>
 
 <details>
   <summary>Guild Events</summary>
+
+  Guild Events are related to the server itself.
   
 </details>
 
 <details>
   <summary>Invite Events</summary>
+
+  Invite Events are related to server invites.
   
 </details>
 
 <details>
   <summary>Message Events</summary>
+
+  Message Events are related to messages.
   
 </details>
 
 <details>
   <summary>Presence Events</summary>
+
+  Presence Events are related to server presences.
   
 </details>
 
 <details>
   <summary>Ready Events</summary>
+
+  Ready Events are related to the client status.
   
 </details>
 
 <details>
   <summary>Role Events</summary>
+
+  Role Events are related to server roles.
   
 </details>
 
 <details>
   <summary>Shard Events</summary>
+
+  Shard Events are related to the client shard.
   
 </details>
 
 <details>
   <summary>Typing Events</summary>
+
+  Typing Events are related to server typing.
   
 </details>
 
 <details>
   <summary>Voice State Events</summary>
+
+  Voice State Events are related to server voice state events.
   
 </details>
 
 <details>
   <summary>Webhook Events</summary>
+
+  Emoji Events are related to server channel webhooks.
   
 </details>
 
