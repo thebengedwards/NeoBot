@@ -181,31 +181,33 @@ In order to create a version of NeoBot, you will have to substitute these variab
   This is a required step.
 </details>
 
-#### API_KEY
+<details>
+  <summary>API_KEY</summary>
+  API_KEY is the password your API uses in the header to make sure the sender is a permitted user. 
 
-API_KEY is the password your API uses in the header to make sure the sender is a permitted user. 
+  If you do not have an API, either create arrays to subsitute for the api calls, import them and use them instead, or simply remove the API files entirely.
 
-If you do not have an API, either create arrays to subsitute for the api calls, import them and use them instead, or simply remove the API files entirely.
+  * Define like this:
+  ```sh
+  API_KEY=[PASSWORD HERE]
+  ```
 
-* Define like this:
-```sh
-API_KEY=[PASSWORD HERE]
-```
+  This is an optional step.
+</details>
 
-This is an optional step.
+<details>
+  <summary>API_URL</summary>
+  API_URL is the link to the API itself. 
 
-#### API_URL
+  Similarily to API_KEY, either create arrays to subsitute for the api calls, import them and use them instead, or simply remove the API files entirely.
 
-API_URL is the link to the API itself. 
+  * Define like this:
+  ```sh
+  API_URL=[https://api-url-here/]
+  ```
 
-Similarily to API_KEY, either create arrays to subsitute for the api calls, import them and use them instead, or simply remove the API files entirely.
-
-* Define like this:
-```sh
-API_URL=[https://api-url-here/]
-```
-
-This is an optional step.
+  This is an optional step.
+</details>
 
 ### Executing
 
@@ -232,35 +234,53 @@ When being added to a server through the portal, you must make sure the bot is a
 
 NeoBot has 6 main permission levels:
 
-* @everyone - people who do not have a role
-```sh
-permlvl: 0
-```
+<details>
+  <summary>@everyone - people who do not have a role</summary>
 
-* @members - members have basic access to low-tier commands
-```sh
-permlvl: 1
-```
+  ```sh
+  permlvl: 0
+  ```
+</details>
 
-* @moderators - moderators have more advanced server commands
-```sh
-permlvl: 2
-```
+<details>
+  <summary>@members - members have basic access to low-tier commands</summary>
 
-* @admins - admins have access to almost all commands
-```sh
-permlvl: 3
-```
+  ```sh
+  permlvl: 1
+  ```
+</details>
 
-* @owners - owners have access to all commands
-```sh
-permlvl: 4
-```
+<details>
+  <summary>@moderators - moderators have more advanced server commands</summary>
 
-* @developers - developers have access to all commands
-```sh
-permlvl: 5
-```
+  ```sh
+  permlvl: 2
+  ```
+</details>
+
+<details>
+  <summary>@admins - admins have access to almost all commands</summary>
+
+  ```sh
+  permlvl: 3
+  ```
+</details>
+
+<details>
+  <summary>@owners - owners have access to all commands</summary>
+
+  ```sh
+  permlvl: 4
+  ```
+</details>
+
+<details>
+  <summary>@developers - developers have access to all commands</summary>
+
+  ```sh
+  permlvl: 5
+  ```
+</details>
 
 If you have feedback on which roles should have or should not have access to certain commands, please send in feedback.
 
