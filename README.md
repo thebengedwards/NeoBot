@@ -613,6 +613,32 @@ NeoBot has many commands. This list will break down what types of users can use 
 
 <details>
   <summary>Channel Events</summary>
+  <blockquote>
+  <details>
+  <summary>channelCreate</summary>
+
+  NeoBot sends a message to the Mod Channel whenever a new chanel is created, containing various channel details.
+  </details>
+
+  <details>
+  <summary>channelDelete</summary>
+
+  NeoBot sends a message to the Mod Channel whenever a channel is deleted, containing various channel details.
+  </details>
+
+  <details>
+  <summary>channelPinsUpdate</summary>
+
+  NeoBot sends a message to the Mod Channel whenever a channel pin is updated, containing various channel details.
+  </details>
+
+  <details>
+  <summary>channelUpdate</summary>
+
+  NeoBot sends a message to the Mod Channel whenever a channel is updated, containing various channel details.
+  </details>
+
+  </blockquote>
 
 </details>
 
