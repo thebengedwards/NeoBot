@@ -389,14 +389,14 @@ NeoBot has many commands. This list will break down what types of users can use 
 
   <details>
     <summary>General</summary>
-    
+
     * Delete a certain amount of messages.
-    ```
+    ```sh
     !purge
     ```
     
     * Configure your server, see the status of your settings.
-    ```
+    ```sh
     !config
     ```
   </details>
