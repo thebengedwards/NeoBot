@@ -65,24 +65,8 @@
             <li><a href="#functions">Functions</a></li>
           </ul>
         </li>
-        <li>
-          <a href="#general-usage">General Usage</a>
-          <ul>
-            <li><a href="#everyone">Everyone</a></li>
-            <li><a href="#member">Member</a></li>
-            <li><a href="#moderator">Moderator</a></li>
-            <li><a href="#admin">Administrator</a></li>
-            <li><a href="#owner">Owner</a></li>
-            <li><a href="#developer">Developer</a></li>
-          </ul>
-        </li>
-        <li>
-          <a href="#events">Events</a>
-          <ul>
-            <li><a href="#enabled">Enabled</a></li>
-            <li><a href="#disbaled">Disabled</a></li>
-          </ul>
-        </li>
+        <li><a href="#general-usage">General Usage</a></li>
+        <li><a href="#events">Events</a></li>
         <li><a href="#error-reporting">Error Reporting</a></li>
       </ul>
     </li>
@@ -165,6 +149,7 @@ In order to create a version of NeoBot, you will have to substitute these variab
 
 <details>
   <summary>BOT_TOKEN</summary>
+
   The BOT_TOKEN is what nodejs uses to connect your bot to discord. To create a bot token:
 
   1. Create a new bot application at the [Discord Developer Portal](https://discord.com/developers/applications)
@@ -183,6 +168,7 @@ In order to create a version of NeoBot, you will have to substitute these variab
 
 <details>
   <summary>API_KEY</summary>
+
   API_KEY is the password your API uses in the header to make sure the sender is a permitted user. 
 
   If you do not have an API, either create arrays to subsitute for the api calls, import them and use them instead, or simply remove the API files entirely.
@@ -197,6 +183,7 @@ In order to create a version of NeoBot, you will have to substitute these variab
 
 <details>
   <summary>API_URL</summary>
+
   API_URL is the link to the API itself. 
 
   Similarily to API_KEY, either create arrays to subsitute for the api calls, import them and use them instead, or simply remove the API files entirely.
@@ -338,72 +325,88 @@ Therefore, for safety, all events should be added at least 2 days before the eve
 
 NeoBot has many commands. This list will break down what types of users can use what commands, judging by which role a user has. Commands are usable by users with the respective level, and users with a higher permission level can also access the command.
 
-#### Everyone
+<details>
+  <summary>Everyone</summary>
 
-* When first joining a server, a user can be displayed with a T&C's and can use !accept to assign themselves the role of 'Member'.
-```
-!accept
-```
+  * When first joining a server, a user can be displayed with a T&C's and can use !accept to assign themselves the role of 'Member'.
+  ```
+  !accept
+  ```
 
-* A quick test to see if NeoBot is active.
-```
-!test
-```
+  * A quick test to see if NeoBot is active.
+  ```
+  !test
+  ```
+</details>
 
-#### Member
+<details>
+  <summary>Member</summary>
 
-* Show all the commands below permission level 3 with some helpful tips.
-```
-!help
-```
+  * Show all the commands below permission level 3 with some helpful tips.
+  ```
+  !help
+  ```
 
-* Show an automated joke.
-```
-!joke
-```
+  * Show an automated joke.
+  ```
+  !joke
+  ```
 
-* Show all the updates and changes NeoBot has gone through.
-```
-!log
-```
+  * Show all the updates and changes NeoBot has gone through.
+  ```
+  !log
+  ```
+</details>
 
-#### Moderator
+<details>
+  <summary>Moderator</summary>
 
-* Shows more help for channel setups.
-```
-!helpChannels
-```
+  * Shows more help for channel setups.
+  ```
+  !helpChannels
+  ```
 
-* Shows more help for Event setups.
-```
-!helpEvents
-```
+  * Shows more help for Event setups.
+  ```
+  !helpEvents
+  ```
 
-* Shows more help for Role setups.
-```
-!helpRoles
-```
+  * Shows more help for Role setups.
+  ```
+  !helpRoles
+  ```
 
-* Sends a message to the developers with any feedback. Usable outside servers as well.
-```
-!report
-```
+  * Sends a message to the developers with any feedback. Usable in dm's.
+  ```
+  !report
+  ```
+</details>
+
+<details>
+  <summary>Administrator</summary>
+
+  Administrators have many commands, and is broken down into several sections, as they make use of many server commands.
+
+  <details>
+    <summary>General</summary>
+    * Delete a certain amount of messages.
+    ```
+    !purge
+    ```
+    
+    * Configure your server, see the status of your settings.
+    ```
+    !config
+    ```
+  </details>
+
+</details>
 
 #### Administrator
 
 Administrators have many commands, and is broken down into several sections, as they make use of many server commands.
 
 ##### General
-
-* Delete a certain amount of messages.
-```
-!purge
-```
-
-* Configure your server, see the status of your settings.
-```
-!config
-```
 
 ##### Birthday
 
