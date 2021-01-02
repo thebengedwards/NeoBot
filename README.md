@@ -389,6 +389,7 @@ NeoBot has many commands. This list will break down what types of users can use 
 
   <details>
     <summary>General</summary>
+    
     * Delete a certain amount of messages.
     ```
     !purge
@@ -402,11 +403,6 @@ NeoBot has many commands. This list will break down what types of users can use 
 
 </details>
 
-#### Administrator
-
-Administrators have many commands, and is broken down into several sections, as they make use of many server commands.
-
-##### General
 
 ##### Birthday
 
