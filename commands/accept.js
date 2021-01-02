@@ -15,7 +15,7 @@ exports.run = async(client, message) => {
     .then(res => res.json());
 
   if (data.serverID === message.guild.id && data.generalChannelID !== '0') {
-    if (message.member.roles.cache.find(r => r.name === "Member")) {
+    if (message.member.roles.cache.find(item => item.name === "Member")) {
       const alertEmbed = require('../embeds/alertEmbed')
       const embed = new Discord.MessageEmbed(alertEmbed)
 
