@@ -21,7 +21,7 @@ exports.run = async (client, message) => {
 
     embed.setDescription('Test')
     embed.addFields(
-      { name: `Hello ${message.author.username}`, value: `NeoBot is currently available` },
+      { name: `Hello ${message.author.username}`, value: `🟩 NeoBot is currently Online 🟩` },
       { name: '\u200B', value: `---CURRENT SERVER---` },
       { name: 'Name:', value: `${message.guild.name}`, inline: true },
       { name: 'Members:', value: `${message.guild.memberCount}`, inline: true },

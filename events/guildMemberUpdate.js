@@ -22,10 +22,10 @@ module.exports = async (client, oldMember, newMember) => {
         embed.setDescription('Member Update')
         embed.addFields(
             { name: 'A Member has been Updated', value: `Details are listed below.` },
-            { name: 'Member Username', value: oldMember.user.username === newMember.user.username ? `${oldMember.user.username}` : `${newMember.user.username}` },
-            { name: 'Member Nickname', value: oldMember.nickname === newMember.nickname ? `${oldMember.nickname}` : `${newMember.nickname}` },
-            { name: 'Member ID', value: oldMember.user.id === newMember.user.id ? `${oldMember.user.id}` : `${newMember.user.id}`, inline: true },
-            { name: 'Member Since', value: `${moment(oldMember.joinedTimestamp).format('Do MMMM YYYY')} at ${moment(oldMember.joinedTimestamp).format('HH:mm')}`, inline: true },
+            { name: 'Member Username', value: `${newMember.user.username}` },
+            { name: 'Member Nickname', value: newMember.nickname !== null ? `${newMember.nickname}` : `No Nickname` },
+            { name: 'Member ID', value: `${newMember.user.id}`, inline: true },
+            { name: 'Member Since', value: `${moment(newMember.joinedTimestamp).format('Do MMMM YYYY')} at ${moment(newMember.joinedTimestamp).format('HH:mm')}`, inline: true },
         )
         return client.channels.cache.get(data.modChannelID).send({ embed });
     }

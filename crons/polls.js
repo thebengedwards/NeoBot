@@ -37,7 +37,7 @@ module.exports = async (client) => {
                     embed.setDescription('Game poll')
                         .addFields(
                             { name: `🎮 Would anyone be up for a game of ${game.gameName}? 🎮`, value: `Can be played with ${game.playWith} others.` },
-                            { name: '\u200B', value: '\u200B' },
+                            { name: '\u200B', value: '---GAME---' },
                             { name: 'Game Type:', value: `${game.gameType}`, inline: true },
                             { name: 'Game Rating:', value: `${game.gameRating}`, inline: true },
                             { name: `↓ Vote Below ↓`, value: `👍 = Yes || 👎 = No` },

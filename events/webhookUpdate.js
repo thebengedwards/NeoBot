@@ -4,8 +4,8 @@ const fetch = require("node-fetch")
 const PATH = process.env.API_URL
 const KEY = process.env.API_KEY
 
-module.exports = async (client, oldEmoji, newEmoji) => {
-    let data = await fetch(`${PATH}/servers/${oldEmoji.guild.id}`, {
+module.exports = async (client, channel) => {
+    let data = await fetch(`${PATH}/servers/${channel.guild.id}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -14,15 +14,14 @@ module.exports = async (client, oldEmoji, newEmoji) => {
     })
         .then(res => res.json());
 
-    if (data.serverID === oldEmoji.guild.id && data.modChannelID !== '0') {
+    if (data.serverID === channel.guild.id && data.modChannelID !== '0') {
         const eventEmbed = require('../embeds/eventEmbed')
         const embed = new Discord.MessageEmbed(eventEmbed)
 
-        embed.setDescription('Emoji Update')
+        embed.setDescription('Webhook Update')
         embed.addFields(
-            { name: 'An Emoji has been updated', value: `Details are listed below.` },
-            { name: 'Emoji Name', value: newEmoji.name !== '__' ? `${newEmoji.name}` : `EMPTY - change the name`},
-            { name: 'Emoji ID', value: `${newEmoji.id}`, inline: true },
+            { name: `A Webhook on ${channel.name} has been updated`, value: `Type: ${channel.type}` },
+            { name: `Channel ID: ${channel.id}`, value: `Check Audit-Log to see which webhook was updated` },
         )
         return client.channels.cache.get(data.modChannelID).send({ embed });
     }

@@ -28,6 +28,7 @@ exports.run = async (client, message) => {
       { name: 'Version 1.1.2', value: 'Moved Host from Glitch to HEROKU.' },
       { name: 'Version 1.1.3', value: 'Added new dates to NEO\'s calendar, Backend stability fixes.' },
       { name: 'Version 1.1.4', value: 'Fixed Birthday Announcements.' },
+      { name: 'Version 1.1.5', value: 'Fixed Bugs.' },
       { name: 'Version 2.0.0', value: 'Major \'Under-the-hood\' improvements, New Discord Embeds, Admin Purges, Added security, Many minor Bug Fixes, \'Weekly Meme\' Imgur mp4 bug fix, Game Polling, Reporting through direct messages, API Integration, Database Management Abilities, Various Dev Commands and much, much more!' },
     )
     return message.channel.send({ embed })

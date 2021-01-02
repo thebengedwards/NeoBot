@@ -1,5 +1,5 @@
 const moment = require("moment")
 
-module.exports = client => {
-  console.log(`NeoBot has been disconnected at ${moment(new Date()).format('Do MMMM YYYY')} at ${moment(new Date()).format('HH:mm:ss')}. This Happens when the Bot Token is changed`);
+module.exports = (client, event, id) => {
+  console.log(`---SHARD DISCONNECT---\nNeoBot has been disconnected at ${moment(new Date()).format('Do MMMM YYYY')} at ${moment(new Date()).format('HH:mm:ss')}.\nThis can happen when the BOT-TOKEN has changed.\n`);
 };

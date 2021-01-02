@@ -39,7 +39,7 @@ module.exports = async (client, oldMember, newMember) => {
 
         embed.setDescription('Presence Update')
         embed.addFields(
-            { name: `${oldMember.user.username} is now:`, value: `${memberStatus}` },
+            { name: `${newMember.user.username} is now:`, value: `${memberStatus}` },
             { name: `Custom Status:`, value: `${customPresence}` },
         )
         return client.channels.cache.get(data.modChannelID).send({ embed });
