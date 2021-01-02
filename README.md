@@ -76,6 +76,13 @@
             <li><a href="#developer">Developer</a></li>
           </ul>
         </li>
+        <li>
+          <a href="#events">Events</a>
+          <ul>
+            <li><a href="#enabled">Enabled</a></li>
+            <li><a href="#disbaled">Disabled</a></li>
+          </ul>
+        </li>
         <li><a href="#error-reporting">Error Reporting</a></li>
       </ul>
     </li>
@@ -156,22 +163,23 @@ Environment Variables are used by developers to securely store sensitive data su
 
 In order to create a version of NeoBot, you will have to substitute these variables with your own.
 
-#### BOT_TOKEN
+<details>
+  <summary>BOT_TOKEN</summary>
+  The BOT_TOKEN is what nodejs uses to connect your bot to discord. To create a bot token:
 
-The BOT_TOKEN is what nodejs uses to connect your bot to discord. To create a bot token:
+  1. Create a new bot application at the [Discord Developer Portal](https://discord.com/developers/applications)
+  2. Go to 'Bot' option
+  3. Add a new Bot to the app
+  4. Click on _'Click to Reveal Token'_
+  5. Copy the very long token, and paste in the .env file with BOT_TOKEN
 
-1. Create a new bot application at the [Discord Developer Portal](https://discord.com/developers/applications)
-2. Go to 'Bot' option
-3. Add a new Bot to the app
-4. Click on _'Click to Reveal Token'_
-5. Copy the very long token, and paste in the .env file with BOT_TOKEN
+  * Define like this:
+  ```sh
+  BOT_TOKEN=[BOT_TOKEN_HERE]
+  ```
 
-* Define like this:
-```sh
-BOT_TOKEN=[BOT_TOKEN_HERE]
-```
-
-This is a required step.
+  This is a required step.
+</details>
 
 #### API_KEY
 
@@ -550,6 +558,12 @@ Developers have many commands, and is broken down into several sections, as they
 ```
 !subredditView
 ```
+
+### Events
+
+#### Enabled
+
+#### Disabled
 
 ### Error Reporting
 
