@@ -678,6 +678,63 @@ NeoBot has many Events. This list will break down what types of events there are
   <summary>Guild Events</summary>
 
   Guild Events are related to the server itself.
+  <blockquote>
+
+  <details>
+  <summary>guildBanAdd</summary>
+
+  NeoBot sends a message to the
+  </details>
+
+  <details>
+  <summary>guildBanRemove</summary>
+
+  NeoBot sends a message to the
+  </details>
+
+  <details>
+  <summary>guildCreate</summary>
+
+  NeoBot sends a message to the
+  </details>
+
+  <details>
+  <summary>guildDelete</summary>
+
+  NeoBot sends a message to the
+  </details>
+
+  <details>
+  <summary>guildMemberAdd</summary>
+
+  NeoBot sends a message to the
+  </details>
+
+  <details>
+  <summary>guildMemberRemove</summary>
+
+  NeoBot sends a message to the
+  </details>
+
+  <details>
+  <summary>guildMemberUpdate</summary>
+
+  NeoBot sends a message to the
+  </details>
+
+  <details>
+  <summary>guildUnavailable</summary>
+
+  NeoBot sends a message to the
+  </details>
+
+  <details>
+  <summary>guildUpdate</summary>
+
+  NeoBot sends a message to the
+  </details>
+
+  </blockquote>
   
 </details>
 
