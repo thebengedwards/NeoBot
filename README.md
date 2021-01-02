@@ -502,7 +502,7 @@ NeoBot has many commands. This list will break down what types of users can use 
 </details>
 
 <details>
-  <summary>Moderator</summary>
+  <summary>Owners</summary>
 
   Owners have access to all previous levels, and should be treated as admin-level users. This permission level is needed for early server-bot setup and configuration.
 </details>
