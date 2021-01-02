@@ -602,6 +602,66 @@ NeoBot has many commands. This list will break down what types of users can use 
 
 ### Events
 
+<details>
+  <summary>Channel Events</summary>
+
+</details>
+
+<details>
+  <summary>Emoji Events</summary>
+  
+</details>
+
+<details>
+  <summary>Guild Events</summary>
+  
+</details>
+
+<details>
+  <summary>Invite Events</summary>
+  
+</details>
+
+<details>
+  <summary>Message Events</summary>
+  
+</details>
+
+<details>
+  <summary>Presence Events</summary>
+  
+</details>
+
+<details>
+  <summary>Ready Events</summary>
+  
+</details>
+
+<details>
+  <summary>Role Events</summary>
+  
+</details>
+
+<details>
+  <summary>Shard Events</summary>
+  
+</details>
+
+<details>
+  <summary>Typing Events</summary>
+  
+</details>
+
+<details>
+  <summary>Voice State Events</summary>
+  
+</details>
+
+<details>
+  <summary>Webhook Events</summary>
+  
+</details>
+
 ### Error Reporting
 
 If you encounter any issues while using this bot either on Discord or while trying to run the bot yourself, please either use !report on Discord, or report an issue here: [Issues](https://github.com/TheBenEdwards/NeoBot/issues) (Requires a GitHub Account).
