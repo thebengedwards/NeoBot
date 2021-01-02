@@ -383,12 +383,12 @@ NeoBot has many commands. This list will break down what types of users can use 
 </details>
 
 <details>
-  <summary>Administrator</summary><blockquote>
+  <summary>Administrator</summary>
 
   Administrators have many commands, and is broken down into several sections, as they make use of many server commands.
-  
+  <blockquote>
   <details>
-    <summary>General</summary>
+  <summary>General</summary>
     
   * Delete a certain amount of messages.
   ```
@@ -501,6 +501,8 @@ NeoBot has many commands. This list will break down what types of users can use 
   !toggleWeeklyMemes
   ```
   </details>
+
+  </blockquote>
 
 </details>
 
