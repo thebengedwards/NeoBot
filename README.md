@@ -383,12 +383,12 @@ NeoBot has many commands. This list will break down what types of users can use 
 </details>
 
 <details>
-  <summary>Administrator</summary>
+  <summary>Administrator</summary><blockquote>
 
   Administrators have many commands, and is broken down into several sections, as they make use of many server commands.
-
+  
   <details>
-  <summary>General</summary>
+    <summary>General</summary>
     
   * Delete a certain amount of messages.
   ```
