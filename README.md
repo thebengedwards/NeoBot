@@ -65,8 +65,13 @@
             <li><a href="#functions">Functions</a></li>
           </ul>
         </li>
-        <li><a href="#general-usage">General Usage</a></li>
-        <li><a href="#events">Events</a></li>
+        <li>
+          <a href="#general-usage">General Usage</a>
+          <ul>
+            <li><a href="#commands">Commands</a></li>
+            <li><a href="#events">Events</a></li>
+          </ul>
+        </li>
         <li><a href="#error-reporting">Error Reporting</a></li>
       </ul>
     </li>
@@ -322,6 +327,10 @@ Birthdays, calendars, polls and weelyMemes all operate the [cron](https://www.np
 Therefore, for safety, all events should be added at least 2 days before the event day actually occurs, as the cron package will then recieve the new event.
 
 ### General Usage
+
+
+
+#### Commands
 
 NeoBot has many commands. This list will break down what types of users can use what commands, judging by which role a user has. Commands are usable by users with the respective level, and users with a higher permission level can also access the command.
 
@@ -600,7 +609,7 @@ NeoBot has many commands. This list will break down what types of users can use 
 
 </details>
 
-### Events
+#### Events
 
 <details>
   <summary>Channel Events</summary>
