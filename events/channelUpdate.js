@@ -14,7 +14,7 @@ module.exports = async (client, oldChannel, newChannel) => {
     })
         .then(res => res.json());
 
-    if (data.serverID === oldChannel.guild.id && data.modChannelID !== '0') {
+    if (data.serverID === oldChannel.guild.id && channel.guild.channels.cache.find(item => item.id === data.modChannelID)) {
         const eventEmbed = require('../embeds/eventEmbed')
         const embed = new Discord.MessageEmbed(eventEmbed)
 

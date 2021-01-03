@@ -1,6 +1,5 @@
 const Discord = require("discord.js");
 const fetch = require("node-fetch")
-const moment = require("moment");
 
 const PATH = process.env.API_URL
 const KEY = process.env.API_KEY
@@ -33,7 +32,7 @@ module.exports = async (client, oldMember, newMember) => {
         customPresence = newMember.activities[0].state
     }
 
-    if (data.serverID === newMember.guild.id && data.modChannelID !== '0') {
+    if (data.serverID === oldMember.guild.id && newMember.guild.channels.cache.find(item => item.id === data.modChannelID)) {
         const eventEmbed = require('../embeds/eventEmbed')
         const embed = new Discord.MessageEmbed(eventEmbed)
 

@@ -14,7 +14,7 @@ module.exports = async (client, oldEmoji, newEmoji) => {
     })
         .then(res => res.json());
 
-    if (data.serverID === oldEmoji.guild.id && data.modChannelID !== '0') {
+    if (data.serverID === oldEmoji.guild.id && newEmoji.guild.channels.cache.find(item => item.id === data.modChannelID)) {
         const eventEmbed = require('../embeds/eventEmbed')
         const embed = new Discord.MessageEmbed(eventEmbed)
 

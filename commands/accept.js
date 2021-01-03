@@ -4,7 +4,7 @@ const fetch = require("node-fetch")
 const PATH = process.env.API_URL
 const KEY = process.env.API_KEY
 
-exports.run = async(client, message) => {
+exports.run = async (client, message) => {
   let data = await fetch(`${PATH}/servers/${message.guild.id}`, {
     method: 'GET',
     headers: {
@@ -14,14 +14,14 @@ exports.run = async(client, message) => {
   })
     .then(res => res.json());
 
-  if (data.serverID === message.guild.id && data.generalChannelID !== '0') {
-    if (message.member.roles.cache.find(item => item.name === "Member")) {
-      const alertEmbed = require('../embeds/alertEmbed')
-      const embed = new Discord.MessageEmbed(alertEmbed)
+  if (message.member.roles.cache.find(item => item.name === "Member")) {
+    const alertEmbed = require('../embeds/alertEmbed')
+    const embed = new Discord.MessageEmbed(alertEmbed)
 
-      embed.setDescription('You already have a role!')
-      return message.channel.send({ embed })
-    } else {
+    embed.setDescription('You already have a role!')
+    return message.channel.send({ embed })
+  } else {
+    if (data.serverID === message.guild.id && message.guild.channels.cache.find(item => item.id === data.generalChannelID)) {
       const commandEmbed = require('../embeds/commandEmbed')
       const embed = new Discord.MessageEmbed(commandEmbed)
 
