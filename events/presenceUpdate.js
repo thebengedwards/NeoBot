@@ -1,0 +1,46 @@
+const Discord = require("discord.js");
+const fetch = require("node-fetch")
+
+const PATH = process.env.API_URL
+const KEY = process.env.API_KEY
+
+module.exports = async (client, oldMember, newMember) => {
+    let data = await fetch(`${PATH}/servers/${newMember.guild.id}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'API_KEY': KEY
+        }
+    })
+        .then(res => res.json());
+    
+    let memberStatus;
+    if (newMember.status === 'online') {
+        memberStatus = '🟩 Online 🟩'
+    } else if (newMember.status === 'idle') {
+        memberStatus = '🟧 Idle 🟧'
+    } else if (newMember.status === 'dnd') {
+        memberStatus = '🟥 Do Not Disturb 🟥'
+    } else {
+        memberStatus = '⬜ Offline ⬜'
+    }
+
+    let customPresence;
+    if (newMember.activities[0] === undefined) {
+        customPresence = 'No custom status'
+    } else {
+        customPresence = newMember.activities[0].state
+    }
+
+    if (data.serverID === oldMember.guild.id && newMember.guild.channels.cache.find(item => item.id === data.modChannelID)) {
+        const eventEmbed = require('../embeds/eventEmbed')
+        const embed = new Discord.MessageEmbed(eventEmbed)
+
+        embed.setDescription('Presence Update')
+        embed.addFields(
+            { name: `${newMember.user.username} is now:`, value: `${memberStatus}` },
+            { name: `Custom Status:`, value: `${customPresence}` },
+        )
+        return client.channels.cache.get(data.modChannelID).send({ embed });
+    }
+};
