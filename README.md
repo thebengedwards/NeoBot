@@ -42,14 +42,7 @@
       <a href="#getting-started">Getting Started</a>
       <ul>
         <li><a href="#prerequisites">Prerequisites</a></li>
-        <li>
-          <a href="#environment-variables">Environment Variables</a>
-          <ul>
-            <li><a href="#bot_token">BOT_TOKEN</a></li>
-            <li><a href="#api_key">API_KEY</a></li>
-            <li><a href="#api-url">API_URL</a></li>
-          </ul>
-        </li>
+        <li><a href="#environment-variables">Environment Variables</a></li>
         <li><a href="#executing">Executing</a></li>
       </ul>
     </li>
@@ -328,7 +321,7 @@ Therefore, for safety, all events should be added at least 2 days before the eve
 
 ### General Usage
 
-
+In General use, NeoBot has two types of functions - command based scripts that will process when the user gives an input, and event based scripts that will process once an event is triggered. Here are a list of all these scripts broken down, and what they can do.
 
 #### Commands
 
@@ -651,7 +644,6 @@ NeoBot has many Events. This list will break down what types of events there are
 
   Emoji Events are related to server emojis.
   <blockquote>
-
   <details>
   <summary>emojiCreate</summary>
 
@@ -679,59 +671,58 @@ NeoBot has many Events. This list will break down what types of events there are
 
   Guild Events are related to the server itself.
   <blockquote>
-
   <details>
   <summary>guildBanAdd</summary>
 
-  NeoBot sends a message to the
+  NeoBot sends a message to the Mod Channel whenever a member is banned.
   </details>
 
   <details>
   <summary>guildBanRemove</summary>
 
-  NeoBot sends a message to the
+  NeoBot sends a message to the Mod Channel whenever a member is unbanned.
   </details>
 
   <details>
   <summary>guildCreate</summary>
 
-  NeoBot sends a message to the
+  NeoBot sends data about the server to the database upon joining a new server.
   </details>
 
   <details>
   <summary>guildDelete</summary>
 
-  NeoBot sends a message to the
+  NeoBot deletes the data of the server from the database when it leaves/gets kicked.
   </details>
 
   <details>
   <summary>guildMemberAdd</summary>
 
-  NeoBot sends a message to the
+  NeoBot sends a message to the Mod Channel when a new member joins the server.
   </details>
 
   <details>
   <summary>guildMemberRemove</summary>
 
-  NeoBot sends a message to the
+  NeoBot sends a message to the General Channel when a member leaves the server.
   </details>
 
   <details>
   <summary>guildMemberUpdate</summary>
 
-  NeoBot sends a message to the
+  NeoBot sends a message to the Mod Channel when a member of the server is updated.
   </details>
 
   <details>
   <summary>guildUnavailable</summary>
 
-  NeoBot sends a message to the
+  NeoBot prints a log to the console when a server becomes unavailable due to an outage etc.
   </details>
 
   <details>
   <summary>guildUpdate</summary>
 
-  NeoBot sends a message to the
+  NeoBot sends a message to the Mod Channel when the server is updated.
   </details>
 
   </blockquote>
@@ -742,6 +733,20 @@ NeoBot has many Events. This list will break down what types of events there are
   <summary>Invite Events</summary>
 
   Invite Events are related to server invites.
+  <blockquote>
+  <details>
+  <summary>inviteCreate</summary>
+
+  NeoBot sends a message to the Mod Channel whenever a new invite is created.
+  </details>
+
+  <details>
+  <summary>inviteDelete</summary>
+
+  NeoBot sends a message to the Mod Channel whenever an invite is deleted.
+  </details>
+
+  </blockquote>
   
 </details>
 
@@ -749,6 +754,56 @@ NeoBot has many Events. This list will break down what types of events there are
   <summary>Message Events</summary>
 
   Message Events are related to messages.
+  <blockquote>
+  <details>
+  <summary>message</summary>
+
+  This event fires every time a message is sent. NeoBot analyses the message, and if the message does not start with the prefix, it ignores the message. If it does start with the prefix, it processes it into a command. See <a href="#commands">Commands</a> for more information.
+  </details>
+
+  <details>
+  <summary>messageDelete</summary>
+
+  NeoBot sends a message to the Mod Channel whenever a message is deleted.
+  </details>
+
+  <details>
+  <summary>messageDeleteBulk</summary>
+
+  NeoBot sends a message to the Mod Channel whenever multiple message are deleted. Works well with the `purge` command.
+  </details>
+
+  <details>
+  <summary>messageReactionAdd - DISABLED</summary>
+
+  NeoBot sends a message to the Mod Channel whenever a reaction is added to a message.
+
+  -Disabled until later, too annoying for now.
+  </details>
+
+  <details>
+  <summary>messageReactionRemove - DISABLED</summary>
+
+  NeoBot sends a message to the Mod Channel whenever a reaction is removed from a message.
+
+  -Disabled until later, too annoying for now.
+  </details>
+
+  <details>
+  <summary>messageReactionRemoveAll - DISABLED</summary>
+
+  NeoBot sends a message to the Mod Channel whenever all reactions are removed from a message.
+  
+  -Disabled until later, too annoying for now.
+  </details>
+
+  <details>
+  <summary>messageUpdate</summary>
+
+  Whenever a message is edited/updated, NeoBot sends a message to the channel where the updated message is to notify that the message has changed, in order to prevent misinformation or "FAKE NEWS" being spread.
+  </details>
+
+  </blockquote>
   
 </details>
 
@@ -756,6 +811,16 @@ NeoBot has many Events. This list will break down what types of events there are
   <summary>Presence Events</summary>
 
   Presence Events are related to server presences.
+  <blockquote>
+  <details>
+  <summary>presenceUpdate - DISABLED</summary>
+
+  NeoBot sends a message to the Mod Channel whenever a user on a server changes presence i.e. 'Online', 'Do Not Disturbe'.
+  
+  -Disabled until later, too annoying for now.
+  </details>
+
+  </blockquote>
   
 </details>
 
@@ -763,6 +828,14 @@ NeoBot has many Events. This list will break down what types of events there are
   <summary>Ready Events</summary>
 
   Ready Events are related to the client status.
+  <blockquote>
+  <details>
+  <summary>ready</summary>
+
+  This event activates the crons (weeklyMeme, birthdays, etc.), sets the bot activity to 'Online' with the version number as the status, and sends a log to the console containing information with the bot status.
+  </details>
+  
+  </blockquote>
   
 </details>
 
@@ -770,6 +843,26 @@ NeoBot has many Events. This list will break down what types of events there are
   <summary>Role Events</summary>
 
   Role Events are related to server roles.
+  <blockquote>
+  <details>
+  <summary>roleCreate</summary>
+
+  NeoBot sends a message to the Mod Channel whenever a role is created.
+  </details>
+
+  <details>
+  <summary>roleDelete</summary>
+
+  NeoBot sends a message to the Mod Channel whenever a role is deleted.
+  </details>
+
+  <details>
+  <summary>roleUpdate</summary>
+
+  NeoBot sends a message to the Mod Channel whenever a role is updated.
+  </details>
+  
+  </blockquote>
   
 </details>
 
@@ -777,6 +870,26 @@ NeoBot has many Events. This list will break down what types of events there are
   <summary>Shard Events</summary>
 
   Shard Events are related to the client shard.
+  <blockquote>
+  <details>
+  <summary>shardDisconnect</summary>
+
+  NeoBot prints a log to the console when it has been disconnected from the websocket.
+  </details>
+
+  <details>
+  <summary>shardError</summary>
+
+  NeoBot prints a log to the console whenever there has been an error with the websocket.
+  </details>
+
+  <details>
+  <summary>shardReconnecting</summary>
+
+  NeoBot prints a log to the console when it is reconnecting to the websocket.
+  </details>
+
+  </blockquote>
   
 </details>
 
@@ -784,6 +897,16 @@ NeoBot has many Events. This list will break down what types of events there are
   <summary>Typing Events</summary>
 
   Typing Events are related to server typing.
+  <blockquote>
+  <details>
+  <summary>typingStart - DISABLED</summary>
+
+  NeoBot sends a message to the Mod Channel whenever a user on a server starts typing in a channel.
+  
+  -Disabled until later, too annoying for now.
+  </details>
+
+  </blockquote>
   
 </details>
 
@@ -791,13 +914,31 @@ NeoBot has many Events. This list will break down what types of events there are
   <summary>Voice State Events</summary>
 
   Voice State Events are related to server voice state events.
+  <blockquote>
+  <details>
+  <summary>voiceStateUpdate - DISABLED</summary>
+
+  NeoBot sends a message to the Mod Channel whenever a user on a server joins or leaves a voice channel.
+  
+  -Disabled until later, too annoying for now.
+  </details>
+
+  </blockquote>
   
 </details>
 
 <details>
   <summary>Webhook Events</summary>
 
-  Emoji Events are related to server channel webhooks.
+  Webhook Events are related to server channel webhooks.
+  <blockquote>
+  <details>
+  <summary>webhookUpdate</summary>
+
+  NeoBot sends a message to the Mod Channel whenever a webhook on a channel is updated.
+  </details>
+
+  </blockquote>
   
 </details>
 
