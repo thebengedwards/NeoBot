@@ -133,9 +133,9 @@ For local deployment and testing, you will also want nodejs installed.
 Once you have the repository saved on your machine, open a Command Line Interface and use:
 
 * npm
-  ```sh
-  npm install
-  ```
+```sh
+npm install
+```
 
 This will install all the necessary packages from npm.
 
