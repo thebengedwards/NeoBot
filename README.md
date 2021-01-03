@@ -994,9 +994,7 @@ GitHub: [NeoBot](https://github.com/TheBenEdwards/NeoBot)
 
 <!-- INVITE NEOBOT -->
 ## Invite
-Invite NeoBot to your Server:
-
-* [Invite NeoBot](https://discord.com/oauth2/authorize?client_id=587909252887216128&scope=bot&permissions=2147483647)
+[Invite NeoBot to your Server](https://discord.com/oauth2/authorize?client_id=587909252887216128&scope=bot&permissions=2147483647)
 
 <!-- MARKDOWN LINKS & IMAGES -->
 [contributors-shield]: https://img.shields.io/github/contributors/theBenEdwards/NeoBot.svg?style=for-the-badge
