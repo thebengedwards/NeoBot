@@ -1,23 +1,14 @@
----
-name: Pull Request
-about: Create a pull request
-title: ''
-labels: ''
-assignees: ''
-
----
-
-**Describe the Pull Request**
+Describe the Pull Request
 
 
-**What does this pull request fix**
+What does this pull request fix
 
 
-**What Changes were made**
+What Changes were made
 
 
-**Any Mentions**
+Any Mentions
 
 
-**Additional content**
+Additional content
 
