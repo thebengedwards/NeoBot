@@ -72,6 +72,6 @@ exports.conf = {
 
 exports.help = {
     name: 'gameView',
-    description: 'View a single game on NEO',
+    description: 'View a single game on NeoBot',
     usage: 'gameView <Game_Name>'
 };

@@ -57,6 +57,6 @@ exports.conf = {
 
 exports.help = {
     name: 'gameDelete',
-    description: 'Delete a game from NEO',
+    description: 'Delete a game from NeoBot',
     usage: 'gameDelete <Game_Name>'
 };

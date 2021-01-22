@@ -20,11 +20,11 @@ exports.run = async (client, message) => {
 
         embed.setDescription('Events Information')
         embed.addFields(
-            { name: 'NEO Events are time based messages that occur based on a timer', value: 'This guide will explain what each event \'type\' actually does.' },
-            { name: 'WeeklyMemes', value: 'If Enabled, NEO will send a meme to the Memes Channel every week at 20:00 GMT on a Friday.' },
-            { name: 'Birthdays', value: 'If Enabled, NEO will send a \'Happy Birthday\' Message into the General Channel whenever there is a birthday at 08:00 GMT.' },
-            { name: 'Calendar', value: 'If Enabled, NEO will send a special calendar day message at 08:00 of the special day into the General Channel.' },
-            { name: 'Polls', value: 'If Enabled, NEO will send a poll asking if anyone wants to play a specific game at 20:00 GMT on a Friday into the General Channel' },
+            { name: 'NeoBot Events are time based messages that occur based on a timer', value: 'This guide will explain what each event \'type\' actually does.' },
+            { name: 'WeeklyMemes', value: 'If Enabled, NeoBot will send a meme to the Memes Channel every week at 20:00 GMT on a Friday.' },
+            { name: 'Birthdays', value: 'If Enabled, NeoBot will send a \'Happy Birthday\' Message into the General Channel whenever there is a birthday at 08:00 GMT.' },
+            { name: 'Calendar', value: 'If Enabled, NeoBot will send a special calendar day message at 08:00 of the special day into the General Channel.' },
+            { name: 'Polls', value: 'If Enabled, NeoBot will send a poll asking if anyone wants to play a specific game at 20:00 GMT on a Friday into the General Channel' },
             { name: 'What if I haven\'t set up the channels used by these functions?', value: 'They will be sent nowehere. You need to have the channels set up for these functions to work.' },
             { name: 'I have set up a channel but nothing is coming through?', value: 'It is highly likely you have set up the channel incorrectly, if you need more help use !report to rpeort the issue.' },
             { name: 'Birthdays is a customizable Event type. Use \'!birthdayAdd\' to add a birthday alert. Use like this:', value: '!birthdayAdd <DiscordID> <First Name> <Last Name> <YYYY-MM-DD> <Gender>' },

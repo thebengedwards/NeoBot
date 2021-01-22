@@ -67,6 +67,6 @@ exports.conf = {
 
 exports.help = {
     name: 'gameUpdate',
-    description: 'Update a game on NEO.',
+    description: 'Update a game on NeoBot.',
     usage: 'gameUpdate <Game_Name> <Game_Type> <Rating> <Play With>'
 };

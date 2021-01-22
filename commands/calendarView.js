@@ -72,6 +72,6 @@ exports.conf = {
 
 exports.help = {
     name: 'calendarView',
-    description: 'View a single calendar on NEO',
+    description: 'View a single calendar on NeoBot',
     usage: 'calendarView <Name>'
 };

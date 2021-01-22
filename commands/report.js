@@ -52,6 +52,6 @@ exports.conf = {
 
 exports.help = {
   name: 'report',
-  description: 'Report any issues or feedback! Just send NEO a Direct Message with !report',
+  description: 'Report any issues or feedback! Just send NeoBot a Direct Message with !report',
   usage: 'report <text here>'
 };

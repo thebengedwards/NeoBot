@@ -57,6 +57,6 @@ exports.conf = {
 
 exports.help = {
     name: 'calendarDelete',
-    description: 'Delete a calendar from NEO',
+    description: 'Delete a calendar from NeoBot',
     usage: 'calendarDelete <Name>'
 };

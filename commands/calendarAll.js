@@ -25,16 +25,22 @@ exports.run = async (client, message) => {
         })
             .then(res => res.json());
 
+        calendars.sort((a,b) => {
+            if(a.cron < b.cron) { return -1; }
+            if(a.cron > b.cron) { return 1; }
+            return 0;
+        })
+
         const commandEmbed = require('../embeds/commandEmbed');
         const embed = new Discord.MessageEmbed(commandEmbed);
 
         embed.setDescription('All Calendars');
         embed.addFields(
-            { name: `Below are all the calendars saved on NEO.`, value: `Please be carful with this information` },
+            { name: `Below are all the calendars saved on NeoBot.`, value: `Please be carful with this information` },
+            { name: `Calendars`, value: calendars.map(item => `${item.name}, ${moment(new Date(item.cron)).format('Do MMMM')} every year.`) },
             { name: 'This command is dev only. DO NOT USE IT', value: 'To add a calendar, use \'!calendarAdd\', to view a calendar, use \'!calendarView\', to see all calendars use \'!calendarAll\',to delete a calendar use \'!calendarDelete\'.' },
         )
         message.channel.send({ embed })
-        calendars.forEach(item => message.channel.send(`${item.name}, ${moment(new Date(item.cron)).format('Do MMMM')} every year.`))
     } else {
         const alertEmbed = require('../embeds/alertEmbed');
         const embed = new Discord.MessageEmbed(alertEmbed);
@@ -54,6 +60,6 @@ exports.conf = {
 
 exports.help = {
     name: 'calendarAll',
-    description: 'See all calendars on NEO',
+    description: 'See all calendars on NeoBot',
     usage: 'calendarAll'
 };

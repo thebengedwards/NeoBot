@@ -65,6 +65,6 @@ exports.conf = {
 
 exports.help = {
     name: 'gameAdd',
-    description: 'Add a game to NEO.',
+    description: 'Add a game to NeoBot.',
     usage: 'gameAdd <Game_Name> <Game_Type> <Rating> <Play With>.'
 };

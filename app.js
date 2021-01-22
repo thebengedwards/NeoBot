@@ -1,6 +1,6 @@
 // Critical .env setup
 require("dotenv").config()
-// Init NEO
+// Init NeoBot
 const Discord = require("discord.js");
 const client = new Discord.Client();
 // Required for server setup

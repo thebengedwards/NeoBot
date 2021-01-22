@@ -7,7 +7,7 @@ const embed = new Discord.MessageEmbed()
 	.setTitle('**Report**')
 	.setThumbnail(img)
 	.setTimestamp()
-	.setFooter(`NEO Version: ${version}`)
+	.setFooter(`NeoBot Version: ${version}`)
 ;
 
 module.exports = (embed);

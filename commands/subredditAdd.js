@@ -59,6 +59,6 @@ exports.conf = {
 
 exports.help = {
     name: 'subredditAdd',
-    description: 'Add a subreddit to NEO!',
+    description: 'Add a subreddit to NeoBot!',
     usage: 'subredditAdd <Subreddit Name>'
 };

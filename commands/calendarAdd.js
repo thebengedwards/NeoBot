@@ -64,6 +64,6 @@ exports.conf = {
 
 exports.help = {
     name: 'calendarAdd',
-    description: 'Add a calendar to NEO.',
+    description: 'Add a calendar to NeoBot.',
     usage: 'calendarAdd <Name> <MM-DD>'
 };

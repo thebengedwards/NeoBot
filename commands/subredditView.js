@@ -68,6 +68,6 @@ exports.conf = {
 
 exports.help = {
     name: 'subredditView',
-    description: 'View a single subreddit on NEO',
+    description: 'View a single subreddit on NeoBot',
     usage: 'subredditView <Subreddit Name>'
 };

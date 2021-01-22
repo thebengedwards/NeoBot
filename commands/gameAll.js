@@ -24,16 +24,22 @@ exports.run = async (client, message) => {
         })
             .then(res => res.json());
 
+        games.sort((a,b) => {
+            if(a.gameName < b.gameName) { return -1; }
+            if(a.gameName > b.gameName) { return 1; }
+            return 0;
+        })
+
         const commandEmbed = require('../embeds/commandEmbed');
         const embed = new Discord.MessageEmbed(commandEmbed);
 
         embed.setDescription('All Games');
         embed.addFields(
-            { name: `Below are all the games saved on NEO.`, value: `Please be carful with this information` },
+            { name: `Below are all the games saved on NeoBot.`, value: `Please be carful with this information` },
+            { name: `Games`, value: games.map(item => `${item.gameName}, ${item.gameType}, ${item.gameRating}, ${item.playWith}`) },
             { name: 'This command is dev only. DO NOT USE IT', value: 'To add a game, use \'!gameAdd\', to view a game, use \'!gameView\', to see all games use \'!gameAll\', to update a game use \'!gameUpdate\',to delete a game use \'!gameDelete\'.' },
         )
         message.channel.send({ embed })
-        games.forEach(item => message.channel.send(`${item.gameName}, ${item.gameType}, ${item.gameRating}, ${item.playWith}`))
     } else {
         const alertEmbed = require('../embeds/alertEmbed');
         const embed = new Discord.MessageEmbed(alertEmbed);
@@ -53,6 +59,6 @@ exports.conf = {
 
 exports.help = {
     name: 'gameAll',
-    description: 'See all games on NEO',
+    description: 'See all games on NeoBot',
     usage: 'gameAll'
 };

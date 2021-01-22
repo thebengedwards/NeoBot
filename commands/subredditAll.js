@@ -24,16 +24,22 @@ exports.run = async (client, message) => {
         })
             .then(res => res.json());
 
+        subreddits.sort((a,b) => {
+            if(a.subredditName < b.subredditName) { return -1; }
+            if(a.subredditName > b.subredditName) { return 1; }
+            return 0;
+        })
+
         const commandEmbed = require('../embeds/commandEmbed');
         const embed = new Discord.MessageEmbed(commandEmbed);
 
         embed.setDescription('All Subreddits');
         embed.addFields(
-            { name: `Below are all the subreddits saved on NEO.`, value: `Please be carful with this information` },
+            { name: `Below are all the subreddits saved on NeoBot.`, value: `Please be carful with this information` },
+            { name: `Subreddits`, value: subreddits.map(item => `r/${item.subredditName}`) },
             { name: 'This command is dev only. DO NOT USE IT', value: 'To add a subreddit, use \'!subredditAdd\', to view a subreddit, use \'!subredditView\', to see all Subreddits use \'!subredditAll\',to delete a subreddit use \'!subredditDelete\'.' },
         )
         message.channel.send({ embed })
-        subreddits.forEach(item => message.channel.send(`${item.subredditName}`))
     } else {
         const alertEmbed = require('../embeds/alertEmbed');
         const embed = new Discord.MessageEmbed(alertEmbed);
@@ -53,6 +59,6 @@ exports.conf = {
 
 exports.help = {
     name: 'subredditAll',
-    description: 'See all subreddits on NEO',
+    description: 'See all subreddits on NeoBot',
     usage: 'subredditAll'
 };

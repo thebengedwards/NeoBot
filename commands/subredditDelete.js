@@ -54,6 +54,6 @@ exports.conf = {
 
 exports.help = {
     name: 'subredditDelete',
-    description: 'Delete a subreddit from NEO',
+    description: 'Delete a subreddit from NeoBot',
     usage: 'subredditDelete <Subreddit Name>'
 };
