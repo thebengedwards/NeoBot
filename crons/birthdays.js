@@ -17,7 +17,7 @@ module.exports = async (client) => {
         .then(res => res.json());
 
     data.map(async (item) => {
-        if (item.birthdays === 1 && item.generalChannelID !== '0') {
+        if (item.birthdays === 1 && item.generalChannelID === client.guilds.cache.get(item.serverID).channels.cache.get(item.generalChannelID).id) {
             let birthdays = await fetch(`${PATH}/birthdays/${item.serverID}`, {
                 method: 'GET',
                 headers: {

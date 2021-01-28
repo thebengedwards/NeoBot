@@ -21,7 +21,7 @@ exports.run = async (client, message, args) => {
 
     if (!args[0]) {
       embed.setDescription('Help')
-      embed.addField('Command List', `[Use ${settings.prefix}help <commandname> for details]`)
+      embed.addField('Command List', `[Use ${settings.prefix}help <command name> for details]`)
       client.commands.map(item => { if (item.conf.permLevel < 3) { embed.addField(settings.prefix + item.help.name, item.help.description, true) } })
       return message.channel.send({ embed });
     } else {

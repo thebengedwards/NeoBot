@@ -17,7 +17,7 @@ module.exports = async (client) => {
         .then(res => res.json());
 
     data.map(async (item) => {
-        if (item.weeklyMeme === 1 && item.memesChannelID !== '0') {
+        if (item.weeklyMeme === 1 && item.generalChannelID === client.guilds.cache.get(item.serverID).channels.cache.get(item.generalChannelID).id) {
             let subredditsJson = await fetch(`${PATH}/subreddits`, {
                 method: 'GET',
                 headers: {
