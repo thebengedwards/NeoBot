@@ -26,8 +26,8 @@ module.exports = async (client) => {
             })
                 .then(res => res.json());
 
-            let weeklyGame = new cron.CronJob(`00 00 20 * * 5`, () => {
-            // let weeklyGame = new cron.CronJob(`00 * * * * *`, () => {
+            // let weeklyGame = new cron.CronJob(`00 00 20 * * 5`, () => {
+            let weeklyGame = new cron.CronJob(`00 * * * * *`, () => {
                 const pollEmbed = require('../embeds/pollEmbed')
                 const embed = new Discord.MessageEmbed(pollEmbed)
 

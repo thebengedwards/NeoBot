@@ -16,22 +16,31 @@ module.exports = async (client, messageReaction, user) => {
 
     // Reactions to NeoBot Polls
     if (data.serverID === messageReaction.message.guild.id) {
-        if (user.bot === false && messageReaction.message.author.username === 'NeoBot') {
-        // if(user.bot === false && messageReaction.message.author.username === 'NeoBot' && messageReaction.message.embeds[0].title === '**Poll**') {
+        if (user.bot === false && messageReaction.message.author.username === 'NeoBot' && messageReaction.message.embeds[0].title === '**Poll**') {
             let prevEmbed = messageReaction.message.embeds[0]
 
-            if(messageReaction._emoji.name === '👍'){
-                if(prevEmbed.fields.find(item => item.name === 'YES').value === 'None'){
+            if (messageReaction._emoji.name === '👍') {
+                if (prevEmbed.fields.find(item => item.name === 'YES').value === 'None') {
                     prevEmbed.fields.find(item => item.name === 'YES').value = `<@${user.id}>`
                 } else {
-                    if(prevEmbed.fields.find(item => item.name === 'YES').value.toLowerCase().indexOf(user.id.toLowerCase()) === -1) prevEmbed.fields.find(item => item.name === 'YES').value = `${prevEmbed.fields.find(item => item.name === 'YES').value} \n <@${user.id}>`
-                }    
-            } else if(messageReaction._emoji.name === '👎'){
-                if(prevEmbed.fields.find(item => item.name === 'NO').value === 'None'){
+                    if (prevEmbed.fields.find(item => item.name === 'YES').value.toLowerCase().indexOf(user.id.toLowerCase()) === -1) {
+                        prevEmbed.fields.find(item => item.name === 'YES').value = `${prevEmbed.fields.find(item => item.name === 'YES').value} \n <@${user.id}>`
+                    } else {
+                        prevEmbed.fields.find(item => item.name === 'YES').value.replace(`<@${user.id}>`, '')
+                        console.log(prevEmbed.fields.find(item => item.name === 'YES').value)
+                        if (prevEmbed.fields.find(item => item.name === 'YES').value === '') prevEmbed.fields.find(item => item.name === 'YES').value = 'None'
+                    }
+                }
+            } else if (messageReaction._emoji.name === '👎') {
+                if (prevEmbed.fields.find(item => item.name === 'NO').value === 'None') {
                     prevEmbed.fields.find(item => item.name === 'NO').value = `<@${user.id}>`
                 } else {
-                    if(prevEmbed.fields.find(item => item.name === 'NO').value.toLowerCase().indexOf(user.id.toLowerCase()) === -1) prevEmbed.fields.find(item => item.name === 'NO').value = `${prevEmbed.fields.find(item => item.name === 'NO').value} \n <@${user.id}>`
-                }   
+                    if (prevEmbed.fields.find(item => item.name === 'NO').value.toLowerCase().indexOf(user.id.toLowerCase()) === -1) {
+                        prevEmbed.fields.find(item => item.name === 'NO').value = `${prevEmbed.fields.find(item => item.name === 'NO').value} \n <@${user.id}>`
+                    } else {
+                        prevEmbed.fields.find(item => item.name === 'NO').value = 'None'
+                    }
+                }
             }
             const pollEmbed = require('../embeds/pollEmbed')
             const embed = new Discord.MessageEmbed(pollEmbed)
@@ -42,7 +51,11 @@ module.exports = async (client, messageReaction, user) => {
             )
 
             let message = messageReaction.message
-            message.edit(embed)
+            message.reactions.removeAll()
+
+            let embedMessage = await message.edit(embed);
+            await embedMessage.react('👍')
+            await embedMessage.react('👎')
         }
     }
 
