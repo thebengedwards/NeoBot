@@ -23,7 +23,7 @@ module.exports = async (client, messages) => {
 
         embed.setDescription(`Purge detected in chanel: ${message.channel.name}`)
         embed.addFields(
-            { name: `Purged by: ${message.author.username}`, value: `Messages Deleted: ${message.content.charAt(message.content.length - 1)}` },
+            { name: `Purged by: ${message.author.username}`, value: `Messages Deleted: ${messages.size}` },
             { name: `Deleted Date: ${moment(new Date()).format('Do MMMM YYYY')}`, value: `Deleted Time: ${moment(new Date()).format('HH:mm:ss')}` },
         )
         return client.channels.cache.get(data.modChannelID).send({ embed });

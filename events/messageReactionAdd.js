@@ -20,25 +20,33 @@ module.exports = async (client, messageReaction, user) => {
             let prevEmbed = messageReaction.message.embeds[0]
 
             if (messageReaction._emoji.name === '👍') {
-                if (prevEmbed.fields.find(item => item.name === 'YES').value === 'None') {
-                    prevEmbed.fields.find(item => item.name === 'YES').value = `<@${user.id}>`
+                if (prevEmbed.fields.find(item => item.name === 'YES').value.includes(`<@${user.id}>`)) {
+                    return
                 } else {
-                    if (prevEmbed.fields.find(item => item.name === 'YES').value.toLowerCase().indexOf(user.id.toLowerCase()) === -1) {
-                        prevEmbed.fields.find(item => item.name === 'YES').value = `${prevEmbed.fields.find(item => item.name === 'YES').value} \n <@${user.id}>`
+                    if (prevEmbed.fields.find(item => item.name === 'NO').value.includes(`<@${user.id}>`)) {
+                        newValue = prevEmbed.fields.find(item => item.name === 'NO').value.replace(`<@${user.id}>`, '')
+                        if (newValue === '') newValue = 'None'
+                        prevEmbed.fields.find(item => item.name === 'NO').value = newValue
+                    }
+                    if (prevEmbed.fields.find(item => item.name === 'YES').value === 'None') {
+                        prevEmbed.fields.find(item => item.name === 'YES').value = `<@${user.id}>`
                     } else {
-                        prevEmbed.fields.find(item => item.name === 'YES').value.replace(`<@${user.id}>`, '')
-                        console.log(prevEmbed.fields.find(item => item.name === 'YES').value)
-                        if (prevEmbed.fields.find(item => item.name === 'YES').value === '') prevEmbed.fields.find(item => item.name === 'YES').value = 'None'
+                        prevEmbed.fields.find(item => item.name === 'YES').value = `${prevEmbed.fields.find(item => item.name === 'YES').value} \n <@${user.id}>`
                     }
                 }
             } else if (messageReaction._emoji.name === '👎') {
-                if (prevEmbed.fields.find(item => item.name === 'NO').value === 'None') {
-                    prevEmbed.fields.find(item => item.name === 'NO').value = `<@${user.id}>`
+                if (prevEmbed.fields.find(item => item.name === 'NO').value.includes(`<@${user.id}>`)) {
+                    return
                 } else {
-                    if (prevEmbed.fields.find(item => item.name === 'NO').value.toLowerCase().indexOf(user.id.toLowerCase()) === -1) {
-                        prevEmbed.fields.find(item => item.name === 'NO').value = `${prevEmbed.fields.find(item => item.name === 'NO').value} \n <@${user.id}>`
+                    if (prevEmbed.fields.find(item => item.name === 'YES').value.includes(`<@${user.id}>`)) {
+                        newValue = prevEmbed.fields.find(item => item.name === 'YES').value.replace(`<@${user.id}>`, '')
+                        if (newValue === '') newValue = 'None'
+                        prevEmbed.fields.find(item => item.name === 'YES').value = newValue
+                    }
+                    if (prevEmbed.fields.find(item => item.name === 'NO').value === 'None') {
+                        prevEmbed.fields.find(item => item.name === 'NO').value = `<@${user.id}>`
                     } else {
-                        prevEmbed.fields.find(item => item.name === 'NO').value = 'None'
+                        prevEmbed.fields.find(item => item.name === 'NO').value = `${prevEmbed.fields.find(item => item.name === 'NO').value} \n <@${user.id}>`
                     }
                 }
             }
@@ -51,11 +59,7 @@ module.exports = async (client, messageReaction, user) => {
             )
 
             let message = messageReaction.message
-            message.reactions.removeAll()
-
-            let embedMessage = await message.edit(embed);
-            await embedMessage.react('👍')
-            await embedMessage.react('👎')
+            await message.edit(embed);
         }
     }
 
