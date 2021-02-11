@@ -30,7 +30,7 @@ exports.run = async (client, message) => {
       { name: 'Version 1.1.4', value: 'Fixed Birthday Announcements.' },
       { name: 'Version 1.1.5', value: 'Fixed Bugs.' },
       { name: 'Version 2.0.0', value: 'Major \'Under-the-hood\' improvements, New Discord Embeds, Admin Purges, Added security, Many minor Bug Fixes, \'Weekly Meme\' Imgur mp4 bug fix, Game Polling, Reporting through direct messages, API Integration, Database Management Abilities, Various Dev Commands and much, much more!' },
-      { name: 'Version 2.1.0', value: 'Minor Text fixes and improvements to features brought in version 2. \'All\' commands no longer just paste results below the embed, and are now included with the embed body. Various text fixes. Polls have been updated to now be cleaer on who said yes, and who said no. Backend fixes for updating various data has been fixed.' },
+      { name: 'Version 2.1.0', value: 'Minor Text fixes and improvements to features brought in version 2. \'All\' commands no longer just paste results below the embed, and are now included with the embed body. Various text fixes. Polls have been updated to now be cleaer on who said yes, and who said no. Backend fixes and updating data has now been fixed.' },
     )
     return message.channel.send({ embed })
   } else {

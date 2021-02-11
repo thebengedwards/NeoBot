@@ -14,6 +14,20 @@ module.exports = async (client, messageReaction, user) => {
     })
         .then(res => res.json());
 
+    addReaction = (prevEmbed, ID) => {
+        if (prevEmbed.fields.find(item => item.name === ID).value === 'None') {
+            return prevEmbed.fields.find(item => item.name === ID).value = `<@${user.id}>`
+        } else {
+            return prevEmbed.fields.find(item => item.name === ID).value = `${prevEmbed.fields.find(item => item.name === ID).value} \n <@${user.id}>`
+        }
+    }
+
+    moveReaction = (prevEmbed, ID) => {
+        newValue = prevEmbed.fields.find(item => item.name === ID).value.replace(`<@${user.id}>`, '')
+        if (newValue === '') newValue = 'None'
+        return prevEmbed.fields.find(item => item.name === ID).value = newValue
+    }
+
     // Reactions to NeoBot Polls
     if (data.serverID === messageReaction.message.guild.id) {
         if (user.bot === false && messageReaction.message.author.username === 'NeoBot' && messageReaction.message.embeds[0].title === '**Poll**') {
@@ -24,30 +38,18 @@ module.exports = async (client, messageReaction, user) => {
                     return
                 } else {
                     if (prevEmbed.fields.find(item => item.name === 'NO').value.includes(`<@${user.id}>`)) {
-                        newValue = prevEmbed.fields.find(item => item.name === 'NO').value.replace(`<@${user.id}>`, '')
-                        if (newValue === '') newValue = 'None'
-                        prevEmbed.fields.find(item => item.name === 'NO').value = newValue
+                        moveReaction(prevEmbed, 'NO')
                     }
-                    if (prevEmbed.fields.find(item => item.name === 'YES').value === 'None') {
-                        prevEmbed.fields.find(item => item.name === 'YES').value = `<@${user.id}>`
-                    } else {
-                        prevEmbed.fields.find(item => item.name === 'YES').value = `${prevEmbed.fields.find(item => item.name === 'YES').value} \n <@${user.id}>`
-                    }
+                    addReaction(prevEmbed, 'YES')
                 }
             } else if (messageReaction._emoji.name === '👎') {
                 if (prevEmbed.fields.find(item => item.name === 'NO').value.includes(`<@${user.id}>`)) {
                     return
                 } else {
                     if (prevEmbed.fields.find(item => item.name === 'YES').value.includes(`<@${user.id}>`)) {
-                        newValue = prevEmbed.fields.find(item => item.name === 'YES').value.replace(`<@${user.id}>`, '')
-                        if (newValue === '') newValue = 'None'
-                        prevEmbed.fields.find(item => item.name === 'YES').value = newValue
+                        moveReaction(prevEmbed, 'YES')
                     }
-                    if (prevEmbed.fields.find(item => item.name === 'NO').value === 'None') {
-                        prevEmbed.fields.find(item => item.name === 'NO').value = `<@${user.id}>`
-                    } else {
-                        prevEmbed.fields.find(item => item.name === 'NO').value = `${prevEmbed.fields.find(item => item.name === 'NO').value} \n <@${user.id}>`
-                    }
+                    addReaction(prevEmbed, 'NO')
                 }
             }
             const pollEmbed = require('../embeds/pollEmbed')
