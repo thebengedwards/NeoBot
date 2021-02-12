@@ -27,7 +27,7 @@ module.exports = client => {
   client.on('messageDelete', (message) => reqEvent('messageDelete')(client, message));
   client.on('messageDeleteBulk', (messages) => reqEvent('messageDeleteBulk')(client, messages));
   client.on('messageReactionAdd', (messageReaction, user) => reqEvent('messageReactionAdd')(client, messageReaction, user));
-  //client.on('messageReactionRemove', (messageReaction, user) => reqEvent('messageReactionRemove')(client, messageReaction, user));
+  client.on('messageReactionRemove', (messageReaction, user) => reqEvent('messageReactionRemove')(client, messageReaction, user));
   //client.on('messageReactionRemoveAll', (message) => reqEvent('messageReactionRemoveAll')(client, message));
   client.on('messageUpdate', (oldMessage, newMessage) => reqEvent('messageUpdate')(client, oldMessage, newMessage));
   // Presence Events \\

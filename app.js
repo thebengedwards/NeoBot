@@ -7,12 +7,10 @@ const client = new Discord.Client();
 const settings = require("./settings.json")
 // These are external libraries required to run additional Functions
 const fs = require("fs");
-const fetch = require("node-fetch")
+// Http import
+const GetServer = require("./functions/http-functions/servers").GetServer
 
-const PATH = process.env.API_URL
-const KEY = process.env.API_KEY
-
-require("./util/eventLoader")(client);
+require("./functions/eventLoader")(client);
 
 client.commands = new Discord.Collection();
 client.aliases = new Discord.Collection();
@@ -29,14 +27,11 @@ fs.readdir('./commands/', (err, files) => {
 });
 
 client.elevation = async (message) => {
-  let server = await fetch(`${PATH}/servers/${message.guild.id}`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      'API_KEY': KEY
-    }
-  }).then(res => res.json());
-
+  let server
+  await GetServer(message.guild.id)
+  .then(res => server = res.data)
+  .catch((err) => {console.log('GetServer Error')});
+  
   let permlvl = 0;
   try {
     const member_role = message.member.roles.cache.find(r => r.name === "Member");

@@ -27,7 +27,6 @@ module.exports = async (client) => {
                 .then(res => res.json());
 
             let weeklyGame = new cron.CronJob(`00 00 20 * * 5`, () => {
-            // let weeklyGame = new cron.CronJob(`00 * * * * *`, () => {
                 const pollEmbed = require('../embeds/pollEmbed')
                 const embed = new Discord.MessageEmbed(pollEmbed)
 
@@ -46,7 +45,7 @@ module.exports = async (client) => {
                         { name: `↓ Vote Below ↓`, value: `👍 = Yes || 👎 = No` },
                     )
 
-                    let embedMessage = await client.channels.cache.get(item.modChannelID).send({ embed });
+                    let embedMessage = await client.channels.cache.get(item.generalChannelID).send({ embed });
                     await embedMessage.react('👍')
                     await embedMessage.react('👎')
                 }

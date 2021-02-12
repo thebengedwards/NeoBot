@@ -1,18 +1,11 @@
 const Discord = require("discord.js")
-const fetch = require("node-fetch")
-
-const PATH = process.env.API_URL
-const KEY = process.env.API_KEY
+const { GetServer } = require("../functions/http-functions/servers")
 
 exports.run = async (client, message) => {
-  let data = await fetch(`${PATH}/servers/${message.guild.id}`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      'API_KEY': KEY
-    }
-  })
-    .then(res => res.json());
+  let server
+  await GetServer(message.guild.id)
+  .then(res => server = res.data)
+  .catch((err) => {console.log('GetServer Error')});
 
   if (message.member.roles.cache.find(item => item.name === "Member")) {
     const alertEmbed = require('../embeds/alertEmbed')
@@ -21,13 +14,13 @@ exports.run = async (client, message) => {
     embed.setDescription('You already have a role!')
     return message.channel.send({ embed })
   } else {
-    if (data.serverID === message.guild.id && message.guild.channels.cache.find(item => item.id === data.generalChannelID)) {
+    if (server.serverID === message.guild.id && message.guild.channels.cache.find(item => item.id === server.generalChannelID)) {
       const commandEmbed = require('../embeds/commandEmbed')
       const embed = new Discord.MessageEmbed(commandEmbed)
 
       embed.setDescription(`Please welcome ${message.member} to the server!`)
-      message.member.roles.add(data.memberRoleID)
-      return client.channels.cache.get(data.generalChannelID).send({ embed });
+      message.member.roles.add(server.memberRoleID)
+      return client.channels.cache.get(server.generalChannelID).send({ embed });
     }
   }
 };
