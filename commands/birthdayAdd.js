@@ -1,21 +1,15 @@
 const Discord = require("discord.js")
-const fetch = require("node-fetch")
 const moment = require("moment")
-
-const PATH = process.env.API_URL
-const KEY = process.env.API_KEY
+const { GetServer } = require("../functions/http-functions/servers")
+const { CreateBirthday } = require("../functions/http-functions/birthdays")
 
 exports.run = async(client, message, args) => {
-    let data = await fetch(`${PATH}/servers/${message.guild.id}`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'API_KEY': KEY
-        }
-    })
-        .then(res => res.json());
+    let server
+    await GetServer(message.guild.id)
+    .then(res => server = res.data)
+    .catch((err) => {console.log('GetServer Error')});
 
-    if (data.serverID === message.guild.id) {
+    if (server.serverID === message.guild.id) {
         if (args.length === 5) {
             const body = {
                 serverID: message.guild.id,
@@ -26,22 +20,17 @@ exports.run = async(client, message, args) => {
                 gender: args[4].toLowerCase(),
             };
 
-            fetch(`${PATH}/birthdays`, {
-                method: 'POST',
-                body: JSON.stringify(body),
-                headers: {
-                    'Content-Type': 'application/json',
-                    'API_KEY': KEY
-                },
-            })
-                .then(res => res.json())
+            let birthday
+            await CreateBirthday(body)
+            .then(res => birthday = res.data)
+            .catch((err) => {console.log('CreateBirthday Error')});
 
             const commandEmbed = require('../embeds/commandEmbed');
             const embed = new Discord.MessageEmbed(commandEmbed);
 
             embed.setDescription('Birthday added!');
             embed.addFields(
-                { name: `You have added: ${args[1]} ${args[2]} to the birthday list`, value: `Date: ${moment(args[3]).format('Do MMMM YYYY')}` },
+                { name: `You have added: ${birthday.fName} ${birthday.lName} to the birthday list`, value: `Date: ${moment(birthday.cron).format('Do MMMM YYYY')}` },
                 { name: 'To see all birthdays on your server, use \'!birthdayAll\'. It will be sent to the mod channel.', value: 'To add a birthday, use \'!birthdayAdd\', to update a birthday, use \'!birthdayUpdate\', to see a birthday use \'!birthdayView\', to delete a birthday use \'!birthdayDelete\'.' },
             )
             return message.channel.send({ embed })

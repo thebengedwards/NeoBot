@@ -1,29 +1,21 @@
 const Discord = require("discord.js")
-const fetch = require("node-fetch")
-
-const PATH = process.env.API_URL
-const KEY = process.env.API_KEY
+const { GetServer } = require("../functions/http-functions/servers")
+const { DeleteCalendar } = require("../functions/http-functions/calendars")
 
 exports.run = async (client, message, args) => {
-    let data = await fetch(`${PATH}/servers/${message.guild.id}`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'API_KEY': KEY
-        }
-    })
-        .then(res => res.json());
+    let server
+    await GetServer(message.guild.id)
+    .then(res => server = res.data)
+    .catch((err) => { console.log('GetServer Error') });
 
-    if (data.serverID === message.guild.id) {
+    if (server.serverID === message.guild.id) {
         if (args.length === 1) {
-            fetch(`${PATH}/calendars/${args[0].toLowerCase().replace('_', ' ')}`, {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'API_KEY': KEY
-                },
-            })
-                .then(res => res.json())
+            let calendarId = args[0].toLowerCase().replace(/[_]+/g, ' ')
+
+            let calendar
+            await DeleteCalendar(calendarId)
+            .then(res => calendar = res.data)
+            .catch((err) => { console.log('CalendarDelete Error') });
 
             const commandEmbed = require('../embeds/commandEmbed');
             const embed = new Discord.MessageEmbed(commandEmbed);

@@ -1,6 +1,7 @@
 const {
     GET_SERVER,
     GET_SERVERS,
+    UPDATE_SERVER
 } = require("../endpoints")
 const { HTTP } = require("../http")
 
@@ -25,5 +26,17 @@ exports.GetServers = async () => {
             'Content-Type': 'application/json',
             'API_KEY': KEY
         },
+    })
+};
+
+exports.UpdateServer = async (SERVER_ID, DATA) => {
+    return HTTP_D({
+        Method: "GET",
+        Url: UPDATE_SERVER(SERVER_ID),
+        Headers: {
+            'Content-Type': 'application/json',
+            'API_KEY': KEY
+        },
+        Data: DATA
     })
 };

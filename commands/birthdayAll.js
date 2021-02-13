@@ -1,33 +1,23 @@
 const Discord = require("discord.js")
-const fetch = require("node-fetch")
 const moment = require("moment")
+const { GetServer } = require("../functions/http-functions/servers")
+const { GetAllBirthdays } = require("../functions/http-functions/birthdays")
 
-const PATH = process.env.API_URL
-const KEY = process.env.API_KEY
+exports.run = async (client, message) => {
+    let server
+    await GetServer(message.guild.id)
+    .then(res => server = res.data)
+    .catch((err) => { console.log('GetServer Error') });
 
-exports.run = async(client, message) => {
-    let data = await fetch(`${PATH}/servers/${message.guild.id}`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'API_KEY': KEY
-        }
-    })
-        .then(res => res.json());
+    if (server.serverID === message.guild.id) {
+        let birthdays
+        await GetAllBirthdays(message.guild.id)
+        .then(res => birthdays = res.data)
+        .catch((err) => { console.log('GetAllBirthdays Error') });
 
-    if (data.serverID === message.guild.id) {
-        let birthdays = await fetch(`${PATH}/birthdays/${message.guild.id}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'API_KEY': KEY
-            }
-        })
-            .then(res => res.json());
-
-        birthdays.sort((a,b) => {
-            if(a.cron < b.cron) { return -1; }
-            if(a.cron > b.cron) { return 1; }
+        birthdays.sort((a, b) => {
+            if (a.cron < b.cron) { return -1; }
+            if (a.cron > b.cron) { return 1; }
             return 0;
         })
 

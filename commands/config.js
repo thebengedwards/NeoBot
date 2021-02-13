@@ -1,77 +1,66 @@
 const Discord = require("discord.js")
-const fetch = require("node-fetch")
-
-const PATH = process.env.API_URL
-const KEY = process.env.API_KEY
+const { GetServer, UpdateServer } = require("../functions/http-functions/servers")
 
 exports.run = async (client, message) => {
-  let data = await fetch(`${PATH}/servers/${message.guild.id}`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      'API_KEY': KEY
-    }
-  })
-    .then(res => res.json());
+  let server
+  await GetServer(message.guild.id)
+  .then(res => server = res.data)
+  .catch((err) => { console.log('GetServer Error') });
 
-  if (data.serverID === message.guild.id) {
-    if (data.setupComplete === 1) {
+  if (server.serverID === message.guild.id) {
+    if (server.setupComplete === 1) {
 
       const commandEmbed = require('../embeds/commandEmbed')
       const embed = new Discord.MessageEmbed(commandEmbed)
 
       embed.setDescription('Config')
-      embed.addField('Completed Setup:', data.setupComplete === 1 ? `Complete 🟩` : `Incomplete 🟥`)
+      embed.addField('Completed Setup:', server.setupComplete === 1 ? `Complete 🟩` : `Incomplete 🟥`)
       embed.addFields(
         { name: '\u200B', value: '---ROLES---' },
         { name: `Role Settings`, value: 'Please set the Roles in order to use NeoBot' },
-        { name: `Admin Role:`, value: data.adminRoleID !== '0' ? `Set 🟩` : `Unset 🟥`, inline: true },
-        { name: `Moderator Role:`, value: data.modRoleID !== '0' ? `Set 🟩` : `Unset 🟥`, inline: true },
-        { name: `Member Role:`, value: data.memberRoleID !== '0' ? `Set 🟩` : `Unset 🟥`, inline: true },
+        { name: `Admin Role:`, value: server.adminRoleID !== '0' ? `Set 🟩` : `Unset 🟥`, inline: true },
+        { name: `Moderator Role:`, value: server.modRoleID !== '0' ? `Set 🟩` : `Unset 🟥`, inline: true },
+        { name: `Member Role:`, value: server.memberRoleID !== '0' ? `Set 🟩` : `Unset 🟥`, inline: true },
         { name: '\u200B', value: '---CHANNELS---' },
         { name: `Channel Settings`, value: 'Please set the Channels in order to use NeoBot' },
-        { name: `Welcome Channel:`, value: data.welcomeChannelID !== '0' ? `Set 🟩` : `Unset 🟥`, inline: true },
-        { name: `Moderator Channel:`, value: data.modChannelID !== '0' ? `Set 🟩` : `Unset 🟥`, inline: true },
-        { name: `General Channel:`, value: data.generalChannelID !== '0' ? `Set 🟩` : `Unset 🟥`, inline: true },
-        { name: `Memes Channel:`, value: data.memesChannelID !== '0' ? `Set 🟩` : `Unset 🟥`, inline: true },
-        { name: `Game Updates Channel:`, value: data.gameUpdatesChannelID !== '0' ? `Set 🟩` : `Unset 🟥`, inline: true },
-        { name: `Update Log Channel:`, value: data.updateLogChannelID !== '0' ? `Set 🟩` : `Unset 🟥`, inline: true },
+        { name: `Welcome Channel:`, value: server.welcomeChannelID !== '0' ? `Set 🟩` : `Unset 🟥`, inline: true },
+        { name: `Moderator Channel:`, value: server.modChannelID !== '0' ? `Set 🟩` : `Unset 🟥`, inline: true },
+        { name: `General Channel:`, value: server.generalChannelID !== '0' ? `Set 🟩` : `Unset 🟥`, inline: true },
+        { name: `Memes Channel:`, value: server.memesChannelID !== '0' ? `Set 🟩` : `Unset 🟥`, inline: true },
+        { name: `Game Updates Channel:`, value: server.gameUpdatesChannelID !== '0' ? `Set 🟩` : `Unset 🟥`, inline: true },
+        { name: `Update Log Channel:`, value: server.updateLogChannelID !== '0' ? `Set 🟩` : `Unset 🟥`, inline: true },
         { name: '\u200B', value: '---FEATURES---' },
         { name: `Events Settings`, value: 'What features are enabled/disabled' },
-        { name: `Weekly Meme`, value: data.weeklyMeme === 1 ? `Enabled 🟩` : `Disabled 🟥`, inline: true },
-        { name: `Birthdays`, value: data.birthdays === 1 ? `Enabled 🟩` : `Disabled 🟥`, inline: true },
-        { name: `Calendar`, value: data.calendar === 1 ? `Enabled 🟩` : `Disabled 🟥`, inline: true },
-        { name: `Game Polls`, value: data.polls === 1 ? `Enabled 🟩` : `Disabled 🟥`, inline: true },
+        { name: `Weekly Meme`, value: server.weeklyMeme === 1 ? `Enabled 🟩` : `Disabled 🟥`, inline: true },
+        { name: `Birthdays`, value: server.birthdays === 1 ? `Enabled 🟩` : `Disabled 🟥`, inline: true },
+        { name: `Calendar`, value: server.calendar === 1 ? `Enabled 🟩` : `Disabled 🟥`, inline: true },
+        { name: `Game Polls`, value: server.polls === 1 ? `Enabled 🟩` : `Disabled 🟥`, inline: true },
       )
       return message.channel.send({ embed });
-    } else if (data.setupComplete === 0) {
+    } else if (server.setupComplete === 0) {
 
       const body = {
-        serverName: data.serverName,
+        serverName: server.serverName,
         setupComplete: true,
-        adminRoleID: data.adminRoleID,
-        modRoleID: data.modRoleID,
-        memberRoleID: data.memberRoleID,
-        welcomeChannelID: data.welcomeChannelID,
-        modChannelID: data.modChannelID,
-        generalChannelID: data.generalChannelID,
-        memesChannelID: data.memesChannelID,
-        gameUpdatesChannelID: data.gameUpdatesChannelID,
-        updateLogChannelID: data.updateLogChannelID,
-        weeklyMeme: data.weeklyMeme,
-        birthdays: data.birthdays,
-        calendar: data.calendar,
-        polls: data.polls,
+        adminRoleID: server.adminRoleID,
+        modRoleID: server.modRoleID,
+        memberRoleID: server.memberRoleID,
+        welcomeChannelID: server.welcomeChannelID,
+        modChannelID: server.modChannelID,
+        generalChannelID: server.generalChannelID,
+        memesChannelID: server.memesChannelID,
+        gameUpdatesChannelID: server.gameUpdatesChannelID,
+        updateLogChannelID: server.updateLogChannelID,
+        weeklyMeme: server.weeklyMeme,
+        birthdays: server.birthdays,
+        calendar: server.calendar,
+        polls: server.polls,
       }
-      fetch(`${PATH}/servers/${data.serverID}`, {
-        method: 'PUT',
-        body: JSON.stringify(body),
-        headers: {
-          'Content-Type': 'application/json',
-          'API_KEY': KEY
-        },
-      })
-        .then(res => res.json())
+
+      let server
+      await UpdateServer(server.serverID, body)
+      .then(res => server = res.data)
+      .catch((err) => { console.log('UpdateServer Error') });
 
       const commandEmbed = require('../embeds/commandEmbed')
       const embed = new Discord.MessageEmbed(commandEmbed)

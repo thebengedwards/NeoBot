@@ -1,43 +1,32 @@
 const Discord = require("discord.js")
-const fetch = require("node-fetch")
 const moment = require("moment")
-
-const PATH = process.env.API_URL
-const KEY = process.env.API_KEY
+const { GetServer } = require("../functions/http-functions/servers")
+const { CreateCalendar } = require("../functions/http-functions/calendars")
 
 exports.run = async (client, message, args) => {
-    let data = await fetch(`${PATH}/servers/${message.guild.id}`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'API_KEY': KEY
-        }
-    })
-        .then(res => res.json());
+    let server
+    await GetServer(message.guild.id)
+    .then(res => server = res.data)
+    .catch((err) => {console.log('GetServer Error')});
 
-    if (data.serverID === message.guild.id) {
+    if (server.serverID === message.guild.id) {
         if (args.length === 2) {
             const body = {
-                name: args[0].toLowerCase().replace('_', ' '),
+                name: args[0].toLowerCase().replace(/[_]+/g, ' '),
                 cron: args[1],
             };
 
-            fetch(`${PATH}/calendars`, {
-                method: 'POST',
-                body: JSON.stringify(body),
-                headers: {
-                    'Content-Type': 'application/json',
-                    'API_KEY': KEY
-                },
-            })
-                .then(res => res.json())
+            let calendar
+            await CreateCalendar(body)
+            .then(res => calendar = res.data)
+            .catch((err) => {console.log('CreateCalendar Error')});
 
             const commandEmbed = require('../embeds/commandEmbed');
             const embed = new Discord.MessageEmbed(commandEmbed);
 
             embed.setDescription('Calendar added!');
             embed.addFields(
-                { name: `You have added: ${args[0].toLowerCase().replace('_', ' ')} to the calendar list.`, value: `Date: ${moment(new Date(args[1])).format('Do MMMM')} every year` },
+                { name: `You have added: ${calendar.name} to the calendar list.`, value: `Date: ${moment(new Date(calendar.cron)).format('Do MMMM')} every year` },
                 { name: 'This command is dev only. DO NOT USE IT', value: 'To add a calendar, use \'!calendarAdd\', to view a calendar, use \'!calendarView\', to see all calendars use \'!calendarAll\',to delete a calendar use \'!calendarDelete\'.' },
             )
             return message.channel.send({ embed })

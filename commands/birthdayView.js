@@ -1,36 +1,24 @@
 const Discord = require("discord.js")
-const fetch = require("node-fetch")
 const moment = require("moment")
-
-const PATH = process.env.API_URL
-const KEY = process.env.API_KEY
+const { GetServer } = require("../functions/http-functions/servers")
+const { ViewBirthday } = require("../functions/http-functions/birthdays")
 
 exports.run = async (client, message, args) => {
-    let data = await fetch(`${PATH}/servers/${message.guild.id}`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'API_KEY': KEY
-        }
-    })
-        .then(res => res.json());
+    let server
+    await GetServer(message.guild.id)
+    .then(res => server = res.data)
+    .catch((err) => { console.log('GetServer Error') });
 
-    if (data.serverID === message.guild.id) {
+    if (server.serverID === message.guild.id) {
         if (args.length === 1) {
             const body = {
                 discordID: args[0],
             };
-            let birthday;
-            await fetch(`${PATH}/birthdays/${message.guild.id}`, {
-                method: 'PUT',
-                body: JSON.stringify(body),
-                headers: {
-                    'Content-Type': 'application/json',
-                    'API_KEY': KEY
-                }
-            })
-                .then(res => res.json())
-                .then(json => birthday = json);
+
+            let birthday
+            await ViewBirthday(message.guild.id, body)
+            .then(res => birthday = res.data)
+            .catch((err) => { console.log('BirthdayView Error') });
 
             const commandEmbed = require('../embeds/commandEmbed');
             const embed = new Discord.MessageEmbed(commandEmbed);

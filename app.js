@@ -8,7 +8,7 @@ const settings = require("./settings.json")
 // These are external libraries required to run additional Functions
 const fs = require("fs");
 // Http import
-const GetServer = require("./functions/http-functions/servers").GetServer
+const { GetServer } = require("./functions/http-functions/servers")
 
 require("./functions/eventLoader")(client);
 
