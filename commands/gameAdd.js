@@ -17,15 +17,10 @@ exports.run = async (client, message, args) => {
                 playWith: args[3],
             };
 
-            fetch(`${PATH}/games`, {
-                method: 'POST',
-                body: JSON.stringify(body),
-                headers: {
-                    'Content-Type': 'application/json',
-                    'API_KEY': KEY
-                },
-            })
-                .then(res => res.json())
+            let game
+            await CreateGame(body)
+                .then(res => game = res.data)
+                .catch((err) => { console.log('CreateBirthday Error') });
 
             const commandEmbed = require('../embeds/commandEmbed');
             const embed = new Discord.MessageEmbed(commandEmbed);
