@@ -6,14 +6,14 @@ const { GetAllBirthdays } = require("../functions/http-functions/birthdays")
 exports.run = async (client, message) => {
     let server
     await GetServer(message.guild.id)
-    .then(res => server = res.data)
-    .catch((err) => { console.log('GetServer Error') });
+        .then(res => server = res.data)
+        .catch((err) => { console.log('GetServer Error') });
 
     if (server.serverID === message.guild.id) {
         let birthdays
         await GetAllBirthdays(message.guild.id)
-        .then(res => birthdays = res.data)
-        .catch((err) => { console.log('GetAllBirthdays Error') });
+            .then(res => birthdays = res.data)
+            .catch((err) => { console.log('GetAllBirthdays Error') });
 
         birthdays.sort((a, b) => {
             if (a.cron < b.cron) { return -1; }

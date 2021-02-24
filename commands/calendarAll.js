@@ -6,18 +6,18 @@ const { GetAllCalendars } = require("../functions/http-functions/calendars")
 exports.run = async (client, message) => {
     let server
     await GetServer(message.guild.id)
-    .then(res => server = res.data)
-    .catch((err) => { console.log('GetServer Error') });
+        .then(res => server = res.data)
+        .catch((err) => { console.log('GetServer Error') });
 
     if (server.serverID === message.guild.id) {
         let calendars
         await GetAllCalendars(message.guild.id)
-        .then(res => calendars = res.data)
-        .catch((err) => { console.log('GetAllCalendars Error') });
+            .then(res => calendars = res.data)
+            .catch((err) => { console.log('GetAllCalendars Error') });
 
-        calendars.sort((a,b) => {
-            if(a.cron < b.cron) { return -1; }
-            if(a.cron > b.cron) { return 1; }
+        calendars.sort((a, b) => {
+            if (a.cron < b.cron) { return -1; }
+            if (a.cron > b.cron) { return 1; }
             return 0;
         })
 

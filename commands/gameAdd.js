@@ -1,20 +1,14 @@
 const Discord = require("discord.js")
-const fetch = require("node-fetch")
-
-const PATH = process.env.API_URL
-const KEY = process.env.API_KEY
+const { GetServer } = require("../functions/http-functions/servers")
+const { CreateGame } = require("../functions/http-functions/games")
 
 exports.run = async (client, message, args) => {
-    let data = await fetch(`${PATH}/servers/${message.guild.id}`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'API_KEY': KEY
-        }
-    })
-        .then(res => res.json());
+    let server
+    await GetServer(message.guild.id)
+        .then(res => server = res.data)
+        .catch((err) => { console.log('GetServer Error') });
 
-    if (data.serverID === message.guild.id) {
+    if (server.serverID === message.guild.id) {
         if (args.length === 4) {
             const body = {
                 gameName: args[0].toLowerCase().replace('_', ' '),

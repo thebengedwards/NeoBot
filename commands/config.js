@@ -4,8 +4,8 @@ const { GetServer, UpdateServer } = require("../functions/http-functions/servers
 exports.run = async (client, message) => {
   let server
   await GetServer(message.guild.id)
-  .then(res => server = res.data)
-  .catch((err) => { console.log('GetServer Error') });
+    .then(res => server = res.data)
+    .catch((err) => { console.log('GetServer Error') });
 
   if (server.serverID === message.guild.id) {
     if (server.setupComplete === 1) {
@@ -59,8 +59,8 @@ exports.run = async (client, message) => {
 
       let server
       await UpdateServer(server.serverID, body)
-      .then(res => server = res.data)
-      .catch((err) => { console.log('UpdateServer Error') });
+        .then(res => server = res.data)
+        .catch((err) => { console.log('UpdateServer Error') });
 
       const commandEmbed = require('../embeds/commandEmbed')
       const embed = new Discord.MessageEmbed(commandEmbed)

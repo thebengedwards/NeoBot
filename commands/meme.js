@@ -54,21 +54,21 @@ exports.run = async (client, message, args) => {
                 let subreddit = args.join(' ');
                 img = await api(subreddit);
                 
-                if(img === undefined) {
+                if(img === undefined) { // Check if subreddit exists
                     const alertEmbed = require('../embeds/alertEmbed');
                     const embed = new Discord.MessageEmbed(alertEmbed);
 
                     embed.setDescription('Error');
                     embed.addField('Warning', `Subreddit ${subreddit} not found`);
                     return message.channel.send({ embed });
-                } else if (loop === 5) {
+                } else if (loop === 5) { // Check if returned data is image
                     const alertEmbed = require('../embeds/alertEmbed');
                     const embed = new Discord.MessageEmbed(alertEmbed);
 
                     embed.setDescription('Error finding meme');
                     embed.addField(`Unable to find a compatible meme in r/${subreddit}`, 'Try using another subreedit');
                     return message.channel.send({ embed });
-                } else if (img.endsWith('.png') || img.endsWith('.jpg') || img.endsWith('.gif')) {
+                } else if (img.endsWith('.png') || img.endsWith('.jpg') || img.endsWith('.gif')) { // Send the meme
                     const commandEmbed = require('../embeds/commandEmbed')
                     const embed = new Discord.MessageEmbed(commandEmbed)
 

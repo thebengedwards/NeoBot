@@ -6,8 +6,8 @@ const { CreateCalendar } = require("../functions/http-functions/calendars")
 exports.run = async (client, message, args) => {
     let server
     await GetServer(message.guild.id)
-    .then(res => server = res.data)
-    .catch((err) => {console.log('GetServer Error')});
+        .then(res => server = res.data)
+        .catch((err) => { console.log('GetServer Error') });
 
     if (server.serverID === message.guild.id) {
         if (args.length === 2) {
@@ -18,8 +18,8 @@ exports.run = async (client, message, args) => {
 
             let calendar
             await CreateCalendar(body)
-            .then(res => calendar = res.data)
-            .catch((err) => {console.log('CreateCalendar Error')});
+                .then(res => calendar = res.data)
+                .catch((err) => { console.log('CreateCalendar Error') });
 
             const commandEmbed = require('../embeds/commandEmbed');
             const embed = new Discord.MessageEmbed(commandEmbed);

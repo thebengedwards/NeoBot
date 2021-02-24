@@ -4,8 +4,8 @@ const { GetServer } = require("../functions/http-functions/servers")
 exports.run = async (client, message) => {
   let server
   await GetServer(message.guild.id)
-  .then(res => server = res.data)
-  .catch((err) => {console.log('GetServer Error')});
+    .then(res => server = res.data)
+    .catch((err) => { console.log('GetServer Error') });
 
   if (message.member.roles.cache.find(item => item.name === "Member")) {
     const alertEmbed = require('../embeds/alertEmbed')

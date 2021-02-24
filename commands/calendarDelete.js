@@ -5,8 +5,8 @@ const { DeleteCalendar } = require("../functions/http-functions/calendars")
 exports.run = async (client, message, args) => {
     let server
     await GetServer(message.guild.id)
-    .then(res => server = res.data)
-    .catch((err) => { console.log('GetServer Error') });
+        .then(res => server = res.data)
+        .catch((err) => { console.log('GetServer Error') });
 
     if (server.serverID === message.guild.id) {
         if (args.length === 1) {
@@ -14,8 +14,8 @@ exports.run = async (client, message, args) => {
 
             let calendar
             await DeleteCalendar(calendarId)
-            .then(res => calendar = res.data)
-            .catch((err) => { console.log('CalendarDelete Error') });
+                .then(res => calendar = res.data)
+                .catch((err) => { console.log('CalendarDelete Error') });
 
             const commandEmbed = require('../embeds/commandEmbed');
             const embed = new Discord.MessageEmbed(commandEmbed);
