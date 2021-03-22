@@ -1,23 +1,16 @@
-const Discord = require("discord.js")
-const fetch = require("node-fetch")
-const moment = require("moment")
-
-const PATH = process.env.API_URL
-const KEY = process.env.API_KEY
+const Discord = require("discord.js");
+const moment = require("moment");
+const { GetServer } = require("../functions/http-functions/servers");
 
 module.exports = async (client, messages) => {
     let message = messages.find(item => item.content.startsWith('!purge'))
 
-    let data = await fetch(`${PATH}/servers/${message.guild.id}`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'API_KEY': KEY
-        }
-    })
-        .then(res => res.json());
+    let model;
+    await GetServer({ serverid: message.guild.id })
+        .then(res => model = res.data.model.resultItems)
+        .catch((err) => { console.log(err) });
 
-    if (data.serverID === message.guild.id && message.guild.channels.cache.find(item => item.id === data.modChannelID)) {
+    if (model.serverid === message.guild.id && message.guild.channels.cache.find(item => item.id === model.modchannelid)) {
         const alertEmbed = require('../embeds/alertEmbed')
         const embed = new Discord.MessageEmbed(alertEmbed)
 
@@ -26,6 +19,6 @@ module.exports = async (client, messages) => {
             { name: `Purged by: ${message.author.username}`, value: `Messages Deleted: ${messages.size}` },
             { name: `Deleted Date: ${moment(new Date()).format('Do MMMM YYYY')}`, value: `Deleted Time: ${moment(new Date()).format('HH:mm:ss')}` },
         )
-        return client.channels.cache.get(data.modChannelID).send({ embed });
+        return client.channels.cache.get(model.modchannelid).send({ embed });
     }
 };

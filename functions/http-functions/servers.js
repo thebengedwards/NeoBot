@@ -1,16 +1,29 @@
 const {
+    CREATE_SERVER,
+    ALL_SERVERS,
     GET_SERVER,
-    GET_SERVERS,
-    UPDATE_SERVER
+    UPDATE_SERVER,
+    DELETE_SERVER
 } = require("../endpoints")
-const { HTTP } = require("../http")
-
+const { HTTP, HTTPn } = require("../http")
 const KEY = process.env.API_KEY
 
-exports.GetServer = async (SERVER_ID) => {
+exports.CreateServer = async (DATA) => {
     return HTTP({
+        Method: "POST",
+        Url: CREATE_SERVER,
+        Headers: {
+            'Content-Type': 'application/json',
+            'API_KEY': KEY
+        },
+        Data: DATA
+    })
+};
+
+exports.AllServers = async () => {
+    return HTTPn({
         Method: "GET",
-        Url: GET_SERVER(SERVER_ID),
+        Url: ALL_SERVERS,
         Headers: {
             'Content-Type': 'application/json',
             'API_KEY': KEY
@@ -18,21 +31,34 @@ exports.GetServer = async (SERVER_ID) => {
     })
 };
 
-exports.GetServers = async () => {
+exports.GetServer = async (DATA) => {
     return HTTP({
-        Method: "GET",
-        Url: GET_SERVERS,
+        Method: "PUT",
+        Url: GET_SERVER,
         Headers: {
             'Content-Type': 'application/json',
             'API_KEY': KEY
         },
+        Data: DATA
     })
 };
 
-exports.UpdateServer = async (SERVER_ID, DATA) => {
-    return HTTP_D({
+exports.UpdateServer = async (DATA) => {
+    return HTTP({
         Method: "GET",
-        Url: UPDATE_SERVER(SERVER_ID),
+        Url: UPDATE_SERVER,
+        Headers: {
+            'Content-Type': 'application/json',
+            'API_KEY': KEY
+        },
+        Data: DATA
+    })
+};
+
+exports.DeleteServer = async (DATA) => {
+    return HTTP({
+        Method: "DELETE",
+        Url: DELETE_SERVER,
         Headers: {
             'Content-Type': 'application/json',
             'API_KEY': KEY

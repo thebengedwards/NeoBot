@@ -1,59 +1,49 @@
 const Discord = require("discord.js")
-const fetch = require("node-fetch")
 const cron = require("cron")
 const api = require("imageapi.js");
-
-const PATH = process.env.API_URL
-const KEY = process.env.API_KEY
+const { AllServers } = require("../functions/http-functions/servers");
+const { GetAllSubreddits } = require("../functions/http-functions/subreddits");
 
 module.exports = async (client) => {
-    let data = await fetch(`${PATH}/servers`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'API_KEY': KEY
-        }
-    })
-        .then(res => res.json());
+    let model;
+    await AllServers()
+        .then(res => model = res.data.model)
+        .catch((err) => { console.log(err) });
 
-    data.map(async (item) => {
-        if (item.weeklyMeme === 1 && item.generalChannelID === client.guilds.cache.get(item.serverID).channels.cache.get(item.generalChannelID).id) {
-            let subredditsJson = await fetch(`${PATH}/subreddits`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'API_KEY': KEY
-                }
-            })
-                .then(res => res.json());
+    if (model.status === 'success') {
+        model.resultItems.map(async (item) => {
+            if (item.weeklymeme && item.generalchannelid === client.guilds.cache.get(item.serverid).channels.cache.get(item.generalchannelid).id) {
+                let subredditsJson;
+                await GetAllSubreddits()
+                    .then(res => subredditsJson = res.data.model.resultItems)
+                    .catch((err) => { console.log(err) });
 
-            subreddits = subredditsJson.map(item => {
-                return item.subredditName;
-            });
+                subreddits = subredditsJson.map(item => {
+                    return item.subredditname;
+                });
 
-            let event = new cron.CronJob(`00 00 20 * * 5`, () => {
-                const eventEmbed = require('../embeds/eventEmbed')
-                const embed = new Discord.MessageEmbed(eventEmbed)
+                let event = new cron.CronJob(`00 00 20 * * 5`, () => {
+                    const eventEmbed = require('../embeds/eventEmbed')
+                    const embed = new Discord.MessageEmbed(eventEmbed)
 
-                let img;
-                getImg = async () => {
-                    let subreddit = subreddits[Math.floor(Math.random() * subreddits.length)];
-                    img = await api(subreddit);
+                    let img;
+                    getImg = async () => {
+                        let subreddit = subreddits[Math.floor(Math.random() * subreddits.length)];
+                        img = await api(subreddit);
 
-                    if (img.endsWith('.png') || img.endsWith('.jpg') || img.endsWith('.gif')) {
-                        embed.setDescription('Weekly Meme')
-                        embed.addField(`This meme is brought to you by:`, `r/${subreddit}`)
-                        embed.setImage(img);
-                        return client.channels.cache.get(item.memesChannelID).send({ embed });
-                    } else {
-                        // Discord bot does not support mp4 types, so just run the function again
-                        getImg();
+                        if (img.endsWith('.png') || img.endsWith('.jpg') || img.endsWith('.gif')) {
+                            embed.setDescription('Weekly Meme')
+                            embed.addField(`This meme is brought to you by:`, `r/${subreddit}`)
+                            embed.setImage(img);
+                            return client.channels.cache.get(item.memeschannelid).send({ embed });
+                        } else {
+                            getImg();
+                        }
                     }
-                }
-                getImg();
-            });
-            event.start()
-        }
+                    getImg();
+                });
+                event.start()
+            }
+        })
     }
-    )
-}
+};

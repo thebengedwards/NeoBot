@@ -1,20 +1,13 @@
 const Discord = require("discord.js");
-const fetch = require("node-fetch");
-
-const PATH = process.env.API_URL
-const KEY = process.env.API_KEY
+const { GetServer } = require("../functions/http-functions/servers");
 
 module.exports = async (client, invite) => {
-    let data = await fetch(`${PATH}/servers/${invite.guild.id}`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'API_KEY': KEY
-        }
-    })
-        .then(res => res.json());
+    let model;
+    await GetServer({serverid: invite.guild.id})
+        .then(res => model = res.data.model.resultItems)
+        .catch((err) => { console.log(err) });
 
-    if (data.serverID === invite.guild.id && invite.guild.channels.cache.find(item => item.id === data.modChannelID)) {
+    if (model.serverid === invite.guild.id && invite.guild.channels.cache.find(item => item.id === model.modchannelid)) {
         const eventEmbed = require('../embeds/eventEmbed')
         const embed = new Discord.MessageEmbed(eventEmbed)
 
@@ -24,6 +17,6 @@ module.exports = async (client, invite) => {
             { name: `Current Members: ${invite.channel.guild.memberCount}`, value: `Maximum Members: ${invite.channel.guild.maximumMembers}` },
             { name: `Invited Channel: ${invite.channel.name}`, value: `Maximum Uses: ${invite.maxUses === 0 ? `Unlimited` : invite.maxUses}` },
         )
-        return client.channels.cache.get(data.modChannelID).send({ embed });
+        return client.channels.cache.get(model.modchannelid).send({ embed });
     }
 };

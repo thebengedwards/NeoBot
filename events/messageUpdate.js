@@ -1,20 +1,13 @@
-const Discord = require("discord.js")
-const fetch = require("node-fetch")
-
-const PATH = process.env.API_URL
-const KEY = process.env.API_KEY
+const Discord = require("discord.js");
+const { GetServer } = require("../functions/http-functions/servers");
 
 module.exports = async (client, oldMessage, newMessage) => {
-    let data = await fetch(`${PATH}/servers/${oldMessage.guild.id}`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'API_KEY': KEY
-        }
-    })
-        .then(res => res.json());
+    let model;
+    await GetServer({ serverid: oldMessage.guild.id })
+        .then(res => model = res.data.model.resultItems)
+        .catch((err) => { console.log(err) });
 
-    if (data.serverID === oldMessage.guild.id) {
+    if (model.serverid === oldMessage.guild.id) {
         if (oldMessage.content !== '') {
             const alertEmbed = require('../embeds/alertEmbed')
             const embed = new Discord.MessageEmbed(alertEmbed)

@@ -5,12 +5,12 @@ const {
     UPDATE_GAME,
     DELETE_GAME
 } = require("../endpoints")
-const { HTTP, HTTP_D } = require("../http")
+const { HTTP, HTTPn } = require("../http")
 
 const KEY = process.env.API_KEY
 
 exports.CreateGame = async (DATA) => {
-    return HTTP_D({
+    return HTTP({
         Method: "POST",
         Url: CREATE_GAME,
         Headers: {
@@ -22,7 +22,7 @@ exports.CreateGame = async (DATA) => {
 };
 
 exports.GetAllGames = async () => {
-    return HTTP({
+    return HTTPn({
         Method: "GET",
         Url: GET_ALL_GAMES,
         Headers: {
@@ -32,19 +32,20 @@ exports.GetAllGames = async () => {
     })
 };
 
-exports.ViewGame = async (GAME_ID) => {
+exports.ViewGame = async (DATA) => {
     return HTTP({
-        Method: "GET",
-        Url: VIEW_GAME(CALENDAR_ID),
+        Method: "PUT",
+        Url: VIEW_GAME,
         Headers: {
             'Content-Type': 'application/json',
             'API_KEY': KEY
         },
+        Data: DATA
     })
 };
 
-exports.UpdateGame = async (SERVER_ID, DATA) => {
-    return HTTP_D({
+exports.UpdateGame = async (DATA) => {
+    return HTTP({
         Method: "PUT",
         Url: UPDATE_GAME(SERVER_ID),
         Headers: {
@@ -55,13 +56,14 @@ exports.UpdateGame = async (SERVER_ID, DATA) => {
     })
 };
 
-exports.DeleteGame = async (GAME_ID) => {
+exports.DeleteGame = async (DATA) => {
     return HTTP({
         Method: "DELETE",
-        Url: DELETE_GAME(GAME_ID),
+        Url: DELETE_GAME,
         Headers: {
             'Content-Type': 'application/json',
             'API_KEY': KEY
         },
+        Data: DATA
     })
 };

@@ -1,10 +1,12 @@
-const endpoints = require("../endpoints")
-const { HTTP } = require("../http")
+const {
+    GET_JOKE
+} = require("../endpoints")
+const { HTTPn } = require("../http")
 
 exports.GetJoke = async () => {
-    return HTTP({
+    return HTTPn({
         Method: "GET",
-        Url: endpoints.GET_JOKE,
+        Url: GET_JOKE,
         Headers: {
             Accept: 'application/json',
         },

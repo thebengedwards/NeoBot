@@ -4,12 +4,12 @@ const {
     VIEW_CALENDAR,
     DELETE_CALENDAR
 } = require("../endpoints")
-const { HTTP, HTTP_D } = require("../http")
+const { HTTP, HTTPn } = require("../http")
 
 const KEY = process.env.API_KEY
 
 exports.CreateCalendar = async (DATA) => {
-    return HTTP_D({
+    return HTTP({
         Method: "POST",
         Url: CREATE_CALENDAR,
         Headers: {
@@ -21,7 +21,7 @@ exports.CreateCalendar = async (DATA) => {
 };
 
 exports.GetAllCalendars = async () => {
-    return HTTP({
+    return HTTPn({
         Method: "GET",
         Url: GET_ALL_CALENDARS,
         Headers: {
@@ -31,24 +31,26 @@ exports.GetAllCalendars = async () => {
     })
 };
 
-exports.ViewCalendar = async (CALENDAR_ID) => {
+exports.ViewCalendar = async (DATA) => {
     return HTTP({
-        Method: "GET",
-        Url: VIEW_CALENDAR(CALENDAR_ID),
+        Method: "PUT",
+        Url: VIEW_CALENDAR,
         Headers: {
             'Content-Type': 'application/json',
             'API_KEY': KEY
         },
+        Data: DATA
     })
 };
 
-exports.DeleteCalendar = async (CALENDAR_ID) => {
+exports.DeleteCalendar = async (DATA) => {
     return HTTP({
         Method: "DELETE",
-        Url: DELETE_CALENDAR(CALENDAR_ID),
+        Url: DELETE_CALENDAR,
         Headers: {
             'Content-Type': 'application/json',
             'API_KEY': KEY
         },
+        Data: DATA
     })
 };

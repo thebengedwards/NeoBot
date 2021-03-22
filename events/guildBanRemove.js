@@ -1,25 +1,18 @@
 const Discord = require("discord.js");
-const fetch = require("node-fetch")
-
-const PATH = process.env.API_URL
-const KEY = process.env.API_KEY
+const { GetServer } = require("../functions/http-functions/servers");
 
 module.exports = async (client, guild, user) => {
-    let data = await fetch(`${PATH}/servers/${guild.id}`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'API_KEY': KEY
-        }
-    })
-        .then(res => res.json());
+    let model;
+    await GetServer({ serverid: guild.id })
+        .then(res => model = res.data.model.resultItems)
+        .catch((err) => { console.log(err) });
 
-    if (data.serverID === guild.id && guild.channels.cache.find(item => item.id === data.modChannelID)) {
+    if (model.serverid === guild.id && guild.channels.cache.find(item => item.id === model.modchannelid)) {
         const alertEmbed = require('../embeds/alertEmbed')
         const embed = new Discord.MessageEmbed(alertEmbed)
 
         embed.setDescription(`${user.username} was Unbanned`)
-        embed.addField(`For more information please refer to:`, `<@${data.ownerID}>`)
-        return client.channels.cache.get(data.generalChannelID).send({ embed });
+        embed.addField(`For more information please refer to:`, `<@${model.ownerID}>`)
+        return client.channels.cache.get(model.generalchannelid).send({ embed });
     }
 };

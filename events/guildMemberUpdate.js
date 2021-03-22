@@ -1,21 +1,16 @@
 const Discord = require("discord.js");
-const fetch = require("node-fetch")
 const moment = require("moment");
-
-const PATH = process.env.API_URL
-const KEY = process.env.API_KEY
+const { GetServer } = require("../functions/http-functions/servers");
 
 module.exports = async (client, oldMember, newMember) => {
-    let data = await fetch(`${PATH}/servers/${oldMember.guild.id}`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'API_KEY': KEY
-        }
-    })
-        .then(res => res.json());
+    let model;
+    await GetServer({serverid: oldMember.guild.id})
+        .then(res => model = res.data.model.resultItems)
+        .catch((err) => { console.log(err) });
 
-    if (data.serverID === oldMember.guild.id && newMember.guild.channels.cache.find(item => item.id === data.modChannelID)) {
+    console.log(model.modchannelid)
+    
+    if (model.serverid === oldMember.guild.id && newMember.guild.channels.cache.find(item => item.id === model.modchannelid)) {
         const eventEmbed = require('../embeds/eventEmbed')
         const embed = new Discord.MessageEmbed(eventEmbed)
 
@@ -27,6 +22,6 @@ module.exports = async (client, oldMember, newMember) => {
             { name: 'Member ID', value: `${newMember.user.id}`, inline: true },
             { name: 'Member Since', value: `${moment(newMember.joinedTimestamp).format('Do MMMM YYYY')} at ${moment(newMember.joinedTimestamp).format('HH:mm')}`, inline: true },
         )
-        return client.channels.cache.get(data.modChannelID).send({ embed });
+        return client.channels.cache.get(model.modchannelid).send({ embed });
     }
 };

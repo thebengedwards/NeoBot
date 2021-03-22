@@ -27,11 +27,11 @@ fs.readdir('./commands/', (err, files) => {
 });
 
 client.elevation = async (message) => {
-  let server
-  await GetServer(message.guild.id)
-  .then(res => server = res.data)
-  .catch((err) => {console.log('GetServer Error')});
-  
+  let model;
+  await GetServer({ serverid: channel.guild.id })
+    .then(res => model = res.data.model.resultItems)
+    .catch((err) => { console.log(err) });
+
   let permlvl = 0;
   try {
     const member_role = message.member.roles.cache.find(r => r.name === "Member");
@@ -40,7 +40,7 @@ client.elevation = async (message) => {
     if (mod_role && message.member.roles.cache.has(mod_role.id)) permlvl = 2; // Mod Level Access
     const admin_role = message.member.roles.cache.find(r => r.name === "Admin");
     if (admin_role && message.member.roles.cache.has(admin_role.id)) permlvl = 3; // Admin Level Access
-    if (server.ownerID === message.member.id) permlvl = 4; // Server Owner Level Access
+    if (model.ownerid === message.member.id) permlvl = 4; // Server Owner Level Access
     if (settings.reportid === message.member.id) permlvl = 5; // Dev Level Access
     return permlvl;
   }

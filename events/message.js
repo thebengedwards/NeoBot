@@ -1,21 +1,14 @@
-const Discord = require("discord.js")
-const fetch = require("node-fetch");
+const Discord = require("discord.js");
 const settings = require("../settings.json");
-
-const PATH = process.env.API_URL
-const KEY = process.env.API_KEY
+const { GetServer } = require("../functions/http-functions/servers");
 
 module.exports = async (client, message) => {
-  let data = await fetch(`${PATH}/servers/${message.guild.id}`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      'API_KEY': KEY
-    }
-  })
-    .then(res => res.json());
+  let model;
+  await GetServer({serverid: message.guild.id})
+    .then(res => model = res.data.model.resultItems)
+    .catch((err) => { console.log(err) });
 
-  if (data.serverID === message.guild.id) {
+  if (model.serverid === message.guild.id) {
     if (message.author.bot) return;
     if (!message.content.startsWith(settings.prefix)) return;
     if (message.member === null) {

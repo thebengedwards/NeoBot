@@ -1,18 +1,11 @@
-const Discord = require("discord.js")
-const fetch = require("node-fetch")
-
-const PATH = process.env.API_URL
-const KEY = process.env.API_KEY
+const Discord = require("discord.js");
+const { GetServer } = require("../functions/http-functions/servers");
 
 module.exports = async (client, messageReaction, user) => {
-    let data = await fetch(`${PATH}/servers/${messageReaction.message.guild.id}`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'API_KEY': KEY
-        }
-    })
-        .then(res => res.json());
+    let model;
+    await GetServer({ serverid: messageReaction.message.guild.id })
+        .then(res => model = res.data.model.resultItems)
+        .catch((err) => { console.log(err) });
 
     removeReaction = (prevEmbed, ID) => {
         newValue = prevEmbed.fields.find(item => item.name === ID).value.replace(`<@${user.id}>`, '')
@@ -20,8 +13,7 @@ module.exports = async (client, messageReaction, user) => {
         return prevEmbed.fields.find(item => item.name === ID).value = newValue
     }
 
-    // Reactions to NeoBot Polls
-    if (data.serverID === messageReaction.message.guild.id) {
+    if (model.serverid === messageReaction.message.guild.id) {
         if (user.bot === false && messageReaction.message.author.username === 'NeoBot' && messageReaction.message.embeds[0].title === '**Poll**') {
             let prevEmbed = messageReaction.message.embeds[0]
 

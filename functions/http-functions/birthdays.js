@@ -5,12 +5,12 @@ const {
     UPDATE_BIRTHDAY,
     DELETE_BIRTHDAY
 } = require("../endpoints")
-const { HTTP, HTTP_D } = require("../http")
+const { HTTP } = require("../http")
 
 const KEY = process.env.API_KEY
 
 exports.CreateBirthday = async (DATA) => {
-    return HTTP_D({
+    return HTTP({
         Method: "POST",
         Url: CREATE_BIRTHDAY,
         Headers: {
@@ -21,21 +21,10 @@ exports.CreateBirthday = async (DATA) => {
     })
 };
 
-exports.GetAllBirthdays = async (SERVER_ID) => {
+exports.GetAllBirthdays = async (DATA) => {
     return HTTP({
-        Method: "GET",
-        Url: GET_ALL_BIRTHDAYS(SERVER_ID),
-        Headers: {
-            'Content-Type': 'application/json',
-            'API_KEY': KEY
-        },
-    })
-};
-
-exports.ViewBirthday = async (SERVER_ID, DATA) => {
-    return HTTP_D({
         Method: "PUT",
-        Url: VIEW_BIRTHDAY(SERVER_ID),
+        Url: GET_ALL_BIRTHDAYS,
         Headers: {
             'Content-Type': 'application/json',
             'API_KEY': KEY
@@ -44,10 +33,10 @@ exports.ViewBirthday = async (SERVER_ID, DATA) => {
     })
 };
 
-exports.UpdateBirthday = async (SERVER_ID, DATA) => {
-    return HTTP_D({
+exports.ViewBirthday = async (DATA) => {
+    return HTTP({
         Method: "PUT",
-        Url: UPDATE_BIRTHDAY(SERVER_ID),
+        Url: VIEW_BIRTHDAY,
         Headers: {
             'Content-Type': 'application/json',
             'API_KEY': KEY
@@ -56,10 +45,22 @@ exports.UpdateBirthday = async (SERVER_ID, DATA) => {
     })
 };
 
-exports.DeleteBirthday = async (SERVER_ID, DATA) => {
-    return HTTP_D({
+exports.UpdateBirthday = async (DATA) => {
+    return HTTP({
+        Method: "PUT",
+        Url: UPDATE_BIRTHDAY,
+        Headers: {
+            'Content-Type': 'application/json',
+            'API_KEY': KEY
+        },
+        Data: DATA
+    })
+};
+
+exports.DeleteBirthday = async (DATA) => {
+    return HTTP({
         Method: "DELETE",
-        Url: DELETE_BIRTHDAY(SERVER_ID),
+        Url: DELETE_BIRTHDAY,
         Headers: {
             'Content-Type': 'application/json',
             'API_KEY': KEY

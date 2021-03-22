@@ -1,8 +1,8 @@
 const version = require("../package.json").version;
-const cronBirthdays = require("../crons/birthdays")
-const cronCalendars = require("../crons/calendars")
-const cronPolls = require("../crons/polls")
-const cronWeeklyMemes = require("../crons/weeklyMemes")
+const cronBirthdays = require("../crons/birthdays");
+const cronCalendars = require("../crons/calendars");
+const cronPolls = require("../crons/polls");
+const cronWeeklyMemes = require("../crons/weeklyMemes");
 
 module.exports = client => {
   cronBirthdays(client)

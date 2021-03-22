@@ -1,40 +1,31 @@
 const Discord = require("discord.js");
-const fetch = require("node-fetch")
+const moment = require("moment");
+const { CreateServer } = require("../functions/http-functions/servers");
 
-const PATH = process.env.API_URL
-const KEY = process.env.API_KEY
-
-module.exports = guild => {
+module.exports = async (guild) => {
   const body = {
-    serverName: guild.name,
-    serverID: guild.id,
-    ownerID: guild.ownerID,
-    setupComplete: false,
-    adminRoleID: '0',
-    modRoleID: '0',
-    memberRoleID: '0',
-    welcomeChannelID: '0',
-    modChannelID: '0',
-    generalChannelID: '0',
-    memesChannelID: '0',
-    gameUpdatesChannelID: '0',
-    updateLogChannelID: '0',
-    weeklyMeme: false,
+    servername: guild.name,
+    serverid: guild.id,
+    ownerid: guild.ownerID,
+    setupcomplete: false,
+    adminroleid: '0',
+    modroleid: '0',
+    memberroleid: '0',
+    welcomechannelid: '0',
+    modchannelid: '0',
+    generalchannelid: '0',
+    memeschannelid: '0',
+    gamechannelid: '0',
+    updateschannelid: '0',
+    weeklymeme: false,
     birthdays: false,
     calendar: false,
     polls: false,
-    joinedDate: new Date(),
+    joineddate: moment(new Date()).format('YYYY-MM-DD')
   };
 
-  fetch(`${PATH}/servers`, {
-    method: 'POST',
-    body: JSON.stringify(body),
-    headers: {
-      'Content-Type': 'application/json',
-      'API_KEY': KEY
-    },
-  })
-    .then(res => res.json())
+  await CreateServer(body)
+    .catch((err) => { console.log(err) });
 
   const alertEmbed = require('../embeds/alertEmbed');
   const embed = new Discord.MessageEmbed(alertEmbed);
