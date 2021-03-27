@@ -1,6 +1,6 @@
 const Discord = require("discord.js");
 
-exports.Reply = async (client, interaction, response, destination) => {
+exports.Reply = async (client, interaction, response, destination, optional) => {
     const createAPIMessage = async (interaction, content) => {
         const { data, files } = await Discord.APIMessage.create(
             client.channels.resolve(interaction.channel_id),
@@ -13,7 +13,6 @@ exports.Reply = async (client, interaction, response, destination) => {
 
     let data = { content: response }
 
-    
     if (destination) {
         client.channels.cache.get(destination).send(response);
 
@@ -29,10 +28,11 @@ exports.Reply = async (client, interaction, response, destination) => {
     if (typeof response === 'object') {
         data = await createAPIMessage(interaction, response)
     }
-    return client.api.interactions(interaction.id, interaction.token).callback.post({
+    await client.api.interactions(interaction.id, interaction.token).callback.post({
         data: {
             type: 4,
             data,
         }
     })
+    return data;
 }

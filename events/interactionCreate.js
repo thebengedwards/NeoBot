@@ -7,18 +7,6 @@ const cronWeeklyMemes = require("../crons/weeklyMemes");
 const { Reply } = require("../functions/helpers")
 
 module.exports = async (client, interaction) => {
-    getApp = (ID) => {
-        const app = client.api.applications(client.user.id)
-        if (ID) {
-            app.guilds(ID)
-        }
-        return app
-    }
-    client.guilds.cache.map(async (item) => {
-        const commands = await getApp(item.id).commands.get()
-        client.commands.map(async (command) => { await getApp(item.id).commands.post({ data: command.help }) })
-    })
-
     const { name, options } = interaction.data
     const perms = await client.elevation(interaction);
     const command = interaction.data.name.toLowerCase()

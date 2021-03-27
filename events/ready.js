@@ -11,6 +11,18 @@ module.exports = async (client) => {
   cronPolls(client)
   cronWeeklyMemes(client)
 
+  getApp = (ID) => {
+    const app = client.api.applications(client.user.id)
+    if (ID) {
+      app.guilds(ID)
+    }
+    return app
+  }
+  client.guilds.cache.map(async (item) => {
+    const commands = await getApp(item.id).commands.get()
+    client.commands.map(async (command) => { await getApp(item.id).commands.post({ data: command.help }) })
+  })
+
   client.user.setActivity(`Version: ${version}`);
 
   console.log(`Bot Online, Running Version: ${version}`);

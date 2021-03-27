@@ -27,7 +27,7 @@ exports.run = async (client, interaction, options) => {
 
                 embed.setDescription('Birthday deleted!');
                 embed.addFields(
-                    { name: `You have deleted a birthday.`, value: `<@${body.discordid}> will no longer recieve Birthday messages.`},
+                    { name: `You have deleted a birthday.`, value: `<@${body.discordid}> will no longer receive Birthday messages.`},
                     { name: 'More Birthday Commands:', value: 'birthdayadd \nbirthdayall \nbirthdaydelete \nbirthdayupdate \nbirthdayview' },
                 )
                 Reply(client, interaction, embed)

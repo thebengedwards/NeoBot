@@ -1,42 +1,55 @@
 const Discord = require("discord.js")
 const { GetServer } = require("../functions/http-functions/servers")
 const { DeleteCalendar } = require("../functions/http-functions/calendars")
+const { Reply } = require("../functions/helpers")
 
-exports.run = async (client, message, args) => {
-    let server
-    await GetServer(message.guild.id)
-        .then(res => server = res.data)
-        .catch((err) => { console.log('GetServer Error') });
+exports.run = async (client, interaction, options) => {
+    try {
+        let model;
+        await GetServer({ serverid: interaction.guild_id })
+            .then(res => model = res.data.model)
+            .catch(err => model = err.response.data.model);
 
-    if (server.serverID === message.guild.id) {
-        if (args.length === 1) {
-            let calendarId = args[0].toLowerCase().replace(/[_]+/g, ' ')
+        if (model.status === 'success') {
+            const body = {
+                name: options.find(item => item.name === 'name').value.toLowerCase()
+            };
 
-            let calendar
-            await DeleteCalendar(calendarId)
-                .then(res => calendar = res.data)
-                .catch((err) => { console.log('CalendarDelete Error') });
+            let calendar;
+            await DeleteCalendar(body)
+                .then(res => calendar = res.data.model)
+                .catch(err => calendar = err.response.data.model);
 
-            const commandEmbed = require('../embeds/commandEmbed');
-            const embed = new Discord.MessageEmbed(commandEmbed);
+            if (calendar.status === 'success') {
+                const commandEmbed = require('../embeds/commandEmbed');
+                const embed = new Discord.MessageEmbed(commandEmbed);
 
-            embed.setDescription('Calendar deleted!');
-            embed.addFields(
-                { name: `You have deleted calendar ${args[0]} from the calendar list.`, value: `Calendar can easily be re-added` },
-                { name: 'This command is dev only. DO NOT USE IT', value: 'To add a calendar, use \'!calendarAdd\', to view a calendar, use \'!calendarView\', to see all calendars use \'!calendarAll\',to delete a calendar use \'!calendarDelete\'.' },
-            )
-            return message.channel.send({ embed })
+                embed.setDescription('Calendar deleted!');
+                embed.addFields(
+                    { name: `You have deleted calendar ${body.name} from the calendar list.`, value: `Calendar can easily be re-added` },
+                    { name: 'This command is dev only. DO NOT USE IT', value: 'calendaradd \ncalendarall \ncalendardelete \ncalendarview' },
+                )
+                Reply(client, interaction, embed)
+            } else {
+                const alertEmbed = require('../embeds/alertEmbed')
+                const embed = new Discord.MessageEmbed(alertEmbed)
+
+                embed.setDescription(`${calendar.message}`)
+                Reply(client, interaction, embed)
+            }
         } else {
-            const alertEmbed = require('../embeds/alertEmbed');
-            const embed = new Discord.MessageEmbed(alertEmbed);
+            const alertEmbed = require('../embeds/alertEmbed')
+            const embed = new Discord.MessageEmbed(alertEmbed)
 
-            embed.setDescription('Incorrect usage of calendarDelete');
-            embed.addFields(
-                { name: 'Use like this:', value: '!calendarDelete <Name>' },
-                { name: 'IMPORTANT:', value: 'Use \'_\' instead of [space], a parser removes this from the message' },
-            )
-            return message.channel.send({ embed });
+            embed.setDescription(`${model.message}`)
+            Reply(client, interaction, embed)
         }
+    } catch {
+        const alertEmbed = require('../embeds/alertEmbed')
+        const embed = new Discord.MessageEmbed(alertEmbed)
+
+        embed.setDescription(`API Error`)
+        Reply(client, interaction, embed)
     }
 };
 
@@ -48,7 +61,9 @@ exports.conf = {
 };
 
 exports.help = {
-    name: 'calendarDelete',
+    name: 'calendardelete',
     description: 'Delete a calendar from NeoBot',
-    usage: 'calendarDelete <Name>'
+    options: [
+        { name: 'name', description: 'The name of the calendar event you would like to delete', required: true, type: 3 },
+    ]
 };

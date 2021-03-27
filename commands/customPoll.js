@@ -1,39 +1,51 @@
 const Discord = require("discord.js")
 const { GetServer } = require("../functions/http-functions/servers")
+const { Reply } = require("../functions/helpers")
 
-exports.run = async (client, message, args) => {
-    let server
-    await GetServer(message.guild.id)
-        .then(res => server = res.data)
-        .catch((err) => { console.log('GetServer Error') });
+exports.run = async (client, interaction, options) => {
+    try {
+        let model;
+        await GetServer({ serverid: interaction.guild_id })
+            .then(res => model = res.data.model)
+            .catch(err => model = err.response.data.model);
 
-    if (server.serverID === message.guild.id) {
-        if (args.length > 0) {
-            const messageText = args.join(' ');
+        if (model.status === 'success') {
+            const body = {
+                title: options.find(item => item.name === 'title').value
+            };
 
             const pollEmbed = require('../embeds/pollEmbed')
             const embed = new Discord.MessageEmbed(pollEmbed)
 
             embed.setDescription('Custom poll')
             embed.addFields(
-                { name: messageText, value: `Reply below` },
+                { name: body.title, value: `Reply below` },
                 { name: '\u200B', value: '---VOTES---' },
                 { name: 'YES', value: `None`, inline: true },
                 { name: 'NO', value: `None`, inline: true },
                 { name: `↓ Vote Below ↓`, value: `👍 = Yes || 👎 = No` },
             )
 
-            let embedMessage = await message.channel.send({ embed });
-            await embedMessage.react('👍')
-            await embedMessage.react('👎')
+            let poll;
+            Reply(client, interaction, embed, null, 'poll')
+            setTimeout(async () => {
+                poll = await client.guilds.resolve(interaction.guild_id).channels.resolve(interaction.channel_id).messages.fetch(client.guilds.resolve(interaction.guild_id).channels.resolve(interaction.channel_id).lastMessageID)
+                await poll.react('👍')
+                await poll.react('👎')
+            }, 500);
         } else {
-            const alertEmbed = require('../embeds/alertEmbed');
-            const embed = new Discord.MessageEmbed(alertEmbed);
+            const alertEmbed = require('../embeds/alertEmbed')
+            const embed = new Discord.MessageEmbed(alertEmbed)
 
-            embed.setDescription('Incorrect usage of customPoll');
-            embed.addField('Use like this:', '!customPoll <Poll Text Here>');
-            return message.channel.send({ embed });
+            embed.setDescription(`${model.message}`)
+            Reply(client, interaction, embed)
         }
+    } catch {
+        const alertEmbed = require('../embeds/alertEmbed')
+        const embed = new Discord.MessageEmbed(alertEmbed)
+
+        embed.setDescription(`API Error`)
+        Reply(client, interaction, embed)
     }
 };
 
@@ -45,7 +57,9 @@ exports.conf = {
 };
 
 exports.help = {
-    name: 'customPoll',
+    name: 'custompoll',
     description: 'A custom poll',
-    usage: 'customPoll [Poll Text Here]'
+    options: [
+        { name: 'title', description: 'The title of the poll', required: true, type: 3 },
+    ]
 };

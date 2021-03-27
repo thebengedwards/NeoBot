@@ -2,42 +2,55 @@ const Discord = require("discord.js")
 const moment = require("moment")
 const { GetServer } = require("../functions/http-functions/servers")
 const { ViewCalendar } = require("../functions/http-functions/calendars")
+const { Reply } = require("../functions/helpers")
 
-exports.run = async (client, message, args) => {
-    let server
-    await GetServer(message.guild.id)
-        .then(res => server = res.data)
-        .catch((err) => { console.log('GetServer Error') });
+exports.run = async (client, interaction, options) => {
+    try {
+        let model;
+        await GetServer({ serverid: interaction.guild_id })
+            .then(res => model = res.data.model)
+            .catch(err => model = err.response.data.model);
 
-    if (server.serverID === message.guild.id) {
-        if (args.length === 1) {
-            let calendarId = args[0].toLowerCase().replace(/[_]+/g, ' ')
+        if (model.status === 'success') {
+            const body = {
+                name: options.find(item => item.name === 'name').value.toLowerCase()
+            };
 
-            let calendar
-            await ViewCalendar()
-                .then(res => calendar = res.data)
-                .catch((err) => { console.log(err) });
+            let calendar;
+            await ViewCalendar(body)
+                .then(res => calendar = res.data.model)
+                .catch(err => calendar = err.response.data.model);
 
-            const commandEmbed = require('../embeds/commandEmbed');
-            const embed = new Discord.MessageEmbed(commandEmbed);
+            if (calendar.status === 'success') {
+                const commandEmbed = require('../embeds/commandEmbed');
+                const embed = new Discord.MessageEmbed(commandEmbed);
 
-            embed.setDescription('View Calendar');
-            embed.addFields(
-                { name: `Found Calendar: ${calendar.name}`, value: `Date: ${moment(new Date(calendar.cron)).format('Do MMMM')} every year` },
-                { name: 'This command is dev only. DO NOT USE IT', value: 'To add a calendar, use \'!calendarAdd\', to view a calendar, use \'!calendarView\', to see all calendars use \'!calendarAll\',to delete a calendar use \'!calendarDelete\'.' },
-            )
-            return message.channel.send({ embed })
+                embed.setDescription('View Calendar');
+                embed.addFields(
+                    { name: `Found Calendar: ${calendar.resultItems.name}`, value: `Date: ${moment(new Date(calendar.resultItems.cron)).format('Do MMMM')} every year` },
+                    { name: 'This command is dev only. DO NOT USE IT', value: 'calendaradd \ncalendarall \ncalendardelete \ncalendarview' },
+                )
+                Reply(client, interaction, embed)
+            } else {
+                const alertEmbed = require('../embeds/alertEmbed')
+                const embed = new Discord.MessageEmbed(alertEmbed)
+
+                embed.setDescription(`${calendar.message}`)
+                Reply(client, interaction, embed)
+            }
         } else {
-            const alertEmbed = require('../embeds/alertEmbed');
-            const embed = new Discord.MessageEmbed(alertEmbed);
+            const alertEmbed = require('../embeds/alertEmbed')
+            const embed = new Discord.MessageEmbed(alertEmbed)
 
-            embed.setDescription('Incorrect usage of calendarView');
-            embed.addFields(
-                { name: 'Use like this:', value: '!calendarView <Name>' },
-                { name: 'IMPORTANT:', value: 'Use \'_\' instead of [space], a parser removes this from the message' }
-            )
-            return message.channel.send({ embed });
+            embed.setDescription(`${model.message}`)
+            Reply(client, interaction, embed)
         }
+    } catch {
+        const alertEmbed = require('../embeds/alertEmbed')
+        const embed = new Discord.MessageEmbed(alertEmbed)
+
+        embed.setDescription(`API Error`)
+        Reply(client, interaction, embed)
     }
 };
 
@@ -49,7 +62,9 @@ exports.conf = {
 };
 
 exports.help = {
-    name: 'calendarView',
+    name: 'calendarview',
     description: 'View a single calendar on NeoBot',
-    usage: 'calendarView <Name>'
+    options: [
+        { name: 'name', description: 'The name of the calendar event you would like to view', required: true, type: 3 },
+    ]
 };
