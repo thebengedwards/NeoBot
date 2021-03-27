@@ -1,67 +1,69 @@
 const Discord = require("discord.js")
-const fetch = require("node-fetch")
-
-const PATH = process.env.API_URL
-const KEY = process.env.API_KEY
+const { GetServer, UpdateServer } = require("../functions/http-functions/servers");
 
 exports.run = async (client, message, args) => {
-    let data = await fetch(`${PATH}/servers/${message.guild.id}`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'API_KEY': KEY
+    try {
+        let model;
+        await GetServer({ serverid: message.guild.id })
+            .then(res => model = res.data.model)
+            .catch(err => model = err.response.data.model);
+
+        if (model.status === 'success') {
+            if (model.resultItems.serverid === message.guild.id) {
+                const channelID = args.join(' ');
+                const body = {
+                    servername: model.resultItems.servername,
+                    serverid: model.resultItems.serverid,
+                    setupcomplete: model.resultItems.setupcomplete,
+                    adminroleid: model.resultItems.adminroleid,
+                    modroleid: model.resultItems.modroleid,
+                    memberroleid: model.resultItems.memberroleid,
+                    welcomechannelid: model.resultItems.welcomechannelid,
+                    modchannelid: channelID,
+                    generalchannelid: model.resultItems.generalchannelid,
+                    memeschannelid: model.resultItems.memeschannelid,
+                    gamechannelid: model.resultItems.gamechannelid,
+                    updateschannelid: model.resultItems.updateschannelid,
+                    weeklymeme: model.resultItems.weeklymeme,
+                    birthdays: model.resultItems.birthdays,
+                    calendar: model.resultItems.calendar,
+                    polls: model.resultItems.polls,
+                }
+                if (channelID) {
+                    let updateModel;
+                    await UpdateServer(body)
+                        .then(res => updateModel = res.data.model)
+                        .catch(err => updateModel = err.response.data.model);
+                    
+                    if (updateModel.status === 'success') {
+                        const commandEmbed = require('../embeds/commandEmbed')
+                        const embed = new Discord.MessageEmbed(commandEmbed)
+
+                        embed.setDescription('Mod Channel Setup')
+                        embed.addField('Mod Channel has been set to:', `${channelID}`)
+                        return message.channel.send({ embed });
+                    } else {
+                        const alertEmbed = require('../embeds/alertEmbed');
+                        const embed = new Discord.MessageEmbed(alertEmbed);
+
+                        embed.setDescription('Error updating Mod Channel');
+                        embed.addField('Message', `${updateModel.message}`);
+                        return message.channel.send({ embed });
+                    }
+                } else {
+                    const alertEmbed = require('../embeds/alertEmbed');
+                    const embed = new Discord.MessageEmbed(alertEmbed);
+
+                    embed.setDescription('Incorrect usage of setModChannel');
+                    embed.addField('Use like this:', '!setModChannel <Channel ID here>');
+                    return message.channel.send({ embed });
+                }
+            }
         }
-    })
-        .then(res => res.json());
-
-    if (data.serverID === message.guild.id) {
-        const channelID = args.join(' ');
-        const body = {
-            serverName: data.serverName,
-            setupComplete: data.setupComplete,
-            adminRoleID: data.adminRoleID,
-            modRoleID: data.modRoleID,
-            memberRoleID: data.memberRoleID,
-            welcomeChannelID: data.welcomeChannelID,
-            modChannelID: channelID,
-            generalChannelID: data.generalChannelID,
-            memesChannelID: data.memesChannelID,
-            gameUpdatesChannelID: data.gameUpdatesChannelID,
-            updateLogChannelID: data.updateLogChannelID,
-            weeklyMeme: data.weeklyMeme,
-            birthdays: data.birthdays,
-            calendar: data.calendar,
-            polls: data.polls,
-        }
-        if (channelID) {
-            fetch(`${PATH}/servers/${data.serverID}`, {
-                method: 'PUT',
-                body: JSON.stringify(body),
-                headers: {
-                    'Content-Type': 'application/json',
-                    'API_KEY': KEY
-                },
-            })
-                .then(res => res.json())
-
-            const commandEmbed = require('../embeds/commandEmbed')
-            const embed = new Discord.MessageEmbed(commandEmbed)
-
-            embed.setDescription('Mod Channel Setup')
-            embed.addField('Mod Channel has been set to:', `${channelID}`)
-            return message.channel.send({ embed });
-        } else {
-            const alertEmbed = require('../embeds/alertEmbed');
-            const embed = new Discord.MessageEmbed(alertEmbed);
-
-            embed.setDescription('Incorrect usage of setModChannel');
-            embed.addField('Use like this:', '!setModChannel <Channel ID here>');
-            return message.channel.send({ embed });
-        }
-    } else {
-        console.log('Error 008')
+    } catch {
+        console.log('Error connecting to API')
     }
-};
+}
 
 exports.conf = {
     enabled: true,

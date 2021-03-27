@@ -48,4 +48,6 @@ module.exports = client => {
   //client.on('voiceStateUpdate', (oldState, newState) => reqEvent('voiceStateUpdate')(client, oldState, newState));
   // Webhook Events \\
   client.on('webhookUpdate', (channel) => reqEvent('webhookUpdate')(client, channel));
+  // Websocket Events \\
+  client.ws.on('INTERACTION_CREATE', (interaction) => reqEvent('interactionCreate')(client, interaction));
 };

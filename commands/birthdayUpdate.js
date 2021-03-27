@@ -2,46 +2,60 @@ const Discord = require("discord.js")
 const moment = require("moment")
 const { GetServer } = require("../functions/http-functions/servers")
 const { UpdateBirthday } = require("../functions/http-functions/birthdays")
+const { Reply } = require("../functions/helpers")
 
-exports.run = async (client, message, args) => {
-    let server
-    await GetServer(message.guild.id)
-        .then(res => server = res.data)
-        .catch((err) => { console.log('GetServer Error') });
+exports.run = async (client, interaction, options) => {
+    try {
+        let model;
+        await GetServer({ serverid: interaction.guild_id })
+            .then(res => model = res.data.model)
+            .catch(err => model = err.response.data.model);
 
-    if (server.serverID === message.guild.id) {
-        if (args.length === 5) {
+        if (model.status === 'success') {
             const body = {
-                serverID: message.guild.id,
-                discordID: args[0],
-                fName: args[1].toLowerCase(),
-                lName: args[2].toLowerCase(),
-                cron: args[3],
-                gender: args[4].toLowerCase(),
+                serverid: interaction.guild_id,
+                discordid: options.find(item => item.name === 'discordid').value,
+                fname: options.find(item => item.name === 'firstname').value.toLowerCase(),
+                lname: options.find(item => item.name === 'lastname').value.toLowerCase(),
+                cron: options.find(item => item.name === 'birthday').value,
+                gender: options.find(item => item.name === 'gender').value.toLowerCase(),
             };
 
-            let birthday
-            await UpdateBirthday(message.guild.id, body)
-                .then(res => birthday = res.data)
-                .catch((err) => { console.log('BirthdayUpdate Error') });
+            let birthday;
+            await UpdateBirthday(body)
+                .then(res => birthday = res.data.model)
+                .catch(err => birthday = err.response.data.model);
 
-            const commandEmbed = require('../embeds/commandEmbed');
-            const embed = new Discord.MessageEmbed(commandEmbed);
+            if (birthday.status === 'success') {
+                const commandEmbed = require('../embeds/commandEmbed');
+                const embed = new Discord.MessageEmbed(commandEmbed);
 
-            embed.setDescription('Birthday Updated!');
-            embed.addFields(
-                { name: `You have updated: ${args[1]} ${args[2]} on the birthday list`, value: `Date: ${moment(args[3]).format('Do MMMM YYYY')}` },
-                { name: 'To see all birthdays on your server, use \'!birthdayAll\'. It will be sent to the mod channel.', value: 'To add a birthday, use \'!birthdayAdd\', to update a birthday, use \'!birthdayUpdate\', to see a birthday use \'!birthdayView\', to delete a birthday use \'!birthdayDelete\'.' },
-            )
-            return message.channel.send({ embed })
+                embed.setDescription('Birthday Updated!');
+                embed.addFields(
+                    { name: `You have updated: ${body.fname} ${body.lname} on the birthday list`, value: `Date: ${moment(body.cron).format('Do MMMM YYYY')}` },
+                    { name: 'More Birthday Commands:', value: 'birthdayadd \nbirthdayall \nbirthdaydelete \nbirthdayupdate \nbirthdayview' },
+                )
+                Reply(client, interaction, embed)
+            } else {
+                const alertEmbed = require('../embeds/alertEmbed')
+                const embed = new Discord.MessageEmbed(alertEmbed)
+
+                embed.setDescription(`${birthday.message}`)
+                Reply(client, interaction, embed)
+            }
         } else {
-            const alertEmbed = require('../embeds/alertEmbed');
-            const embed = new Discord.MessageEmbed(alertEmbed);
+            const alertEmbed = require('../embeds/alertEmbed')
+            const embed = new Discord.MessageEmbed(alertEmbed)
 
-            embed.setDescription('Incorrect usage of birthdayUpdate');
-            embed.addField('Use like this:', '!birthdayUpdate <DiscordID of the user you want to update> <First Name> <Last Name> <YYYY-MM-DD> <Gender>');
-            return message.channel.send({ embed });
+            embed.setDescription(`${model.message}`)
+            Reply(client, interaction, embed)
         }
+    } catch {
+        const alertEmbed = require('../embeds/alertEmbed')
+        const embed = new Discord.MessageEmbed(alertEmbed)
+
+        embed.setDescription(`API Error`)
+        Reply(client, interaction, embed)
     }
 };
 
@@ -53,7 +67,13 @@ exports.conf = {
 };
 
 exports.help = {
-    name: 'birthdayUpdate',
+    name: 'birthdayupdate',
     description: 'Update a birthday on your server.',
-    usage: 'birthdayUpdate <DiscordID> <First Name> <Last Name> <YYYY-MM-DD> <Gender>'
+    options: [
+        { name: 'discordid', description: 'The ID od the user you would like to update', required: true, type: 3 },
+        { name: 'firstname', description: 'The users first name', required: true, type: 3 },
+        { name: 'lastname', description: 'The users last name', required: true, type: 3 },
+        { name: 'birthday', description: 'Their birth date formatted YYYY-MM-DD', required: true, type: 3 },
+        { name: 'gender', description: 'Male, Female or Other', required: true, type: 3 }
+    ]
 };

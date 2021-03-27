@@ -1,10 +1,11 @@
+const Discord = require("discord.js");
 const version = require("../package.json").version;
 const cronBirthdays = require("../crons/birthdays");
 const cronCalendars = require("../crons/calendars");
 const cronPolls = require("../crons/polls");
 const cronWeeklyMemes = require("../crons/weeklyMemes");
 
-module.exports = client => {
+module.exports = async (client) => {
   cronBirthdays(client)
   cronCalendars(client)
   cronPolls(client)

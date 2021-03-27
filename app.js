@@ -26,26 +26,33 @@ fs.readdir('./commands/', (err, files) => {
   });
 });
 
-client.elevation = async (message) => {
-  let model;
-  await GetServer({ serverid: channel.guild.id })
-    .then(res => model = res.data.model.resultItems)
-    .catch((err) => { console.log(err) });
-
-  let permlvl = 0;
+client.elevation = async (interaction) => {
   try {
-    const member_role = message.member.roles.cache.find(r => r.name === "Member");
-    if (member_role && message.member.roles.cache.has(member_role.id)) permlvl = 1; // Member Level Access
-    const mod_role = message.member.roles.cache.find(r => r.name === "Moderator");
-    if (mod_role && message.member.roles.cache.has(mod_role.id)) permlvl = 2; // Mod Level Access
-    const admin_role = message.member.roles.cache.find(r => r.name === "Admin");
-    if (admin_role && message.member.roles.cache.has(admin_role.id)) permlvl = 3; // Admin Level Access
-    if (model.ownerid === message.member.id) permlvl = 4; // Server Owner Level Access
-    if (settings.reportid === message.member.id) permlvl = 5; // Dev Level Access
-    return permlvl;
-  }
-  catch (err) {
-    console.log(`Error: ${err}`)
+    let model;
+    await GetServer({ serverid: interaction.guild_id })
+      .then(res => model = res.data.model)
+      .catch(err => model = err.response.data.model);
+
+    if (model.status === 'success') {
+      let permlvl = 0;
+      guild = client.guilds.cache.find(item => item.id === interaction.guild_id).roles.cache
+      try {
+        const member_role = guild.find(r => r.name === "Member");
+        if (member_role && guild.has(member_role.id)) permlvl = 1; // Member Level Access
+        const mod_role = guild.find(r => r.name === "Moderator");
+        if (mod_role && guild.has(mod_role.id)) permlvl = 2; // Mod Level Access
+        const admin_role = guild.find(r => r.name === "Admin");
+        if (admin_role && guild.has(admin_role.id)) permlvl = 3; // Admin Level Access
+        if (model.resultItems.ownerid === interaction.member.user.id) permlvl = 4; // Server Owner Level Access
+        if (settings.reportid === interaction.member.user.id) permlvl = 5; // Dev Level Access
+        return permlvl;
+      }
+      catch (err) {
+        console.log(`Error: ${err}`)
+      }
+    }
+  } catch {
+    console.log('Error connecting to API')
   }
 };
 

@@ -2,42 +2,59 @@ const Discord = require("discord.js")
 const moment = require("moment")
 const { GetServer } = require("../functions/http-functions/servers")
 const { GetAllBirthdays } = require("../functions/http-functions/birthdays")
+const { Reply } = require("../functions/helpers")
 
-exports.run = async (client, message) => {
-    let server
-    await GetServer(message.guild.id)
-        .then(res => server = res.data)
-        .catch((err) => { console.log('GetServer Error') });
+exports.run = async (client, interaction,) => {
+    try {
+        let model;
+        await GetServer({ serverid: interaction.guild_id })
+            .then(res => model = res.data.model)
+            .catch(err => model = err.response.data.model);
 
-    if (server.serverID === message.guild.id) {
-        let birthdays
-        await GetAllBirthdays(message.guild.id)
-            .then(res => birthdays = res.data)
-            .catch((err) => { console.log('GetAllBirthdays Error') });
+        if (model.status === 'success') {
+            let birthdays
+            await GetAllBirthdays({ serverid: interaction.guild_id })
+                .then(res => birthdays = res.data.model)
+                .catch(err => birthdays = err.response.data.model);
 
-        birthdays.sort((a, b) => {
-            if (a.cron < b.cron) { return -1; }
-            if (a.cron > b.cron) { return 1; }
-            return 0;
-        })
+            if (birthdays.status === 'success') {
+                const guild = client.guilds.resolve(interaction.guild_id)
+                birthdays.resultItems.sort((a, b) => {
+                    if (a.cron < b.cron) { return -1; }
+                    if (a.cron > b.cron) { return 1; }
+                    return 0;
+                })
 
-        const commandEmbed = require('../embeds/commandEmbed');
-        const embed = new Discord.MessageEmbed(commandEmbed);
+                const commandEmbed = require('../embeds/commandEmbed');
+                const embed = new Discord.MessageEmbed(commandEmbed);
 
-        embed.setDescription('All Birthdays');
-        embed.addFields(
-            { name: `Below are all the birthdays saved to this server.`, value: `Please be carful with this information` },
-            { name: `Birthdays for: ${message.guild.name}`, value: birthdays.map(item => `${item.fName} ${item.lName}, ${item.discordID}, ${moment(item.cron).format('Do MMMM YYYY')}, ${item.gender}`) },
-            { name: 'To see all birthdays on your server, use \'!birthdayAll\'. It will be sent to the mod channel.', value: 'To add a birthday, use \'!birthdayAdd\', to update a birthday, use \'!birthdayUpdate\', to see a birthday use \'!birthdayView\', to delete a birthday use \'!birthdayDelete\'.' },
-        )
-        message.channel.send({ embed })
-    } else {
-        const alertEmbed = require('../embeds/alertEmbed');
-        const embed = new Discord.MessageEmbed(alertEmbed);
+                embed.setDescription('All Birthdays');
+                embed.addFields(
+                    { name: `Below are all the birthdays saved to this server.`, value: `Please be carful with this information` },
+                    { name: `Birthdays for: ${guild.name}`, value: birthdays.resultItems.map(item => `${item.fname} ${item.lname}, ${item.discordid}, ${moment(item.cron).format('Do MMMM YYYY')}, ${item.gender}`) },
+                    { name: 'More Birthday Commands:', value: 'birthdayadd \nbirthdayall \nbirthdaydelete \nbirthdayupdate \nbirthdayview' },
+                )
+                Reply(client, interaction, embed)
+            } else {
+                const alertEmbed = require('../embeds/alertEmbed')
+                const embed = new Discord.MessageEmbed(alertEmbed)
 
-        embed.setDescription('Incorrect usage of birthdayDelete');
-        embed.addField('Use like this:', '!birthdayDelete <DiscordID>');
-        return message.channel.send({ embed });
+                embed.setDescription(`${birthdays.message}`)
+                Reply(client, interaction, embed)
+            }
+        } else {
+            const alertEmbed = require('../embeds/alertEmbed')
+            const embed = new Discord.MessageEmbed(alertEmbed)
+
+            embed.setDescription(`${model.message}`)
+            Reply(client, interaction, embed)
+        }
+    } catch {
+        const alertEmbed = require('../embeds/alertEmbed')
+        const embed = new Discord.MessageEmbed(alertEmbed)
+
+        embed.setDescription(`API Error`)
+        Reply(client, interaction, embed)
     }
 };
 
@@ -49,7 +66,6 @@ exports.conf = {
 };
 
 exports.help = {
-    name: 'birthdayAll',
+    name: 'birthdayall',
     description: 'See all birthdays on your server',
-    usage: 'birthdayAll'
 };

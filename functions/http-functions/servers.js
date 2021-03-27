@@ -45,7 +45,7 @@ exports.GetServer = async (DATA) => {
 
 exports.UpdateServer = async (DATA) => {
     return HTTP({
-        Method: "GET",
+        Method: "PUT",
         Url: UPDATE_SERVER,
         Headers: {
             'Content-Type': 'application/json',
