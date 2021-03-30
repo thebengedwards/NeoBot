@@ -1,7 +1,7 @@
 const {
     CREATE_SUBREDDIT,
     GET_ALL_SUBREDDITS,
-    VIEW_SUBREDDIT,
+    GET_SUBREDDIT,
     DELETE_SUBREDDIT
 } = require("../endpoints")
 const { HTTP, HTTPn } = require("../http")
@@ -31,10 +31,10 @@ exports.GetAllSubreddits = async () => {
     })
 };
 
-exports.ViewSubreddit = async (DATA) => {
+exports.GetSubreddit = async (DATA) => {
     return HTTP({
         Method: "PUT",
-        Url: VIEW_SUBREDDIT,
+        Url: GET_SUBREDDIT,
         Headers: {
             'Content-Type': 'application/json',
             'API_KEY': KEY

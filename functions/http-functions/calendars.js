@@ -1,7 +1,7 @@
 const {
     CREATE_CALENDAR,
     GET_ALL_CALENDARS,
-    VIEW_CALENDAR,
+    GET_CALENDAR,
     DELETE_CALENDAR
 } = require("../endpoints")
 const { HTTP, HTTPn } = require("../http")
@@ -31,10 +31,10 @@ exports.GetAllCalendars = async () => {
     })
 };
 
-exports.ViewCalendar = async (DATA) => {
+exports.GetCalendar = async (DATA) => {
     return HTTP({
         Method: "PUT",
-        Url: VIEW_CALENDAR,
+        Url: GET_CALENDAR,
         Headers: {
             'Content-Type': 'application/json',
             'API_KEY': KEY

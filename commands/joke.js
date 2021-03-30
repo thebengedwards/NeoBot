@@ -1,28 +1,34 @@
-const Discord = require("discord.js")
-const { GetServer } = require("../functions/http-functions/servers")
-const { GetJoke } = require("../functions/http-functions/jokes")
+const Discord = require("discord.js");
+const { GetJoke } = require("../functions/http-functions/jokes");
+const { Reply } = require("../functions/helpers");
 
-exports.run = async (client, message) => {
-  let server
-  await GetServer(message.guild.id)
-  .then(res => server = res.data)
-  .catch((err) => {console.log('GetServer Error')});
-
-  if (server.serverID === message.guild.id) {
-    const commandEmbed = require('../embeds/commandEmbed')
-    const embed = new Discord.MessageEmbed(commandEmbed)
-    
-    let joke
+exports.run = async (client, interaction) => {
+  try {
+    let joke;
     await GetJoke()
-    .then(res => joke = res.data.joke)
-    .catch((err) => {console.log('Joke Error')});
+      .then(res => joke = res.data)
+      .catch(err => joke = err.response.data);
 
-    embed.setDescription('A Random Joke')
-    embed.addField('Here you go:', joke)
-    return message.channel.send({ embed })
+    if (joke.status === 200) {
+      const commandEmbed = require('../embeds/commandEmbed')
+      const embed = new Discord.MessageEmbed(commandEmbed)
 
-  } else {
-    console.log('Error')
+      embed.setDescription('A Random Joke')
+      embed.addField('Joke:', joke.joke)
+      Reply(client, interaction, embed)
+    } else {
+      const alertEmbed = require('../embeds/alertEmbed')
+      const embed = new Discord.MessageEmbed(alertEmbed)
+
+      embed.setDescription(`Joke API Error`)
+      Reply(client, interaction, embed)
+    }
+  } catch {
+    const alertEmbed = require('../embeds/alertEmbed')
+    const embed = new Discord.MessageEmbed(alertEmbed)
+
+    embed.setDescription(`API Error`)
+    Reply(client, interaction, embed)
   }
 };
 
@@ -35,6 +41,5 @@ exports.conf = {
 
 exports.help = {
   name: 'joke',
-  description: 'Makes me tell you a joke',
-  usage: 'joke'
+  description: 'Makes NeoBot tell you a joke',
 };

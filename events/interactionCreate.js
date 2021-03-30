@@ -1,9 +1,4 @@
 const Discord = require("discord.js");
-const version = require("../package.json").version;
-const cronBirthdays = require("../crons/birthdays");
-const cronCalendars = require("../crons/calendars");
-const cronPolls = require("../crons/polls");
-const cronWeeklyMemes = require("../crons/weeklyMemes");
 const { Reply } = require("../functions/helpers")
 
 module.exports = async (client, interaction) => {

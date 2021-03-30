@@ -4,7 +4,7 @@ exports.CREATE_BIRTHDAY = `${BASE_URL}/Birthday/createBirthday`;
 
 exports.GET_ALL_BIRTHDAYS = `${BASE_URL}/Birthday/allBirthdays`;
 
-exports.VIEW_BIRTHDAY = `${BASE_URL}/Birthday/getBirthday`;
+exports.GET_BIRTHDAY = `${BASE_URL}/Birthday/getBirthday`;
 
 exports.UPDATE_BIRTHDAY = `${BASE_URL}/Birthday/updateBirthday`;
 
@@ -14,7 +14,7 @@ exports.CREATE_CALENDAR = `${BASE_URL}/Calendar/createCalendar`;
 
 exports.GET_ALL_CALENDARS = `${BASE_URL}/Calendar/allCalendars`;
 
-exports.VIEW_CALENDAR = `${BASE_URL}/Calendar/getCalendar`;
+exports.GET_CALENDAR = `${BASE_URL}/Calendar/getCalendar`;
 
 exports.DELETE_CALENDAR = `${BASE_URL}/Calendar/deleteCalendar`;
 
@@ -42,7 +42,7 @@ exports.CREATE_SUBREDDIT = `${BASE_URL}/Subreddit/createSubreddit`;
 
 exports.GET_ALL_SUBREDDITS = `${BASE_URL}/Subreddit/allSubreddits`;
 
-exports.VIEW_SUBREDDIT = `${BASE_URL}/Subreddit/getSubreddit`;
+exports.GET_SUBREDDIT = `${BASE_URL}/Subreddit/getSubreddit`;
 
 exports.DELETE_SUBREDDIT = `${BASE_URL}/Subreddit/deleteSUbreddit`;
 

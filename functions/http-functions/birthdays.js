@@ -1,7 +1,7 @@
 const {
     CREATE_BIRTHDAY,
     GET_ALL_BIRTHDAYS,
-    VIEW_BIRTHDAY,
+    GET_BIRTHDAY,
     UPDATE_BIRTHDAY,
     DELETE_BIRTHDAY
 } = require("../endpoints")
@@ -33,10 +33,10 @@ exports.GetAllBirthdays = async (DATA) => {
     })
 };
 
-exports.ViewBirthday = async (DATA) => {
+exports.GetBirthday = async (DATA) => {
     return HTTP({
         Method: "PUT",
-        Url: VIEW_BIRTHDAY,
+        Url: GET_BIRTHDAY,
         Headers: {
             'Content-Type': 'application/json',
             'API_KEY': KEY

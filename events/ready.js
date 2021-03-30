@@ -1,4 +1,3 @@
-const Discord = require("discord.js");
 const version = require("../package.json").version;
 const cronBirthdays = require("../crons/birthdays");
 const cronCalendars = require("../crons/calendars");
@@ -18,10 +17,13 @@ module.exports = async (client) => {
     }
     return app
   }
-  client.guilds.cache.map(async (item) => {
-    const commands = await getApp(item.id).commands.get()
-    client.commands.map(async (command) => { await getApp(item.id).commands.post({ data: command.help }) })
-  })
+  
+  // const commands = await getApp('271720862606950400').commands.get() // Get all commands in the guild
+  // commands.map(async (command) => { await getApp('271720862606950400').commands(command.id).delete() }) // Delete all the commands in the guild
+
+  client.commands.map(async (command) => { await getApp('271720862606950400').commands.post({ data: command.help }) }) // Add all commands to guild
+
+  // client.commands.filter(item => item.conf.permLevel < 5).map(async (command) => { await getApp('271720862606950400').commands.post({ data: command.help }) }) // Add all commands to global
 
   client.user.setActivity(`Version: ${version}`);
 

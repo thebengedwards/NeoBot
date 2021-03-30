@@ -1,6 +1,6 @@
-const Discord = require("discord.js")
-const { GetServer } = require("../functions/http-functions/servers")
-const { Reply } = require("../functions/helpers")
+const Discord = require("discord.js");
+const { GetServer } = require("../functions/http-functions/servers");
+const { Reply } = require("../functions/helpers");
 
 exports.run = async (client, interaction) => {
   try {

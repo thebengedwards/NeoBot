@@ -1,6 +1,6 @@
-const Discord = require("discord.js")
-const { GetServer, UpdateServer } = require("../functions/http-functions/servers")
-const { Reply } = require("../functions/helpers")
+const Discord = require("discord.js");
+const { GetServer, UpdateServer } = require("../functions/http-functions/servers");
+const { Reply } = require("../functions/helpers");
 
 exports.run = async (client, interaction) => {
   try {
@@ -72,13 +72,13 @@ exports.run = async (client, interaction) => {
             { name: 'Welcome to the NeoBot setup', value: 'This message will guide you through the setup process' },
             { name: '\u200B', value: '---ROLES---' },
             { name: 'NeoBot uses three main roles, Admin, Moderator and Member', value: 'It doesn\'t matter if you have more roles, just assign the roles to any applicable.' },
-            { name: 'Assign these roles by using the commands /setadminid, /setmodid, /setmemberid.', value: 'Find the role ID\'s by enabling Dev mode in the settings, and then right clicking the role in server settings, and select \'Copy ID\'. If you wish to reset a role once set, use 0. Use /helproles for more information.' },
+            { name: 'Assign these roles by using the commands /setadminid, /setmodid, /setmemberid.', value: 'Find the role ID\'s by enabling Dev mode in the settings, and then right clicking the role in server settings, and select \'Copy ID\'. If you wish to reset a role once set, use 0. Use /help roles for more information.' },
             { name: '\u200B', value: '---CHANNELS---' },
             { name: 'NeoBot can also use a default of 6 text channels', value: 'It doesn\'t matter if you don\'t have 6 text channels, just assign these to any applicable.' },
-            { name: 'Assign these channels by using the commands /setwelcomechannel, /setmodchannel, /setgeneralchannel, /setmemeschannel, /setgamechannel, /setupdatechannel.', value: 'Find the channel ID\'s by enabling Dev mode in the settings, and then right clicking the channel in the server, and select \'Copy ID\'. If you dont have a channel applicable, use 0. Use /helpchannels for more information.' },
+            { name: 'Assign these channels by using the commands /setwelcomechannel, /setmodchannel, /setgeneralchannel, /setmemeschannel, /setgamechannel, /setupdatechannel.', value: 'Find the channel ID\'s by enabling Dev mode in the settings, and then right clicking the channel in the server, and select \'Copy ID\'. If you dont have a channel applicable, use 0. Use /help channels for more information.' },
             { name: '\u200B', value: '---FEATURES---' },
             { name: 'NeoBot also gives you the option to enable or disable certain features', value: 'These can be enabled or disabled at any point' },
-            { name: 'Toggle these features by using /toggleweeklymemes, /togglebirthdays, /togglecalendar and /togglepolls.', value: 'These options are either on or off. Use /helpevents for more information.' },
+            { name: 'Toggle these features by using /toggleweeklymemes, /togglebirthdays, /togglecalendar and /togglepolls.', value: 'These options are either on or off. Use /help events for more information.' },
             { name: '\u200B', value: '⚠️ ---IMPORTANT--- ⚠️' },
             { name: 'Please also move the automatic NeoBot role to either the top or just below the admin role of the roles list', value: 'This is to allow for the roles functions to work properly.' },
             { name: '\u200B', value: '---SERVER TEMPLATE---' },

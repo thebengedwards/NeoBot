@@ -1,7 +1,7 @@
 const {
     CREATE_GAME,
     GET_ALL_GAMES,
-    VIEW_GAME,
+    GET_GAME,
     UPDATE_GAME,
     DELETE_GAME
 } = require("../endpoints")
@@ -32,10 +32,10 @@ exports.GetAllGames = async () => {
     })
 };
 
-exports.ViewGame = async (DATA) => {
+exports.GetGame = async (DATA) => {
     return HTTP({
         Method: "PUT",
-        Url: VIEW_GAME,
+        Url: GET_GAME,
         Headers: {
             'Content-Type': 'application/json',
             'API_KEY': KEY
@@ -47,7 +47,7 @@ exports.ViewGame = async (DATA) => {
 exports.UpdateGame = async (DATA) => {
     return HTTP({
         Method: "PUT",
-        Url: UPDATE_GAME(SERVER_ID),
+        Url: UPDATE_GAME,
         Headers: {
             'Content-Type': 'application/json',
             'API_KEY': KEY
