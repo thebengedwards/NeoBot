@@ -13,7 +13,7 @@ module.exports = async (client) => {
 
         if (model.status === 'success') {
             model.resultItems.map(async (item) => {
-                if (item.calendars && item.generalchannelid === client.guilds.cache.get(item.serverid).channels.cache.get(item.generalchannelid).id) {
+                if (item.calendar && item.generalchannelid === client.guilds.cache.get(item.serverid).channels.cache.get(item.generalchannelid).id) {
                     let calendars;
                     await GetAllCalendars()
                         .then(res => calendars = res.data.model)

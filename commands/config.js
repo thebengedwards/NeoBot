@@ -32,10 +32,10 @@ exports.run = async (client, interaction) => {
           { name: `Update Log Channel:`, value: model.resultItems.updateschannelid !== '0' ? `Set 🟩` : `Unset 🟥`, inline: true },
           { name: '\u200B', value: '---FEATURES---' },
           { name: `Events Settings`, value: 'What features are enabled/disabled' },
-          { name: `Weekly Meme`, value: model.resultItems.weeklymeme === 1 ? `Enabled 🟩` : `Disabled 🟥`, inline: true },
-          { name: `Birthdays`, value: model.resultItems.birthdays === 1 ? `Enabled 🟩` : `Disabled 🟥`, inline: true },
-          { name: `Calendar`, value: model.resultItems.calendar === 1 ? `Enabled 🟩` : `Disabled 🟥`, inline: true },
-          { name: `Game Polls`, value: model.resultItems.polls === 1 ? `Enabled 🟩` : `Disabled 🟥`, inline: true },
+          { name: `Weekly Meme`, value: model.resultItems.weeklymeme ? `Enabled 🟩` : `Disabled 🟥`, inline: true },
+          { name: `Birthdays`, value: model.resultItems.birthdays ? `Enabled 🟩` : `Disabled 🟥`, inline: true },
+          { name: `Calendar`, value: model.resultItems.calendar ? `Enabled 🟩` : `Disabled 🟥`, inline: true },
+          { name: `Game Polls`, value: model.resultItems.polls ? `Enabled 🟩` : `Disabled 🟥`, inline: true },
         )
         Reply(client, interaction, embed)
       } else {
