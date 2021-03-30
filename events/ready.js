@@ -19,7 +19,7 @@ module.exports = async (client) => {
   }
   
   // const commands = await getApp('271720862606950400').commands.get() // Get all commands in the guild
-  // commands.map(async (command) => { await getApp('271720862606950400').commands(command.id).delete() }) // Delete all the commands in the guild
+  // commands.map(async (command) => { await getApp('271720862606950400').commands(command.id).delete(), console.log(command.name) }) // Delete all the commands in the guild
 
   client.commands.map(async (command) => { await getApp('271720862606950400').commands.post({ data: command.help }) }) // Add all commands to guild
 
