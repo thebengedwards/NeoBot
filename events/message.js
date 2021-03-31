@@ -3,40 +3,28 @@ const settings = require("../settings.json");
 const { GetServer } = require("../functions/http-functions/servers");
 
 module.exports = async (client, message) => {
-  let model;
-  await GetServer({serverid: message.guild.id})
-    .then(res => model = res.data.model.resultItems)
-    .catch((err) => { console.log(err) });
-
-  if (model.serverid === message.guild.id) {
+  try {
     if (message.author.bot) return;
     if (!message.content.startsWith(settings.prefix)) return;
     if (message.member === null) {
       const alertEmbed = require('../embeds/alertEmbed')
       const embed = new Discord.MessageEmbed(alertEmbed)
 
-      embed.setDescription('Please only send me messages in servers')
+      embed.setDescription('Please only send NeoBot messages in servers')
       return message.channel.send({ embed })
     }
-    const command = message.content.split(' ')[0].slice(settings.prefix.length);
-    const params = message.content.split(' ').slice(1);
-    const perms = await client.elevation(message);
-    let cmd;
-    if (client.commands.has(command)) {
-      cmd = client.commands.get(command);
-    } else if (client.aliases.has(command)) {
-      cmd = client.commands.get(client.aliases.get(command));
-    }
-    if (cmd) {
-      if (perms < cmd.conf.permLevel) {
-        const alertEmbed = require('../embeds/alertEmbed')
-        const embed = new Discord.MessageEmbed(alertEmbed)
 
-        embed.setDescription('You do not have permission to use this command')
-        return message.channel.send({ embed })
-      } else {
-        cmd.run(client, message, params, perms);
+    if (message.channel.type !== 'dm') {
+      let model;
+      await GetServer({ serverid: message.guild.id })
+        .then(res => model = res.data.model)
+        .catch(err => model = err.response.data.model);
+
+      if (model.status === 'success') {
+        // Profanity Filtering in Version 2.2.0
       }
     }
+  } catch (err) {
+    console.log(err)
   }
 };

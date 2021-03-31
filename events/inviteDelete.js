@@ -2,19 +2,25 @@ const Discord = require("discord.js");
 const { GetServer } = require("../functions/http-functions/servers");
 
 module.exports = async (client, invite) => {
-    let model;
-    await GetServer({ serverid: invite.guild.id })
-        .then(res => model = res.data.model.resultItems)
-        .catch((err) => { console.log(err) });
+    try {
+        let model;
+        await GetServer({ serverid: invite.guild.id })
+            .then(res => model = res.data.model)
+            .catch(err => model = err.response.data.model);
 
-    if (model.serverid === invite.guild.id && invite.guild.channels.cache.find(item => item.id === model.modchannelid)) {
-        const eventEmbed = require('../embeds/eventEmbed')
-        const embed = new Discord.MessageEmbed(eventEmbed)
+        if (model.status === 'success') {
+            if (model.resultItems.serverid === invite.guild.id && invite.guild.channels.cache.find(item => item.id === model.resultItems.modchannelid)) {
+                const eventEmbed = require('../embeds/eventEmbed')
+                const embed = new Discord.MessageEmbed(eventEmbed)
 
-        embed.setDescription(`An Invite was Deleted`)
-        embed.addFields(
-            { name: `Invite Code: ${invite.code}`, value: `Send new invites to affected users` },
-        )
-        return client.channels.cache.get(model.modchannelid).send({ embed });
+                embed.setDescription(`An Invite was Deleted`)
+                embed.addFields(
+                    { name: `Invite Code: ${invite.code}`, value: `Send new invites to affected users` },
+                )
+                return client.channels.cache.get(model.resultItems.modchannelid).send({ embed });
+            }
+        }
+    } catch {
+        console.log('Error connecting to API')
     }
 };

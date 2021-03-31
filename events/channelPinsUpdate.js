@@ -5,12 +5,12 @@ const { GetServer } = require("../functions/http-functions/servers");
 module.exports = async (client, channel, time) => {
     try {
         let model;
-        await GetServer({ serverid: channel.guild.id })
-            .then(res => model = res.data.model)
-            .catch(err => model = err.response.data.model);
+        if (channel.type !== 'dm') {
+            await GetServer({ serverid: channel.guild.id })
+                .then(res => model = res.data.model)
+                .catch(err => model = err.response.data.model);
 
-        if (model.status === 'success') {
-            if (channel.type !== 'dm') {
+            if (model.status === 'success') {
                 if (model.resultItems.serverid === channel.guild.id && channel.guild.channels.cache.find(item => item.id === model.resultItems.modchannelid)) {
                     const eventEmbed = require('../embeds/eventEmbed')
                     const embed = new Discord.MessageEmbed(eventEmbed)

@@ -24,12 +24,12 @@ module.exports = async (guild) => {
     joineddate: moment(new Date()).format('YYYY-MM-DD')
   };
 
-  let createModel;
+  let model;
   await CreateServer(body)
-    .then(res => createModel = res.data.model)
-    .catch(err => createModel = err.response.data.model);
+    .then(res => model = res.data.model)
+    .catch(err => model = err.response.data.model);
 
-  if (createModel.status === 'success') {
+  if (model.status === 'success') {
     const alertEmbed = require('../embeds/alertEmbed');
     const embed = new Discord.MessageEmbed(alertEmbed);
 
