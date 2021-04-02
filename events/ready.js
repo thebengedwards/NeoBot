@@ -26,9 +26,9 @@ module.exports = async (client) => {
   // console.log(commands)
   // commands.map(async (command) => { await getApp().commands(command.id).delete(), console.log(command.name) }) // Delete all the commands in blobal
 
-  client.commands.filter(item => item.conf.permLevel >= 5).map(async (command) => { await getApp('271720862606950400').commands.post({ data: command.help }) }) // Add commands to guild
+  // client.commands.filter(item => item.conf.permLevel >= 5).map(async (command) => { await getApp('271720862606950400').commands.post({ data: command.help }) }) // Add commands to guild
 
-  client.commands.filter(item => item.conf.permLevel < 5).map(async (command) => { await getApp().commands.post({ data: command.help }) }) // Add commands to global
+  // client.commands.filter(item => item.conf.permLevel < 5).map(async (command) => { await getApp().commands.post({ data: command.help }) }) // Add commands to global
 
   client.user.setActivity(`Version: ${version}`);
 
