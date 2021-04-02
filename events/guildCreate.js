@@ -21,7 +21,8 @@ module.exports = async (guild) => {
     birthdays: false,
     calendar: false,
     polls: false,
-    joineddate: moment(new Date()).format('YYYY-MM-DD')
+    joineddate: moment(new Date()).format('YYYY-MM-DD'),
+    profanities: false,
   };
 
   let model;
@@ -60,5 +61,7 @@ module.exports = async (guild) => {
     catch (err) {
       console.log(`Error on creating server in database`)
     }
+  } else {
+    console.log(model.message)
   }
 };

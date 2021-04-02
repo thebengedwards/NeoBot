@@ -1,10 +1,10 @@
 const Discord = require("discord.js");
 const version = require("../package.json").version;
-const img = "https://i.imgur.com/WqcSB5V.png";
+const img = "https://i.imgur.com/eoGhCom.png";
 
 const embed = new Discord.MessageEmbed()
-	.setColor('#FF8300')	
-	.setTitle('**Report**')
+	.setColor('#808080')
+	.setTitle('**Profanity**')
 	.setThumbnail(img)
 	.setTimestamp()
 	.setFooter(`NeoBot Version: ${version}`)

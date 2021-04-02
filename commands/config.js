@@ -36,6 +36,7 @@ exports.run = async (client, interaction) => {
           { name: `Birthdays`, value: model.resultItems.birthdays ? `Enabled 🟩` : `Disabled 🟥`, inline: true },
           { name: `Calendar`, value: model.resultItems.calendar ? `Enabled 🟩` : `Disabled 🟥`, inline: true },
           { name: `Game Polls`, value: model.resultItems.polls ? `Enabled 🟩` : `Disabled 🟥`, inline: true },
+          { name: `Profanities`, value: model.resultItems.profanities ? `Enabled 🟩` : `Disabled 🟥`, inline: true },
         )
         Reply(client, interaction, embed)
       } else {
@@ -56,6 +57,7 @@ exports.run = async (client, interaction) => {
           birthdays: model.resultItems.birthdays,
           calendar: model.resultItems.calendar,
           polls: model.resultItems.polls,
+          profanities: model.resultItems.profanities
         }
 
         let updateModel;

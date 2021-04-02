@@ -28,6 +28,7 @@
     "dotenv": "^8.2.0",
     "imageapi.js": "^1.2.4",
     "moment": "^2.29.1",
-    "nodemon": "^2.0.7"
+    "nodemon": "^2.0.7",
+    "profanities": "^2.14.0"
   }
 }

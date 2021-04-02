@@ -22,6 +22,8 @@ exports.run = async (client, interaction, options) => {
                 boolean = !model.resultItems.calendar
             } else if (type === 'polls') {
                 boolean = !model.resultItems.polls
+            } else if (type === 'profanities') {
+                boolean = !model.resultItems.profanities
             } else {
                 boolean = false
             }
@@ -42,6 +44,7 @@ exports.run = async (client, interaction, options) => {
                 birthdays: (type === 'birthdays') ? !model.resultItems.birthdays : model.resultItems.birthdays,
                 calendar: (type === 'calendar') ? !model.resultItems.calendar : model.resultItems.calendar,
                 polls: (type === 'polls') ? !model.resultItems.polls : model.resultItems.polls,
+                profanities: (type === 'profanities') ? !model.resultItems.profanities : model.resultItems.profanities
             }
 
             let toggle;
@@ -92,22 +95,27 @@ exports.help = {
     options: [
         {
             name: 'weeklymeme',
-            description: 'The Admin role of your Server',
+            description: 'Enable/Disable Weekly Memes',
             type: 1,
         },
         {
             name: 'birthdays',
-            description: 'The Mod role of your Server',
+            description: 'Enable/Disable Birthday Alerts',
             type: 1,
         },
         {
             name: 'calendar',
-            description: 'The Member role of your Server',
+            description: 'Enable/Disable Calendar Alerts',
             type: 1,
         },
         {
             name: 'polls',
-            description: 'The Member role of your Server',
+            description: 'Enable/Disable Weekly Polls',
+            type: 1,
+        },
+        {
+            name: 'profanities',
+            description: 'Enable/Disable Profanity filtering',
             type: 1,
         },
     ]
