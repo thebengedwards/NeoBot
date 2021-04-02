@@ -1,27 +1,26 @@
 const Discord = require("discord.js");
-const fetch = require("node-fetch");
-
-const PATH = process.env.API_URL
-const KEY = process.env.API_KEY
+const { GetServer } = require("../functions/http-functions/servers");
 
 module.exports = async (client, invite) => {
-    let data = await fetch(`${PATH}/servers/${invite.guild.id}`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'API_KEY': KEY
+    try {
+        let model;
+        await GetServer({ serverid: invite.guild.id })
+            .then(res => model = res.data.model)
+            .catch(err => model = err.response.data.model);
+
+        if (model.status === 'success') {
+            if (model.resultItems.serverid === invite.guild.id && invite.guild.channels.cache.find(item => item.id === model.resultItems.modchannelid)) {
+                const eventEmbed = require('../embeds/eventEmbed')
+                const embed = new Discord.MessageEmbed(eventEmbed)
+
+                embed.setDescription(`An Invite was Deleted`)
+                embed.addFields(
+                    { name: `Invite Code: ${invite.code}`, value: `Send new invites to affected users` },
+                )
+                return client.channels.cache.get(model.resultItems.modchannelid).send({ embed });
+            }
         }
-    })
-        .then(res => res.json());
-
-    if (data.serverID === invite.guild.id && invite.guild.channels.cache.find(item => item.id === data.modChannelID)) {
-        const eventEmbed = require('../embeds/eventEmbed')
-        const embed = new Discord.MessageEmbed(eventEmbed)
-
-        embed.setDescription(`An Invite was Deleted`)
-        embed.addFields(
-            { name: `Invite Code: ${invite.code}`, value: `Send new invites to affected users` },
-        )
-        return client.channels.cache.get(data.modChannelID).send({ embed });
+    } catch {
+        console.log('Error connecting to API')
     }
 };

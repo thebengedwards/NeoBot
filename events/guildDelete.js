@@ -1,16 +1,6 @@
-const fetch = require("node-fetch")
+const { DeleteServer } = require("../functions/http-functions/servers");
 
-const PATH = process.env.API_URL
-const KEY = process.env.API_KEY
-
-module.exports = guild => {
-
-  fetch(`${PATH}/servers/${guild.id}`, {
-    method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json',
-      'API_KEY': KEY
-    },
-  })
-    .then(res => res.json())
+module.exports = async (guild) => {
+  await DeleteServer({ serverid: guild.id })
+    .catch((err) => { console.log(err) });
 };

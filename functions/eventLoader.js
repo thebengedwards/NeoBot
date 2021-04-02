@@ -26,8 +26,8 @@ module.exports = client => {
   client.on('message', (message) => reqEvent('message')(client, message));
   client.on('messageDelete', (message) => reqEvent('messageDelete')(client, message));
   client.on('messageDeleteBulk', (messages) => reqEvent('messageDeleteBulk')(client, messages));
-  //client.on('messageReactionAdd', (messageReaction, user) => reqEvent('messageReactionAdd')(client, messageReaction, user));
-  //client.on('messageReactionRemove', (messageReaction, user) => reqEvent('messageReactionRemove')(client, messageReaction, user));
+  client.on('messageReactionAdd', (messageReaction, user) => reqEvent('messageReactionAdd')(client, messageReaction, user));
+  client.on('messageReactionRemove', (messageReaction, user) => reqEvent('messageReactionRemove')(client, messageReaction, user));
   //client.on('messageReactionRemoveAll', (message) => reqEvent('messageReactionRemoveAll')(client, message));
   client.on('messageUpdate', (oldMessage, newMessage) => reqEvent('messageUpdate')(client, oldMessage, newMessage));
   // Presence Events \\
@@ -48,4 +48,6 @@ module.exports = client => {
   //client.on('voiceStateUpdate', (oldState, newState) => reqEvent('voiceStateUpdate')(client, oldState, newState));
   // Webhook Events \\
   client.on('webhookUpdate', (channel) => reqEvent('webhookUpdate')(client, channel));
+  // Websocket Events \\
+  client.ws.on('INTERACTION_CREATE', (interaction) => reqEvent('interactionCreate')(client, interaction));
 };

@@ -1,32 +1,33 @@
 const Discord = require("discord.js");
-const fetch = require("node-fetch")
-
-const PATH = process.env.API_URL
-const KEY = process.env.API_KEY
+const { GetServer } = require("../functions/http-functions/servers");
 
 module.exports = async (client, oldChannel, newChannel) => {
-    let data = await fetch(`${PATH}/servers/${oldChannel.guild.id}`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'API_KEY': KEY
+    try {
+        let model;
+        if (oldChannel.type !== 'dm') {
+            await GetServer({ serverid: oldChannel.guild.id })
+                .then(res => model = res.data.model)
+                .catch(err => model = err.response.data.model);
+
+            if (model.status === 'success') {
+                if (model.resultItems.serverid === oldChannel.guild.id && newChannel.guild.channels.cache.find(item => item.id === model.resultItems.modchannelid)) {
+                    const eventEmbed = require('../embeds/eventEmbed')
+                    const embed = new Discord.MessageEmbed(eventEmbed)
+
+                    embed.setDescription('Channel Update')
+                    embed.addFields(
+                        { name: 'A Channel has been Updated', value: `Details are listed below.` },
+                        { name: 'Channel Name', value: `${newChannel.name}` },
+                        { name: 'Channel Topic', value: newChannel.topic !== null ? `${newChannel.topic}` : `None yet` },
+                        { name: 'Channel Type', value: `${newChannel.type}`, inline: true },
+                        { name: 'Channel ID', value: `${newChannel.id}`, inline: true },
+                        { name: 'Channel NSFW', value: `${newChannel.nsfw}`, inline: true },
+                    )
+                    return client.channels.cache.get(model.resultItems.modchannelid).send({ embed });
+                }
+            }
         }
-    })
-        .then(res => res.json());
-
-    if (data.serverID === oldChannel.guild.id && channel.guild.channels.cache.find(item => item.id === data.modChannelID)) {
-        const eventEmbed = require('../embeds/eventEmbed')
-        const embed = new Discord.MessageEmbed(eventEmbed)
-
-        embed.setDescription('Channel Update')
-        embed.addFields(
-            { name: 'A Channel has been Updated', value: `Details are listed below.` },
-            { name: 'Channel Name', value: `${newChannel.name}` },
-            { name: 'Channel Topic', value: newChannel.topic !== null ? `${newChannel.topic}` : `None yet` },
-            { name: 'Channel Type', value: `${newChannel.type}`, inline: true },
-            { name: 'Channel ID', value: `${newChannel.id}`, inline: true },
-            { name: 'Channel NSFW', value: `${newChannel.nsfw}`, inline: true },
-        )
-        return client.channels.cache.get(data.modChannelID).send({ embed });
+    } catch {
+        console.log('Error connecting to API')
     }
 };

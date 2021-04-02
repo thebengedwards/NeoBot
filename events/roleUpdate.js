@@ -1,29 +1,28 @@
 const Discord = require("discord.js");
-const fetch = require("node-fetch")
-
-const PATH = process.env.API_URL
-const KEY = process.env.API_KEY
+const { GetServer } = require("../functions/http-functions/servers");
 
 module.exports = async (client, oldRole, newRole) => {
-    let data = await fetch(`${PATH}/servers/${oldRole.guild.id}`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'API_KEY': KEY
+    try {
+        let model;
+        await GetServer({ serverid: oldRole.guild.id })
+            .then(res => model = res.data.model)
+            .catch(err => model = err.response.data.model);
+
+        if (model.status === 'success') {
+            if (model.resultItems.serverid === oldRole.guild.id && newRole.guild.channels.cache.find(item => item.id === model.resultItems.modchannelid)) {
+                const eventEmbed = require('../embeds/eventEmbed')
+                const embed = new Discord.MessageEmbed(eventEmbed)
+
+                embed.setDescription('Role Updated')
+                embed.addFields(
+                    { name: 'A Role has been Updated', value: `Details are listed below.` },
+                    { name: `Role Name: ${newRole.name}`, value: `Role ID: ${newRole.id}` },
+                    { name: `Permissions Bitfield: ${newRole.permissions.bitfield}`, value: `Priority: ${newRole.rawPosition}` },
+                )
+                return client.channels.cache.get(model.resultItems.modchannelid).send({ embed });
+            }
         }
-    })
-        .then(res => res.json());
+    } catch {
 
-    if (data.serverID === oldRole.guild.id && newRole.guild.channels.cache.find(item => item.id === data.modChannelID)) {
-        const eventEmbed = require('../embeds/eventEmbed')
-        const embed = new Discord.MessageEmbed(eventEmbed)
-
-        embed.setDescription('Role Updated')
-        embed.addFields(
-            { name: 'A Role has been Updated', value: `Details are listed below.` },
-            { name: `Role Name: ${newRole.name}`, value: `Role ID: ${newRole.id}` },
-            { name: `Permissions Bitfield: ${newRole.permissions.bitfield}`, value: `Priority: ${newRole.rawPosition}` },
-        )
-        return client.channels.cache.get(data.modChannelID).send({ embed });
     }
 };

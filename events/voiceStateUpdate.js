@@ -1,29 +1,27 @@
 const Discord = require("discord.js");
-const fetch = require("node-fetch")
-const moment = require("moment");
-
-const PATH = process.env.API_URL
-const KEY = process.env.API_KEY
+const { GetServer } = require("../functions/http-functions/servers");
 
 module.exports = async (client, oldState, newState) => {
-    let data = await fetch(`${PATH}/servers/${newState.guild.id}`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'API_KEY': KEY
+    try {
+        let model;
+        await GetServer({ serverid: newState.guild.id })
+            .then(res => model = res.data.model)
+            .catch(err => model = err.response.data.model);
+
+        if (model.status === 'success') {
+            if (model.resultItems.serverid === newState.guild.id && newState.guild.channels.cache.find(item => item.id === model.resultItems.modchannelid)) {
+                const eventEmbed = require('../embeds/eventEmbed')
+                const embed = new Discord.MessageEmbed(eventEmbed)
+
+                embed.setDescription('Voice State Update')
+                embed.addFields(
+                    { name: `User changed Voice State:`, value: `<@${newState.id}>` },
+                    { name: `Voice Channel`, value: newState.channelID !== null ? `Joined ${newState.guild.channels.cache.find(item => item.id === newState.channelID).name}` : `Left ${oldState.guild.channels.cache.find(item => item.id === oldState.channelID).name}` },
+                )
+                return client.channels.cache.get(model.resultItems.modchannelid).send({ embed });
+            }
         }
-    })
-        .then(res => res.json());
-
-    if (data.serverID === newState.guild.id && newState.guild.channels.cache.find(item => item.id === data.modChannelID)) {
-        const eventEmbed = require('../embeds/eventEmbed')
-        const embed = new Discord.MessageEmbed(eventEmbed)
-
-        embed.setDescription('Voice State Update')
-        embed.addFields(
-            { name: `User changed Voice State:`, value: `<@${newState.id}>` },
-            { name: `Voice Channel`, value: newState.channelID !== null ? `Joined ${newState.guild.channels.cache.find(item => item.id === newState.channelID).name}` : `Left ${oldState.guild.channels.cache.find(item => item.id === oldState.channelID).name}` },
-        )
-        return client.channels.cache.get(data.modChannelID).send({ embed });
+    } catch (err) {
+        console.log(err)
     }
 };

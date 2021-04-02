@@ -1,49 +1,49 @@
-const Discord = require("discord.js")
-const fetch = require("node-fetch");
-const settings = require("../settings.json");
-
-const PATH = process.env.API_URL
-const KEY = process.env.API_KEY
+const Discord = require("discord.js");
+const { GetServer } = require("../functions/http-functions/servers");
+var profanities = require('profanities')
 
 module.exports = async (client, message) => {
-  let data = await fetch(`${PATH}/servers/${message.guild.id}`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      'API_KEY': KEY
-    }
-  })
-    .then(res => res.json());
-
-  if (data.serverID === message.guild.id) {
+  try {
     if (message.author.bot) return;
-    if (!message.content.startsWith(settings.prefix)) return;
     if (message.member === null) {
       const alertEmbed = require('../embeds/alertEmbed')
       const embed = new Discord.MessageEmbed(alertEmbed)
 
-      embed.setDescription('Please only send me messages in servers')
+      embed.setDescription('Please only send NeoBot messages in servers')
       return message.channel.send({ embed })
     }
-    const command = message.content.split(' ')[0].slice(settings.prefix.length);
-    const params = message.content.split(' ').slice(1);
-    const perms = await client.elevation(message);
-    let cmd;
-    if (client.commands.has(command)) {
-      cmd = client.commands.get(command);
-    } else if (client.aliases.has(command)) {
-      cmd = client.commands.get(client.aliases.get(command));
-    }
-    if (cmd) {
-      if (perms < cmd.conf.permLevel) {
-        const alertEmbed = require('../embeds/alertEmbed')
-        const embed = new Discord.MessageEmbed(alertEmbed)
 
-        embed.setDescription('You do not have permission to use this command')
-        return message.channel.send({ embed })
-      } else {
-        cmd.run(client, message, params, perms);
+    if (message.channel.type !== 'dm') {
+      let model;
+      await GetServer({ serverid: message.guild.id })
+        .then(res => model = res.data.model)
+        .catch(err => model = err.response.data.model);
+
+      if (model.status === 'success') {
+        if (model.resultItems.profanities) {
+          let messageItems = message.content.split(" ");
+          if (profanities.some(index => messageItems.indexOf(index) >= 0)) {
+            messageItems.map((item, index) => {
+              if (profanities.includes(item.toLowerCase())) {
+                messageItems[index] = messageItems[index].replace(messageItems[index], messageItems[index].split("").map(item => 'x')).replaceAll(',', '')
+              }
+            })
+            let messageContent = messageItems.join(' ')
+            const filterEmbed = require('../embeds/filterEmbed')
+            const embed = new Discord.MessageEmbed(filterEmbed)
+
+            embed.setTitle(message.author.username)
+            embed.setDescription(messageContent)
+            embed.addFields(
+              { name: `Please do not use profanities`, value: `To disable profanity filtering use /setToggle profanity` },
+            )
+            message.delete()
+            message.reply({ embed });
+          }
+        }
       }
     }
+  } catch (err) {
+    console.log(err)
   }
 };

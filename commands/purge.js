@@ -1,37 +1,41 @@
 const Discord = require("discord.js");
-const fetch = require("node-fetch")
+const { Reply } = require("../functions/helpers");
 
-const PATH = process.env.API_URL
-const KEY = process.env.API_KEY
+exports.run = async (client, interaction, options) => {
+  try {
+    const messagecount = options.find(item => item.name === 'amount').value
+    if (messagecount > 100) {
+      const alertEmbed = require('../embeds/alertEmbed');
+      const embed = new Discord.MessageEmbed(alertEmbed);
 
-exports.run = async (client, message, args) => {
-  let data = await fetch(`${PATH}/servers/${message.guild.id}`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      'API_KEY': KEY
+      embed.setDescription('Maximum 100 messages can be purged at once');
+      Reply(client, interaction, embed)
+    } else {
+      client.guilds.resolve(interaction.guild_id).channels.resolve(interaction.channel_id).messages.fetch({ limit: messagecount })
+        .then(async (messages) => {
+          await client.guilds.resolve(interaction.guild_id).channels.resolve(interaction.channel_id).bulkDelete(messages)
+            .catch(err => {
+              const alertEmbed = require('../embeds/alertEmbed');
+              const embed = new Discord.MessageEmbed(alertEmbed);
+
+              embed.setDescription('Messages older than 14 days cannot be purged');
+              Reply(client, interaction, embed)
+            })
+        })
+        .then(res => {
+          const alertEmbed = require('../embeds/alertEmbed');
+          const embed = new Discord.MessageEmbed(alertEmbed);
+
+          embed.setDescription(`${messagecount} messages purged`);
+          Reply(client, interaction, embed)
+        })
     }
-  })
-    .then(res => res.json());
-
-  if (data.serverID === message.guild.id) {
+  } catch {
     const alertEmbed = require('../embeds/alertEmbed');
     const embed = new Discord.MessageEmbed(alertEmbed);
 
-    const messagecount = parseInt(args.join(' '));
-    if (messagecount > 100) {
-      embed.setDescription('Maximum 100 messages can be purged at once');
-      return message.channel.send({ embed });
-    } else if (!messagecount) {
-      embed.setDescription('You must include an amount to purge');
-      embed.addField('Use like this:', '!purge 50')
-      return message.channel.send({ embed });
-    } else {
-      message.channel.messages.fetch({ limit: messagecount })
-        .then(messages => message.channel.bulkDelete(messages));
-    }
-  } else {
-    console.log('Error')
+    embed.setDescription('Purge Error');
+    Reply(client, interaction, embed)
   }
 };
 
@@ -45,5 +49,7 @@ exports.conf = {
 exports.help = {
   name: 'purge',
   description: 'Purges X amount of messages from a given channel.',
-  usage: 'purge <number>'
+  options: [
+    { name: 'amount', description: 'The amount of the messages you would like to purge from the channel', required: true, type: 4 },
+  ]
 };

@@ -1,30 +1,51 @@
-const Discord = require("discord.js")
-const fetch = require("node-fetch")
-
-const PATH = process.env.API_URL
-const KEY = process.env.API_KEY
+const Discord = require("discord.js");
+const { GetServer } = require("../functions/http-functions/servers");
 
 module.exports = async (client, messageReaction, user) => {
-    let data = await fetch(`${PATH}/servers/${messageReaction.message.guild.id}`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'API_KEY': KEY
+    try {
+        if (messageReaction.message.channel.type !== 'dm') {
+            let model;
+            await GetServer({ serverid: messageReaction.message.guild.id })
+                .then(res => model = res.data.model)
+                .catch(err => model = err.response.data.model);
+
+            removeReaction = (prevEmbed, ID) => {
+                newValue = prevEmbed.fields.find(item => item.name === ID).value.replace(`<@${user.id}>`, '')
+                if (newValue === '') newValue = 'None'
+                return prevEmbed.fields.find(item => item.name === ID).value = newValue
+            }
+
+            if (model.status === 'success') {
+                if (user.bot === false && messageReaction.message.author.username === 'NeoBot' && messageReaction.message.embeds[0].title === '**Poll**') {
+                    let prevEmbed = messageReaction.message.embeds[0]
+
+                    if (messageReaction._emoji.name === '👍') {
+                        if (prevEmbed.fields.find(item => item.name === 'YES').value.includes(`<@${user.id}>`)) {
+                            removeReaction(prevEmbed, 'YES')
+                        } else {
+                            return
+                        }
+                    } else if (messageReaction._emoji.name === '👎') {
+                        if (prevEmbed.fields.find(item => item.name === 'NO').value.includes(`<@${user.id}>`)) {
+                            removeReaction(prevEmbed, 'NO')
+                        } else {
+                            return
+                        }
+                    }
+                    const pollEmbed = require('../embeds/pollEmbed')
+                    const embed = new Discord.MessageEmbed(pollEmbed)
+
+                    embed.setDescription(prevEmbed.description)
+                    embed.addFields(
+                        ...prevEmbed.fields
+                    )
+
+                    let message = messageReaction.message
+                    await message.edit(embed);
+                }
+            }
         }
-    })
-        .then(res => res.json());
-
-    if (data.serverID === messageReaction.message.guild.id && messageReaction.message.guild.channels.cache.find(item => item.id === data.modChannelID)) {
-        const eventEmbed = require('../embeds/eventEmbed')
-        const embed = new Discord.MessageEmbed(eventEmbed)
-
-        embed.setDescription(`Reaction Removed!`)
-        embed.addFields(
-            { name: `Message`, value: messageReaction.message.content !== '' ? `${messageReaction.message.content}.` : `Embed Type: ${messageReaction.message.embeds[0].title}, Embed Name: ${messageReaction.message.embeds[0].description}` },
-            { name: `Reaction Removed`, value: `${messageReaction._emoji.name}` },
-            { name: `Removed By`, value: `${user.username}` },
-            { name: `In Channel`, value: `${messageReaction.message.channel.name}` },
-        )
-        return client.channels.cache.get(data.modChannelID).send({ embed });
+    } catch (err) {
+        console.log(err)
     }
 };

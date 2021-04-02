@@ -1,48 +1,44 @@
-const Discord = require("discord.js")
-const fetch = require("node-fetch")
-const cron = require("cron")
-const moment = require("moment")
-
-const PATH = process.env.API_URL
-const KEY = process.env.API_KEY
+const Discord = require("discord.js");
+const cron = require("cron");
+const moment = require("moment");
+const { AllServers } = require("../functions/http-functions/servers");
+const { GetAllBirthdays } = require("../functions/http-functions/birthdays");
 
 module.exports = async (client) => {
-    let data = await fetch(`${PATH}/servers`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'API_KEY': KEY
-        }
-    })
-        .then(res => res.json());
+    try {
+        let model;
+        await AllServers()
+            .then(res => model = res.data.model)
+            .catch(err => model = err.response.data.model);
 
-    data.map(async (item) => {
-        if (item.birthdays === 1 && item.generalChannelID !== '0') {
-            let birthdays = await fetch(`${PATH}/birthdays/${item.serverID}`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'API_KEY': KEY
+        if (model.status === 'success') {
+            model.resultItems.map(async (item) => {
+                if (item.birthdays && item.generalchannelid === client.guilds.cache.get(item.serverid).channels.cache.get(item.generalchannelid).id) {
+                    let birthdays;
+                    await GetAllBirthdays({ serverid: item.serverid })
+                        .then(res => birthdays = res.data.model)
+                        .catch(err => birthdays = err.response.data.model);
+
+                    if (birthdays.status === 'success') {
+                        birthdays.resultItems.map(async (item2) => {
+                            let birthday = moment(new Date(item2.cron)).format('DD MM')
+                            let split = birthday.split(" ")
+
+                            let event = new cron.CronJob(`00 00 08 ${split[0]} ${split[1] - 1} *`, () => {
+                                const eventEmbed = require('../embeds/eventEmbed')
+                                const embed = new Discord.MessageEmbed(eventEmbed)
+
+                                embed.setDescription('Birthday')
+                                embed.addField(`🎂 ${item2.fname.toUpperCase()}, IT\'S YOUR BIRTHDAY! 🎂`, `Can we all please wish <@${item2.discordid}> a happy Birthday!!!`)
+                                return client.channels.cache.get(item.generalchannelid).send({ embed });
+                            });
+                            event.start()
+                        })
+                    }
                 }
             })
-                .then(res => res.json());
-
-            if (birthdays) {
-                birthdays.map(async (item2) => {
-                    let birthday = moment(new Date(item2.cron)).format('DD MM')
-                    let split = birthday.split(" ")
-
-                    let event = new cron.CronJob(`00 00 08 ${split[0]} ${split[1] - 1} *`, () => {
-                        const eventEmbed = require('../embeds/eventEmbed')
-                        const embed = new Discord.MessageEmbed(eventEmbed)
-
-                        embed.setDescription('Birthday')
-                        embed.addField(`🎂 ${item2.fName.toUpperCase()}, IT\'S YOUR BIRTHDAY! 🎂`, `Can we all please wish <@${item2.discordID}> a happy Birthday!!!`)
-                        return client.channels.cache.get(item.generalChannelID).send({ embed });
-                    });
-                    event.start()
-                })
-            }
         }
-    })
+    } catch {
+        console.log('Error connecting to API')
+    }
 };
