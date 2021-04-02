@@ -22,6 +22,13 @@ exports.run = async (client, interaction, options) => {
               Reply(client, interaction, embed)
             })
         })
+        .then(res => {
+          const alertEmbed = require('../embeds/alertEmbed');
+          const embed = new Discord.MessageEmbed(alertEmbed);
+
+          embed.setDescription(`${messagecount} messages purged`);
+          Reply(client, interaction, embed)
+        })
     }
   } catch {
     const alertEmbed = require('../embeds/alertEmbed');
