@@ -19,11 +19,16 @@ module.exports = async (client) => {
   }
   
   // const commands = await getApp('271720862606950400').commands.get() // Get all commands in the guild
+  // console.log(commands)
   // commands.map(async (command) => { await getApp('271720862606950400').commands(command.id).delete(), console.log(command.name) }) // Delete all the commands in the guild
 
-  client.commands.map(async (command) => { await getApp('823160649223897108').commands.post({ data: command.help }) }) // Add all commands to guild
+  // const commands = await getApp().commands.get() // Get all commands in global
+  // console.log(commands)
+  // commands.map(async (command) => { await getApp().commands(command.id).delete(), console.log(command.name) }) // Delete all the commands in blobal
 
-  // client.commands.filter(item => item.conf.permLevel < 5).map(async (command) => { await getApp('271720862606950400').commands.post({ data: command.help }) }) // Add all commands to global
+  client.commands.filter(item => item.conf.permLevel >= 5).map(async (command) => { await getApp('271720862606950400').commands.post({ data: command.help }) }) // Add commands to guild
+
+  client.commands.filter(item => item.conf.permLevel < 5).map(async (command) => { await getApp().commands.post({ data: command.help }) }) // Add commands to global
 
   client.user.setActivity(`Version: ${version}`);
 
