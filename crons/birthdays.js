@@ -38,7 +38,8 @@ module.exports = async (client) => {
                 }
             })
         }
-    } catch {
-        console.log('Error connecting to API')
+    } catch (err){
+        console.log(err)
+        // console.log('Error connecting to API')
     }
 };
