@@ -1,10 +1,12 @@
 const Discord = require("discord.js");
 const moment = require("moment");
 const { GetServer } = require("../functions/http-functions/servers");
+const profanities = require('profanities')
 
 module.exports = async (client, message) => {
     try {
-        if (message.deleted) return;
+        let messageItems = message.content.split(" ");
+        if (profanities.some(index => messageItems.indexOf(index) >= 0)) return;
         if (message.channel.type !== 'dm') {
             let model;
             await GetServer({ serverid: message.guild.id })

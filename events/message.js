@@ -1,6 +1,6 @@
 const Discord = require("discord.js");
 const { GetServer } = require("../functions/http-functions/servers");
-var profanities = require('profanities')
+const profanities = require('profanities')
 
 module.exports = async (client, message) => {
   try {
