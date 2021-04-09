@@ -22,7 +22,7 @@ module.exports = async (client, message) => {
       if (model.status === 'success') {
         if (model.resultItems.profanities) {
           let messageItems = message.content.split(" ");
-          if (profanities.some(index => messageItems.indexOf(index) >= 0)) {
+          if (messageItems.some(index => profanities.indexOf(index.toLowerCase()) >= 0)) {
             messageItems.map((item, index) => {
               if (profanities.includes(item.toLowerCase())) {
                 messageItems[index] = messageItems[index].replace(messageItems[index], messageItems[index].split("").map(item => 'x')).replaceAll(',', '')

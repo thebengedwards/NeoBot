@@ -1,6 +1,6 @@
 {
   "name": "neo-bot",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "Bot for general server managmenet and text replies",
   "main": "app.js",
   "scripts": {
