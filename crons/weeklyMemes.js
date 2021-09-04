@@ -6,14 +6,15 @@ const { GetAllSubreddits } = require("../functions/http-functions/subreddits");
 
 module.exports = async (client) => {
     try {
+        const guilds = [...client.guilds.cache];
         let model;
         await AllServers()
             .then(res => model = res.data.model)
             .catch(err => model = err.response.data.model);
 
-        if (model.status === 'success') {
+        if (model.status == 'success' && guilds.length) {
             model.resultItems.map(async (item) => {
-                if (item.weeklymeme && item.generalchannelid === client.guilds.cache.get(item.serverid).channels.cache.get(item.generalchannelid).id) {
+                if (item.weeklymeme && item.generalchannelid == client.guilds.cache.get(item.serverid).channels.cache.get(item.generalchannelid).id) {
                     let subredditsJson;
                     await GetAllSubreddits()
                         .then(res => subredditsJson = res.data.model)

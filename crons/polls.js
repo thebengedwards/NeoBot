@@ -5,20 +5,21 @@ const { GetAllGames } = require("../functions/http-functions/games");
 
 module.exports = async (client) => {
     try {
+        const guilds = [...client.guilds.cache];
         let model;
         await AllServers()
             .then(res => model = res.data.model)
             .catch(err => model = err.response.data.model);
 
-        if (model.status === 'success') {
+        if (model.status == 'success' && guilds.length) {
             model.resultItems.map(async (item) => {
-                if (item.polls && item.generalchannelid === client.guilds.cache.get(item.serverid).channels.cache.get(item.generalchannelid).id) {
+                if (item.polls && item.generalchannelid == client.guilds.cache.get(item.serverid).channels.cache.get(item.generalchannelid).id) {
                     let games;
                     await GetAllGames()
                         .then(res => games = res.data.model)
                         .catch(err => games = err.response.data.model);
 
-                    if (games.status === 'success') {
+                    if (games.status == 'success') {
                         let weeklyGame = new cron.CronJob(`00 00 19 * * 5`, () => {
                             const pollEmbed = require('../embeds/pollEmbed')
                             const embed = new Discord.MessageEmbed(pollEmbed)
