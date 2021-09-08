@@ -1,5 +1,6 @@
-const Discord = require("discord.js");
+const { MessageEmbed } = require("discord.js");
 const { GetServer } = require("../functions/http-functions/servers");
+const eventEmbed = require('../components/embeds/eventEmbed');
 
 module.exports = async (client, oldMember, newMember) => {
     try {
@@ -28,15 +29,14 @@ module.exports = async (client, oldMember, newMember) => {
             }
 
             if (model.resultItems.serverid === oldMember.guild.id && newMember.guild.channels.cache.find(item => item.id === model.resultItems.modchannelid)) {
-                const eventEmbed = require('../embeds/eventEmbed')
-                const embed = new Discord.MessageEmbed(eventEmbed)
+                const embed = new MessageEmbed(eventEmbed)
 
                 embed.setDescription('Presence Update')
                 embed.addFields(
                     { name: `${newMember.user.username} is now:`, value: `${memberStatus}` },
                     { name: `Custom Status:`, value: `${customPresence}` },
                 )
-                return client.channels.cache.get(model.resultItems.modchannelid).send({ embed });
+                return client.channels.cache.get(model.resultItems.modchannelid).send({ embeds: [embed] });
             }
         }
     } catch (err) {

@@ -1,8 +1,9 @@
-const Discord = require("discord.js");
+const { MessageEmbed } = require("discord.js");
 const cron = require("cron");
 const moment = require("moment");
 const { AllServers } = require("../functions/http-functions/servers");
 const { GetAllBirthdays } = require("../functions/http-functions/birthdays");
+const eventEmbed = require('../components/embeds/eventEmbed')
 
 module.exports = async (client) => {
     try {
@@ -27,12 +28,11 @@ module.exports = async (client) => {
                                 let split = birthday.split(" ")
 
                                 let event = new cron.CronJob(`00 00 08 ${split[0]} ${split[1] - 1} *`, () => {
-                                    const eventEmbed = require('../embeds/eventEmbed')
-                                    const embed = new Discord.MessageEmbed(eventEmbed)
+                                    const embed = new MessageEmbed(eventEmbed)
 
                                     embed.setDescription('Birthday')
                                     embed.addField(`🎂 ${item2.fname.toUpperCase()}, IT\'S YOUR BIRTHDAY! 🎂`, `Can we all please wish <@${item2.discordid}> a happy Birthday!!!`)
-                                    return client.channels.cache.get(item.generalchannelid).send({ embed });
+                                    return client.channels.cache.get(item.generalchannelid).send({ embeds: [embed] });
                                 });
                                 event.start()
                             })
@@ -43,6 +43,5 @@ module.exports = async (client) => {
         }
     } catch (err) {
         console.log(err)
-        console.log('Error connecting to API')
     }
 };

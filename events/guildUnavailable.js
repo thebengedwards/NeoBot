@@ -1,11 +1,11 @@
-const Discord = require("discord.js");
+const { MessageEmbed } = require("discord.js");
 const moment = require("moment");
 const settings = require("../settings.json");
+const alertEmbed = require('../components/embeds/alertEmbed');
 
 module.exports = async (guild) => {
     try {
-        const alertEmbed = require('../embeds/alertEmbed');
-        const embed = new Discord.MessageEmbed(alertEmbed);
+        const embed = MessageEmbed(alertEmbed);
 
         embed.setDescription(`Server Outage`)
         embed.addFields(
@@ -13,9 +13,9 @@ module.exports = async (guild) => {
             { name: `Outage started on: ${moment(new Date()).format('Do MMMM YYYY')} at ${moment(new Date()).format('HH:mm:ss')}`, value: `Please notify any affected users.` }
         )
         return client.users.fetch(settings.reportid, false).then((user) => {
-            user.send({ embed });
+            user.send({ embeds: [embed] });
         });
-    } catch {
-        console.log('Error connecting to API')
+    } catch (err) {
+        console.log(err)
     }
 };

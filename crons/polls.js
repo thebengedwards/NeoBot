@@ -1,7 +1,8 @@
-const Discord = require("discord.js");
+const { MessageEmbed } = require("discord.js");
 const cron = require("cron");
 const { AllServers } = require("../functions/http-functions/servers");
 const { GetAllGames } = require("../functions/http-functions/games");
+const pollEmbed = require('../components/embeds/pollEmbed')
 
 module.exports = async (client) => {
     try {
@@ -22,8 +23,7 @@ module.exports = async (client) => {
 
                         if (games.status == 'success') {
                             let weeklyGame = new cron.CronJob(`00 00 19 * * 5`, () => {
-                                const pollEmbed = require('../embeds/pollEmbed')
-                                const embed = new Discord.MessageEmbed(pollEmbed)
+                                const embed = new MessageEmbed(pollEmbed)
 
                                 getGame = async () => {
                                     let game = games.resultItems[Math.floor(Math.random() * games.resultItems.length)];
@@ -39,7 +39,7 @@ module.exports = async (client) => {
                                         { name: `↓ Vote Below ↓`, value: `👍 = Yes || 👎 = No` },
                                     )
 
-                                    let embedMessage = await client.channels.cache.get(item.generalchannelid).send({ embed });
+                                    let embedMessage = await client.channels.cache.get(item.generalchannelid).send({ embeds: [embed] });
                                     await embedMessage.react('👍')
                                     await embedMessage.react('👎')
                                 }
@@ -51,7 +51,7 @@ module.exports = async (client) => {
                 }
             })
         }
-    } catch {
-        console.log('Error connecting to API')
+    } catch (err) {
+        console.log(err)
     }
 };

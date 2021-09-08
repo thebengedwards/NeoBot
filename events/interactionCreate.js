@@ -1,23 +1,32 @@
-const Discord = require("discord.js");
-const { Reply } = require("../functions/helpers")
+const { MessageEmbed } = require("discord.js");
+const { Reply } = require("../functions/reply");
+const alertEmbed = require('../components/embeds/alertEmbed');
+const polls = require('../components/buttons/handlers/polls')
 
 module.exports = async (client, interaction) => {
     try {
-        const { name, options } = interaction.data
-        const perms = await client.elevation(interaction);
-        const command = interaction.data.name.toLowerCase()
-        cmd = client.commands.get(command);
+        if (interaction.isButton()) {
+            const currentEmbed = interaction.message.embeds[0],
+                currentComponents = interaction.message.components[0],
+                action = interaction.customId.toString().startsWith('TRUE') ? true : false;
 
-        if (perms < cmd.conf.permLevel) {
-            const alertEmbed = require('../embeds/alertEmbed')
-            const embed = new Discord.MessageEmbed(alertEmbed)
-
-            embed.setDescription('You do not have permission to use this command')
-            Reply(client, interaction, embed)
+            if (currentEmbed.title == "**Poll**") polls(interaction, action, currentEmbed, currentComponents)
         } else {
-            cmd.run(client, interaction, options, perms);
+            const { member, options } = interaction
+            const perms = await client.elevation(member.guild.id);
+            const command = interaction.commandName.toLowerCase()
+            cmd = client.commands.get(command);
+
+            if (perms < cmd.command.permLevel) {
+                const embed = new MessageEmbed(alertEmbed)
+
+                embed.setDescription('You do not have permission to use this command')
+                Reply(client, interaction, embed)
+            } else {
+                cmd.run(client, interaction, options, perms);
+            }
         }
-    } catch {
-        console.log('Error connecting to API')
+    } catch (err) {
+        console.log(err)
     }
 };

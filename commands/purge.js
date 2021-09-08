@@ -1,12 +1,12 @@
-const Discord = require("discord.js");
-const { Reply } = require("../functions/helpers");
+const { MessageEmbed } = require("discord.js");
+const { Reply } = require("../functions/reply");
+const alertEmbed = require('../components/embeds/alertEmbed');
 
 exports.run = async (client, interaction, options) => {
   try {
     const messagecount = options.find(item => item.name === 'amount').value
     if (messagecount > 100) {
-      const alertEmbed = require('../embeds/alertEmbed');
-      const embed = new Discord.MessageEmbed(alertEmbed);
+      const embed = new MessageEmbed(alertEmbed);
 
       embed.setDescription('Maximum 100 messages can be purged at once');
       Reply(client, interaction, embed)
@@ -15,41 +15,30 @@ exports.run = async (client, interaction, options) => {
         .then(async (messages) => {
           await client.guilds.resolve(interaction.guild_id).channels.resolve(interaction.channel_id).bulkDelete(messages)
             .catch(err => {
-              const alertEmbed = require('../embeds/alertEmbed');
-              const embed = new Discord.MessageEmbed(alertEmbed);
+              const embed = new MessageEmbed(alertEmbed);
 
               embed.setDescription('Messages older than 14 days cannot be purged');
               Reply(client, interaction, embed)
             })
         })
         .then(res => {
-          const alertEmbed = require('../embeds/alertEmbed');
-          const embed = new Discord.MessageEmbed(alertEmbed);
+          const embed = new MessageEmbed(alertEmbed);
 
           embed.setDescription(`${messagecount} messages purged`);
           Reply(client, interaction, embed)
         })
     }
-  } catch {
-    const alertEmbed = require('../embeds/alertEmbed');
-    const embed = new Discord.MessageEmbed(alertEmbed);
-
-    embed.setDescription('Purge Error');
-    Reply(client, interaction, embed)
+  } catch (err) {
+    console.log(err)
   }
 };
 
-exports.conf = {
-  enabled: true,
-  guildOnly: false,
-  aliases: [],
-  permLevel: 3
-};
-
-exports.help = {
-  name: 'purge',
+exports.command = {
   description: 'Purges X amount of messages from a given channel.',
+  enabled: true,
+  name: 'purge',
   options: [
     { name: 'amount', description: 'The amount of the messages you would like to purge from the channel', required: true, type: 4 },
-  ]
+  ],
+  permLevel: 3
 };

@@ -1,6 +1,7 @@
-const Discord = require("discord.js");
+const { MessageEmbed } = require("discord.js");
 const moment = require("moment");
 const { GetServer } = require("../functions/http-functions/servers");
+const eventEmbed = require('../components/embeds/eventEmbed');
 
 module.exports = async (client, oldMember, newMember) => {
     try {
@@ -11,8 +12,7 @@ module.exports = async (client, oldMember, newMember) => {
 
         if (model.status === 'success') {
             if (model.resultItems.serverid === oldMember.guild.id && newMember.guild.channels.cache.find(item => item.id === model.resultItems.modchannelid)) {
-                const eventEmbed = require('../embeds/eventEmbed')
-                const embed = new Discord.MessageEmbed(eventEmbed)
+                const embed = new MessageEmbed(eventEmbed)
 
                 embed.setDescription('Member Update')
                 embed.addFields(
@@ -22,10 +22,10 @@ module.exports = async (client, oldMember, newMember) => {
                     { name: 'Member ID', value: `${newMember.user.id}`, inline: true },
                     { name: 'Member Since', value: `${moment(newMember.joinedTimestamp).format('Do MMMM YYYY')} at ${moment(newMember.joinedTimestamp).format('HH:mm')}`, inline: true },
                 )
-                return client.channels.cache.get(model.resultItems.modchannelid).send({ embed });
+                return client.channels.cache.get(model.resultItems.modchannelid).send({ embeds: [embed] });
             }
         }
-    } catch {
-        console.log('Error connecting to API')
+    } catch (err) {
+        console.log(err)
     }
 };

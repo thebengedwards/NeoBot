@@ -1,13 +1,14 @@
-const Discord = require("discord.js");
+const { MessageEmbed } = require("discord.js");
 const { GetServer } = require("../functions/http-functions/servers");
-const profanities = require('profanities')
+const profanities = require('profanities');
+const alertEmbed = require('../components/embeds/alertEmbed');
+const filterEmbed = require('../components/embeds/filterEmbed');
 
 module.exports = async (client, message) => {
   try {
     if (message.author.bot) return;
     if (message.member === null) {
-      const alertEmbed = require('../embeds/alertEmbed')
-      const embed = new Discord.MessageEmbed(alertEmbed)
+      const embed = new MessageEmbed(alertEmbed)
 
       embed.setDescription('Please only send NeoBot messages in servers')
       return message.channel.send({ embed })
@@ -29,8 +30,7 @@ module.exports = async (client, message) => {
               }
             })
             let messageContent = messageItems.join(' ')
-            const filterEmbed = require('../embeds/filterEmbed')
-            const embed = new Discord.MessageEmbed(filterEmbed)
+            const embed = new MessageEmbed(filterEmbed)
 
             embed.setTitle(message.author.username)
             embed.setDescription(messageContent)
@@ -38,7 +38,7 @@ module.exports = async (client, message) => {
               { name: `Please do not use profanities`, value: `To disable profanity filtering use /setToggle profanity` },
             )
             message.delete()
-            message.reply({ embed });
+            message.reply({ embeds: [embed] });
           }
         }
       }

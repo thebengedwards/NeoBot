@@ -1,7 +1,9 @@
-const Discord = require("discord.js")
+const { MessageEmbed } = require("discord.js");
 const { GetServer } = require("../functions/http-functions/servers");
 const { CreateSubreddit, GetAllSubreddits, DeleteSubreddit, GetSubreddit } = require("../functions/http-functions/subreddits");
-const { Reply } = require("../functions/helpers");
+const { Reply } = require("../functions/reply");
+const alertEmbed = require('../components/embeds/alertEmbed');
+const commandEmbed = require('../components/embeds/commandEmbed');
 
 exports.run = async (client, interaction, options) => {
     try {
@@ -19,8 +21,7 @@ exports.run = async (client, interaction, options) => {
             };
 
             let subreddit;
-            const commandEmbed = require('../embeds/commandEmbed');
-            let embed = new Discord.MessageEmbed(commandEmbed);
+            let embed = new MessageEmbed(commandEmbed);
             switch (type) {
                 case 'add':
                     await CreateSubreddit(body)
@@ -34,8 +35,7 @@ exports.run = async (client, interaction, options) => {
                             { name: 'This command is dev only', value: 'DO NOT USE IT' },
                         )
                     } else {
-                        const alertEmbed = require('../embeds/alertEmbed')
-                        embed = new Discord.MessageEmbed(alertEmbed)
+                        embed = new MessageEmbed(alertEmbed)
                         embed.setDescription(`${subreddit.message}`)
                     }
                     break;
@@ -52,8 +52,7 @@ exports.run = async (client, interaction, options) => {
                             { name: 'This command is dev only', value: 'DO NOT USE IT' },
                         )
                     } else {
-                        const alertEmbed = require('../embeds/alertEmbed')
-                        embed = new Discord.MessageEmbed(alertEmbed)
+                        embed = new MessageEmbed(alertEmbed)
                         embed.setDescription(`${subreddit.message}`)
                     }
                     break;
@@ -69,8 +68,7 @@ exports.run = async (client, interaction, options) => {
                             { name: 'This command is dev only', value: 'DO NOT USE IT' },
                         )
                     } else {
-                        const alertEmbed = require('../embeds/alertEmbed')
-                        embed = new Discord.MessageEmbed(alertEmbed)
+                        embed = new MessageEmbed(alertEmbed)
                         embed.setDescription(`${subreddit.message}`)
                     }
                     break;
@@ -86,33 +84,22 @@ exports.run = async (client, interaction, options) => {
                             { name: 'This command is dev only', value: 'DO NOT USE IT' },
                         )
                     } else {
-                        const alertEmbed = require('../embeds/alertEmbed')
-                        embed = new Discord.MessageEmbed(alertEmbed)
+                        embed = new MessageEmbed(alertEmbed)
                         embed.setDescription(`${subreddit.message}`)
                     }
                     break;
             }
             Reply(client, interaction, embed)
         }
-    } catch {
-        const alertEmbed = require('../embeds/alertEmbed')
-        const embed = new Discord.MessageEmbed(alertEmbed)
-
-        embed.setDescription(`API Error`)
-        Reply(client, interaction, embed)
+    } catch (err) {
+        console.log(err)
     }
 };
 
-exports.conf = {
-    enabled: true,
-    guildOnly: false,
-    aliases: [],
-    permLevel: 5
-};
-
-exports.help = {
-    name: 'setsubreddits',
+exports.command = {
     description: 'Add a Subreddit to NeoBot!',
+    enabled: true,
+    name: 'setsubreddits',
     options: [
         {
             name: 'add',
@@ -143,5 +130,6 @@ exports.help = {
                 { name: 'name', description: 'The name of the subreddit you would like to view', required: true, type: 3 },
             ]
         },
-    ]
+    ],
+    permLevel: 5
 };

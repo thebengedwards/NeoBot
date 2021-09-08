@@ -1,5 +1,6 @@
-const Discord = require("discord.js");
+const { MessageEmbed } = require("discord.js");
 const { GetServer } = require("../functions/http-functions/servers");
+const alertEmbed = require('../components/embeds/alertEmbed');
 
 module.exports = async (client, oldMessage, newMessage) => {
     try {
@@ -11,8 +12,7 @@ module.exports = async (client, oldMessage, newMessage) => {
 
             if (model.status === 'success') {
                 if (oldMessage.content !== '') {
-                    const alertEmbed = require('../embeds/alertEmbed')
-                    const embed = new Discord.MessageEmbed(alertEmbed)
+                    const embed = new MessageEmbed(alertEmbed)
 
                     embed.setDescription(`A Message by <@${oldMessage.author.id}> was just updated`)
                     embed.addFields(
@@ -20,7 +20,7 @@ module.exports = async (client, oldMessage, newMessage) => {
                         { name: `Updated Message:`, value: newMessage.content !== '' ? `${newMessage.content}` : `No Text` },
                         { name: `This alert is designed to stop spreading misinformation`, value: `Please try to avoid editing messages` },
                     )
-                    return client.channels.cache.get(oldMessage.channel.id).send({ embed });
+                    return client.channels.cache.get(oldMessage.channel.id).send({ embeds: [embed] });
                 }
             }
         }

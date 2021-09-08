@@ -1,5 +1,6 @@
-const Discord = require("discord.js");
+const { MessageEmbed } = require("discord.js");
 const { GetServer } = require("../functions/http-functions/servers");
+const eventEmbed = require('../components/embeds/eventEmbed');
 
 module.exports = async (client, role) => {
     try {
@@ -10,15 +11,14 @@ module.exports = async (client, role) => {
 
         if (model.status === 'success') {
             if (model.resultItems.serverid === role.guild.id && role.guild.channels.cache.find(item => item.id === model.resultItems.modchannelid)) {
-                const eventEmbed = require('../embeds/eventEmbed')
-                const embed = new Discord.MessageEmbed(eventEmbed)
+                const embed = new MessageEmbed(eventEmbed)
 
                 embed.setDescription('Role Creation')
                 embed.addFields(
                     { name: 'A Role has been Created', value: `Details are listed below.` },
                     { name: `Role Name: ${role.name}`, value: `Role ID: ${role.id}` },
                 )
-                return client.channels.cache.get(model.resultItems.modchannelid).send({ embed });
+                return client.channels.cache.get(model.resultItems.modchannelid).send({ embeds: [embed] });
             }
         }
     } catch (err) {

@@ -1,5 +1,6 @@
-const Discord = require("discord.js");
+const { MessageEmbed } = require("discord.js");
 const { GetServer } = require("../functions/http-functions/servers");
+const eventEmbed = require('../components/embeds/eventEmbed');
 
 module.exports = async (client, invite) => {
     try {
@@ -10,8 +11,7 @@ module.exports = async (client, invite) => {
 
         if (model.status === 'success') {
             if (model.resultItems.serverid === invite.guild.id && invite.guild.channels.cache.find(item => item.id === model.resultItems.modchannelid)) {
-                const eventEmbed = require('../embeds/eventEmbed')
-                const embed = new Discord.MessageEmbed(eventEmbed)
+                const embed = new MessageEmbed(eventEmbed)
 
                 embed.setDescription(`New Invite Created by <@${invite.inviter.id}>`)
                 embed.addFields(
@@ -19,10 +19,10 @@ module.exports = async (client, invite) => {
                     { name: `Current Members: ${invite.channel.guild.memberCount}`, value: `Maximum Members: ${invite.channel.guild.maximumMembers}` },
                     { name: `Invited Channel: ${invite.channel.name}`, value: `Maximum Uses: ${invite.maxUses === 0 ? `Unlimited` : invite.maxUses}` },
                 )
-                return client.channels.cache.get(model.resultItems.modchannelid).send({ embed });
+                return client.channels.cache.get(model.resultItems.modchannelid).send({ embeds: [embed] });
             }
         }
-    } catch {
-        console.log('Error connecting to API')
+    } catch (err) {
+        console.log(err)
     }
 };

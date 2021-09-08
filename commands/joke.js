@@ -1,6 +1,8 @@
-const Discord = require("discord.js");
+const { MessageEmbed } = require("discord.js");
 const { GetJoke } = require("../functions/http-functions/jokes");
-const { Reply } = require("../functions/helpers");
+const { Reply } = require("../functions/reply");
+const alertEmbed = require('../components/embeds/alertEmbed');
+const commandEmbed = require('../components/embeds/commandEmbed');
 
 exports.run = async (client, interaction) => {
   try {
@@ -10,36 +12,25 @@ exports.run = async (client, interaction) => {
       .catch(err => joke = err.response.data);
 
     if (joke.status === 200) {
-      const commandEmbed = require('../embeds/commandEmbed')
-      const embed = new Discord.MessageEmbed(commandEmbed)
+      const embed = new MessageEmbed(commandEmbed)
 
       embed.setDescription('A Random Joke')
       embed.addField('Joke:', joke.joke)
       Reply(client, interaction, embed)
     } else {
-      const alertEmbed = require('../embeds/alertEmbed')
-      const embed = new Discord.MessageEmbed(alertEmbed)
+      const embed = new MessageEmbed(alertEmbed)
 
       embed.setDescription(`Joke API Error`)
       Reply(client, interaction, embed)
     }
-  } catch {
-    const alertEmbed = require('../embeds/alertEmbed')
-    const embed = new Discord.MessageEmbed(alertEmbed)
-
-    embed.setDescription(`API Error`)
-    Reply(client, interaction, embed)
+  } catch (err) {
+    console.log(err)
   }
 };
 
-exports.conf = {
-  enabled: true,
-  guildOnly: false,
-  aliases: [],
-  permLevel: 1
-};
-
-exports.help = {
-  name: 'joke',
+exports.command = {
   description: 'Makes NeoBot tell you a joke',
+  enabled: true,
+  name: 'joke',
+  permLevel: 1
 };

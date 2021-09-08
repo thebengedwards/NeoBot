@@ -1,7 +1,9 @@
-const Discord = require("discord.js")
+const { MessageEmbed } = require("discord.js");
 const { GetServer } = require("../functions/http-functions/servers");
 const { UpdateServer } = require("../functions/http-functions/servers");
-const { Reply } = require("../functions/helpers");
+const { Reply } = require("../functions/reply");
+const alertEmbed = require('../components/embeds/alertEmbed');
+const commandEmbed = require('../components/embeds/commandEmbed');
 
 exports.run = async (client, interaction, options) => {
     try {
@@ -39,45 +41,32 @@ exports.run = async (client, interaction, options) => {
                 .catch(err => role = err.response.data.model);
 
             if (role.status === 'success') {
-                const commandEmbed = require('../embeds/commandEmbed')
-                const embed = new Discord.MessageEmbed(commandEmbed)
+                const embed = new MessageEmbed(commandEmbed)
 
                 embed.setDescription(`Role Setup: ${type}`)
                 embed.addField(`Role ${type} has been set to:`, `${roleData.value}`)
                 Reply(client, interaction, embed)
             } else {
-                const alertEmbed = require('../embeds/alertEmbed')
-                const embed = new Discord.MessageEmbed(alertEmbed)
+                const embed = new MessageEmbed(alertEmbed)
 
                 embed.setDescription(`${role.message}`)
                 Reply(client, interaction, embed)
             }
         } else {
-            const alertEmbed = require('../embeds/alertEmbed')
-            const embed = new Discord.MessageEmbed(alertEmbed)
+            const embed = new MessageEmbed(alertEmbed)
 
             embed.setDescription(`${model.message}`)
             Reply(client, interaction, embed)
         }
-    } catch {
-        const alertEmbed = require('../embeds/alertEmbed')
-        const embed = new Discord.MessageEmbed(alertEmbed)
-
-        embed.setDescription(`API Error`)
-        Reply(client, interaction, embed)
+    } catch (err) {
+        console.log(err)
     }
 };
 
-exports.conf = {
-    enabled: true,
-    guildOnly: false,
-    aliases: [],
-    permLevel: 3
-};
-
-exports.help = {
-    name: 'setrole',
+exports.command = {
     description: `Manage the Roles of your Server!`,
+    enabled: true,
+    name: 'setrole',
     options: [
         {
             name: 'admin',
@@ -103,5 +92,6 @@ exports.help = {
                 { name: 'role', description: 'The name of the channel you want to send memes to', required: true, type: 8 },
             ]
         },
-    ]
+    ],
+    permLevel: 3
 };

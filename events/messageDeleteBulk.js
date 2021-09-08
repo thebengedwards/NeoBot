@@ -1,6 +1,7 @@
-const Discord = require("discord.js");
+const { MessageEmbed } = require("discord.js");
 const moment = require("moment");
 const { GetServer } = require("../functions/http-functions/servers");
+const alertEmbed = require('../components/embeds/alertEmbed');
 
 module.exports = async (client, messages) => {
     try {
@@ -14,14 +15,13 @@ module.exports = async (client, messages) => {
 
             if (model.status === 'success') {
                 if (model.resultItems.serverid === message.guild.id && message.guild.channels.cache.find(item => item.id === model.resultItems.modchannelid)) {
-                    const alertEmbed = require('../embeds/alertEmbed')
-                    const embed = new Discord.MessageEmbed(alertEmbed)
+                    const embed = new MessageEmbed(alertEmbed)
 
                     embed.setDescription(`Purge detected in chanel: ${message.channel.name}`)
                     embed.addFields(
                         { name: `Messages Deleted: ${messages.size}`, value: `Purged Date: ${moment(new Date()).format('Do MMMM YYYY, HH:mm:ss')}` },
                     )
-                    return client.channels.cache.get(model.resultItems.modchannelid).send({ embed });
+                    return client.channels.cache.get(model.resultItems.modchannelid).send({ embeds: [embed] });
                 }
             }
         }

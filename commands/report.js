@@ -1,7 +1,10 @@
-const Discord = require("discord.js")
-const settings = require("../settings.json")
+const { MessageEmbed } = require("discord.js");
+const settings = require("../settings.json");
 const { GetServer } = require("../functions/http-functions/servers");
-const { Reply } = require("../functions/helpers");
+const { Reply } = require("../functions/reply");
+const alertEmbed = require('../components/embeds/alertEmbed');
+const commandEmbed = require('../components/embeds/commandEmbed');
+const reportEmbed = require('../components/embeds/reportEmbed');
 
 exports.run = async (client, interaction, options) => {
   try {
@@ -13,8 +16,7 @@ exports.run = async (client, interaction, options) => {
     if (model.status === 'success') {
       const messageText = options.find(item => item.name === 'message').value
 
-      const commandEmbed = require('../embeds/commandEmbed')
-      const replyEmbed = new Discord.MessageEmbed(commandEmbed)
+      const replyEmbed = new MessageEmbed(commandEmbed)
 
       replyEmbed.setDescription(`Command Success!`)
       replyEmbed.addFields(
@@ -22,8 +24,7 @@ exports.run = async (client, interaction, options) => {
       )
       Reply(client, interaction, replyEmbed)
 
-      const reportEmbed = require('../embeds/reportEmbed');
-      const embed = new Discord.MessageEmbed(reportEmbed);
+      const embed = new MessageEmbed(reportEmbed);
 
       embed.setDescription(`New Report`)
       embed.addFields(
@@ -36,32 +37,22 @@ exports.run = async (client, interaction, options) => {
         user.send({ embed });
       });
     } else {
-      const alertEmbed = require('../embeds/alertEmbed')
-      const embed = new Discord.MessageEmbed(alertEmbed)
+      const embed = new MessageEmbed(alertEmbed)
 
       embed.setDescription(`${model.message}`)
       Reply(client, interaction, embed)
     }
-  } catch {
-    const alertEmbed = require('../embeds/alertEmbed')
-    const embed = new Discord.MessageEmbed(alertEmbed)
-
-    embed.setDescription(`API Error`)
-    Reply(client, interaction, embed)
+  } catch (err) {
+    console.log(err)
   }
 };
 
-exports.conf = {
-  enabled: true,
-  guildOnly: false,
-  aliases: [],
-  permLevel: 2
-};
-
-exports.help = {
-  name: 'report',
+exports.command = {
   description: 'Report any issues or feedback! Just send NeoBot a Direct Message with !report',
+  enabled: true,
+  name: 'report',
   options: [
     { name: 'message', description: 'Enter the feedback or issue you want the devs to see', required: true, type: 3 },
-  ]
+  ],
+  permLevel: 2
 };

@@ -1,5 +1,6 @@
-const Discord = require("discord.js");
+const { MessageEmbed } = require("discord.js");
 const { GetServer } = require("../functions/http-functions/servers");
+const eventEmbed = require('../components/embeds/eventEmbed');
 
 module.exports = async (client, channel, user) => {
     try {
@@ -10,15 +11,14 @@ module.exports = async (client, channel, user) => {
 
         if (model.status === 'success') {
             if (model.resultItems.serverid === channel.guild.id && channel.guild.channels.cache.find(item => item.id === model.resultItems.modchannelid)) {
-                const eventEmbed = require('../embeds/eventEmbed')
-                const embed = new Discord.MessageEmbed(eventEmbed)
-    
+                const embed = new MessageEmbed(eventEmbed)
+
                 embed.setDescription('Started Typing')
                 embed.addFields(
                     { name: `${user.username} started typing`, value: `In Channel: ${channel.name}` },
                     { name: `Channel ID: ${channel.id}`, value: `Channel NSFW: ${channel.nsfw}` },
                 )
-                return client.channels.cache.get(model.resultItems.modchannelid).send({ embed });
+                return client.channels.cache.get(model.resultItems.modchannelid).send({ embeds: [embed] });
             }
         }
     } catch (err) {

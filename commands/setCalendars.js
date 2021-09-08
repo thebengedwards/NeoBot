@@ -1,8 +1,10 @@
-const Discord = require("discord.js");
+const { MessageEmbed } = require("discord.js");
 const moment = require("moment");
 const { GetServer } = require("../functions/http-functions/servers");
 const { CreateCalendar, GetAllCalendars, DeleteCalendar, GetCalendar } = require("../functions/http-functions/calendars");
-const { Reply } = require("../functions/helpers");
+const { Reply } = require("../functions/reply");
+const alertEmbed = require('../components/embeds/alertEmbed');
+const commandEmbed = require('../components/embeds/commandEmbed');
 
 exports.run = async (client, interaction, options) => {
     try {
@@ -21,8 +23,7 @@ exports.run = async (client, interaction, options) => {
             };
 
             let calendar;
-            const commandEmbed = require('../embeds/commandEmbed');
-            let embed = new Discord.MessageEmbed(commandEmbed);
+            let embed = new MessageEmbed(commandEmbed);
             switch (type) {
                 case 'add':
                     await CreateCalendar(body)
@@ -36,8 +37,7 @@ exports.run = async (client, interaction, options) => {
                             { name: 'This command is dev only', value: 'DO NOT USE IT' },
                         )
                     } else {
-                        const alertEmbed = require('../embeds/alertEmbed')
-                        embed = new Discord.MessageEmbed(alertEmbed)
+                        embed = new MessageEmbed(alertEmbed)
                         embed.setDescription(`${calendar.message}`)
                     }
                     break;
@@ -60,8 +60,7 @@ exports.run = async (client, interaction, options) => {
                             { name: 'This command is dev only', value: 'DO NOT USE IT' },
                         )
                     } else {
-                        const alertEmbed = require('../embeds/alertEmbed')
-                        embed = new Discord.MessageEmbed(alertEmbed)
+                        embed = new MessageEmbed(alertEmbed)
                         embed.setDescription(`${calendars.message}`)
                     }
                     break;
@@ -77,8 +76,7 @@ exports.run = async (client, interaction, options) => {
                             { name: 'This command is dev only', value: 'DO NOT USE IT' },
                         )
                     } else {
-                        const alertEmbed = require('../embeds/alertEmbed')
-                        embed = new Discord.MessageEmbed(alertEmbed)
+                        embed = new MessageEmbed(alertEmbed)
                         embed.setDescription(`${calendar.message}`)
                     }
                     break;
@@ -94,39 +92,27 @@ exports.run = async (client, interaction, options) => {
                             { name: 'This command is dev only', value: 'DO NOT USE IT' },
                         )
                     } else {
-                        const alertEmbed = require('../embeds/alertEmbed')
-                        embed = new Discord.MessageEmbed(alertEmbed)
+                        embed = new MessageEmbed(alertEmbed)
                         embed.setDescription(`${calendar.message}`)
                     }
                     break;
             }
             Reply(client, interaction, embed)
         } else {
-            const alertEmbed = require('../embeds/alertEmbed')
-            const embed = new Discord.MessageEmbed(alertEmbed)
+            const embed = new MessageEmbed(alertEmbed)
 
             embed.setDescription(`${model.message}`)
             Reply(client, interaction, embed)
         }
-    } catch {
-        const alertEmbed = require('../embeds/alertEmbed')
-        const embed = new Discord.MessageEmbed(alertEmbed)
-
-        embed.setDescription(`API Error`)
-        Reply(client, interaction, embed)
+    } catch (err) {
+        console.log(err)
     }
 };
 
-exports.conf = {
-    enabled: true,
-    guildOnly: false,
-    aliases: [],
-    permLevel: 5
-};
-
-exports.help = {
-    name: 'setcalendars',
+exports.command = {
     description: 'Manage the Calendars on NeoBot!',
+    enabled: true,
+    name: 'setcalendars',
     options: [
         {
             name: 'add',
@@ -158,5 +144,6 @@ exports.help = {
                 { name: 'name', description: 'The name of the calendar event you would like to view', required: true, type: 3 },
             ]
         },
-    ]
+    ],
+    permLevel: 5
 };

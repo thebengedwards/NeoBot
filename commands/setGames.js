@@ -1,7 +1,9 @@
-const Discord = require("discord.js");
+const { MessageEmbed } = require("discord.js");
 const { GetServer } = require("../functions/http-functions/servers");
 const { CreateGame, GetAllGames, DeleteGame, UpdateGame, GetGame } = require("../functions/http-functions/games");
-const { Reply } = require("../functions/helpers");
+const { Reply } = require("../functions/reply");
+const alertEmbed = require('../components/embeds/alertEmbed');
+const commandEmbed = require('../components/embeds/commandEmbed');
 
 exports.run = async (client, interaction, options) => {
     try {
@@ -22,8 +24,7 @@ exports.run = async (client, interaction, options) => {
             };
 
             let game;
-            const commandEmbed = require('../embeds/commandEmbed');
-            let embed = new Discord.MessageEmbed(commandEmbed);
+            let embed = new MessageEmbed(commandEmbed);
             switch (type) {
                 case 'add':
                     await CreateGame(body)
@@ -37,8 +38,7 @@ exports.run = async (client, interaction, options) => {
                             { name: 'This command is dev only', value: 'DO NOT USE IT' },
                         )
                     } else {
-                        const alertEmbed = require('../embeds/alertEmbed')
-                        embed = new Discord.MessageEmbed(alertEmbed)
+                        embed = new MessageEmbed(alertEmbed)
                         embed.setDescription(`${game.message}`)
                     }
                     break;
@@ -61,8 +61,7 @@ exports.run = async (client, interaction, options) => {
                             { name: 'This command is dev only', value: 'DO NOT USE IT' },
                         )
                     } else {
-                        const alertEmbed = require('../embeds/alertEmbed')
-                        embed = new Discord.MessageEmbed(alertEmbed)
+                        embed = new MessageEmbed(alertEmbed)
                         embed.setDescription(`${games.message}`)
                     }
                     break;
@@ -78,8 +77,7 @@ exports.run = async (client, interaction, options) => {
                             { name: 'This command is dev only', value: 'DO NOT USE IT' },
                         )
                     } else {
-                        const alertEmbed = require('../embeds/alertEmbed')
-                        embed = new Discord.MessageEmbed(alertEmbed)
+                        embed = new MessageEmbed(alertEmbed)
                         embed.setDescription(`${game.message}`)
                     }
                     break;
@@ -95,8 +93,7 @@ exports.run = async (client, interaction, options) => {
                             { name: 'This command is dev only', value: 'DO NOT USE IT' },
                         )
                     } else {
-                        const alertEmbed = require('../embeds/alertEmbed')
-                        embed = new Discord.MessageEmbed(alertEmbed)
+                        embed = new MessageEmbed(alertEmbed)
                         embed.setDescription(`${game.message}`)
                     }
                     break;
@@ -112,39 +109,27 @@ exports.run = async (client, interaction, options) => {
                             { name: 'This command is dev only', value: 'DO NOT USE IT' },
                         )
                     } else {
-                        const alertEmbed = require('../embeds/alertEmbed')
-                        embed = new Discord.MessageEmbed(alertEmbed)
+                        embed = new MessageEmbed(alertEmbed)
                         embed.setDescription(`${game.message}`)
                     }
                     break;
             }
             Reply(client, interaction, embed)
         } else {
-            const alertEmbed = require('../embeds/alertEmbed')
-            const embed = new Discord.MessageEmbed(alertEmbed)
+            const embed = new MessageEmbed(alertEmbed)
 
             embed.setDescription(`${model.message}`)
             Reply(client, interaction, embed)
         }
-    } catch {
-        const alertEmbed = require('../embeds/alertEmbed')
-        const embed = new Discord.MessageEmbed(alertEmbed)
-
-        embed.setDescription(`API Error`)
-        Reply(client, interaction, embed)
+    } catch (err) {
+        console.log(err)
     }
 };
 
-exports.conf = {
-    enabled: true,
-    guildOnly: false,
-    aliases: [],
-    permLevel: 5
-};
-
-exports.help = {
-    name: 'setgames',
+exports.command = {
     description: 'Manage the Games on NeoBot.',
+    enabled: true,
+    name: 'setgames',
     options: [
         {
             name: 'add',
@@ -189,5 +174,6 @@ exports.help = {
                 { name: 'name', description: 'The name of the game you would like to view', required: true, type: 3 },
             ]
         },
-    ]
+    ],
+    permLevel: 5
 };

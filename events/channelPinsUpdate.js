@@ -1,6 +1,7 @@
-const Discord = require("discord.js");
+const { MessageEmbed } = require("discord.js");
 const moment = require("moment");
 const { GetServer } = require("../functions/http-functions/servers");
+const eventEmbed = require('../components/embeds/eventEmbed');
 
 module.exports = async (client, channel, time) => {
     try {
@@ -12,8 +13,7 @@ module.exports = async (client, channel, time) => {
 
             if (model.status === 'success') {
                 if (model.resultItems.serverid === channel.guild.id && channel.guild.channels.cache.find(item => item.id === model.resultItems.modchannelid)) {
-                    const eventEmbed = require('../embeds/eventEmbed')
-                    const embed = new Discord.MessageEmbed(eventEmbed)
+                    const embed = new MessageEmbed(eventEmbed)
 
                     embed.setDescription('Channel Pins Update')
                     embed.addFields(
@@ -24,11 +24,11 @@ module.exports = async (client, channel, time) => {
                         { name: 'Channel ID', value: `${channel.id}`, inline: true },
                         { name: 'Pinned Time:', value: `${moment(time).format('Do MMMM YYYY')} at ${moment(time).format('HH:mm')}` },
                     )
-                    return client.channels.cache.get(model.resultItems.modchannelid).send({ embed });
+                    return client.channels.cache.get(model.resultItems.modchannelid).send({ embeds: [embed] });
                 }
             }
         }
-    } catch {
-        console.log('Error connecting to API')
+    } catch (err) {
+        console.log(err)
     }
 };

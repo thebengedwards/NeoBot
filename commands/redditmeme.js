@@ -1,8 +1,10 @@
-const Discord = require("discord.js");
+const { MessageEmbed } = require("discord.js");
 const api = require("imageapi.js");
 const { GetServer } = require("../functions/http-functions/servers");
 const { GetAllSubreddits } = require("../functions/http-functions/subreddits");
-const { Reply } = require("../functions/helpers");
+const { Reply } = require("../functions/reply");
+const alertEmbed = require('../components/embeds/alertEmbed');
+const commandEmbed = require('../components/embeds/commandEmbed');
 
 exports.run = async (client, interaction, options) => {
     try {
@@ -19,8 +21,7 @@ exports.run = async (client, interaction, options) => {
                     .catch(err => subreddits = err.response.data.model);
 
                 if (subreddits.status === 'success') {
-                    const commandEmbed = require('../embeds/commandEmbed')
-                    const embed = new Discord.MessageEmbed(commandEmbed)
+                    const embed = new MessageEmbed(commandEmbed)
 
                     let img;
                     getImg = async () => {
@@ -43,8 +44,7 @@ exports.run = async (client, interaction, options) => {
                     }
                     getImg();
                 } else {
-                    const alertEmbed = require('../embeds/alertEmbed')
-                    const embed = new Discord.MessageEmbed(alertEmbed)
+                    const embed = new MessageEmbed(alertEmbed)
 
                     embed.setDescription(`${subreddits.message}`)
                     Reply(client, interaction, embed)
@@ -60,22 +60,19 @@ exports.run = async (client, interaction, options) => {
                         .catch(err => img);
 
                     if (img === undefined) { // Check if subreddit exists
-                        const alertEmbed = require('../embeds/alertEmbed');
-                        const embed = new Discord.MessageEmbed(alertEmbed);
+                        const embed = new MessageEmbed(alertEmbed);
 
                         embed.setDescription('Error');
                         embed.addField('Warning', `Subreddit ${subreddit} not found`);
                         Reply(client, interaction, embed)
                     } else if (loop === 5) { // Check if returned data is image
-                        const alertEmbed = require('../embeds/alertEmbed');
-                        const embed = new Discord.MessageEmbed(alertEmbed);
+                        const embed = new MessageEmbed(alertEmbed);
 
                         embed.setDescription('Error finding meme');
                         embed.addField(`Unable to find a compatible meme in r/${subreddit}`, 'Try using another subreedit');
                         Reply(client, interaction, embed)
                     } else if (img.endsWith('.png') || img.endsWith('.jpg') || img.endsWith('.gif')) { // Send the meme
-                        const commandEmbed = require('../embeds/commandEmbed')
-                        const embed = new Discord.MessageEmbed(commandEmbed)
+                        const embed = new MessageEmbed(commandEmbed)
 
                         embed.setDescription('Subreddit Meme')
                         embed.addField(`This meme is brought to you by:`, `r/${subreddit}`)
@@ -94,17 +91,12 @@ exports.run = async (client, interaction, options) => {
     }
 };
 
-exports.conf = {
-    enabled: true,
-    guildOnly: false,
-    aliases: [],
-    permLevel: 1
-};
-
-exports.help = {
-    name: 'redditmeme',
+exports.command = {
     description: 'Get a random meme from a subreddit',
+    enabled: true,
+    name: 'redditmeme',
     options: [
         { name: 'subreddit', description: 'Chose the subreddit you would like a random meme from', required: false, type: 3 },
-    ]
+    ],
+    permLevel: 1
 };

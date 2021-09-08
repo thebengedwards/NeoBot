@@ -1,17 +1,19 @@
-const Discord = require("discord.js")
+const { MessageEmbed } = require("discord.js");
 const { GetServer } = require("../functions/http-functions/servers");
 const { UpdateServer } = require("../functions/http-functions/servers");
-const { Reply } = require("../functions/helpers");
+const { Reply } = require("../functions/reply");
+const alertEmbed = require('../components/embeds/alertEmbed');
+const commandEmbed = require('../components/embeds/commandEmbed');
 
 exports.run = async (client, interaction, options) => {
     try {
         let model;
-        await GetServer({ serverid: interaction.guild_id })
+        await GetServer({ serverid: interaction.member.guild.id })
             .then(res => model = res.data.model)
             .catch(err => model = err.response.data.model);
 
-        let type = options[0].name;
-        let channelData = options[0].options[0];
+        let type = options._subcommand;
+        let channelId = options._hoistedOptions[0].value;
 
         if (model.status === 'success') {
             const body = {
@@ -21,12 +23,12 @@ exports.run = async (client, interaction, options) => {
                 adminroleid: model.resultItems.adminroleid,
                 modroleid: model.resultItems.modroleid,
                 memberroleid: model.resultItems.memberroleid,
-                welcomechannelid: (type === 'welcome') ? channelData.value : model.resultItems.welcomechannelid,
-                modchannelid: (type === 'mod') ? channelData.value : model.resultItems.modchannelid,
-                generalchannelid: (type === 'general') ? channelData.value : model.resultItems.generalchannelid,
-                memeschannelid: (type === 'memes') ? channelData.value : model.resultItems.memeschannelid,
-                gamechannelid: (type === 'game') ? channelData.value : model.resultItems.gamechannelid,
-                updateschannelid: (type === 'updates') ? channelData.value : model.resultItems.updateschannelid,
+                welcomechannelid: (type === 'welcome') ? channelId : model.resultItems.welcomechannelid,
+                modchannelid: (type === 'mod') ? channelId : model.resultItems.modchannelid,
+                generalchannelid: (type === 'general') ? channelId : model.resultItems.generalchannelid,
+                memeschannelid: (type === 'memes') ? channelId : model.resultItems.memeschannelid,
+                gamechannelid: (type === 'game') ? channelId : model.resultItems.gamechannelid,
+                updateschannelid: (type === 'updates') ? channelId : model.resultItems.updateschannelid,
                 weeklymeme: model.resultItems.weeklymeme,
                 birthdays: model.resultItems.birthdays,
                 calendar: model.resultItems.calendar,
@@ -39,45 +41,32 @@ exports.run = async (client, interaction, options) => {
                 .catch(err => channel = err.response.data.model);
 
             if (channel.status === 'success') {
-                const commandEmbed = require('../embeds/commandEmbed')
-                const embed = new Discord.MessageEmbed(commandEmbed)
+                const embed = new MessageEmbed(commandEmbed)
 
                 embed.setDescription(`Channel Setup: ${type}`)
-                embed.addField(`Channel ${type} has been set to:`, `${channelData.value}`)
+                embed.addField(`Channel ${type} has been set to:`, `${channelId}`)
                 Reply(client, interaction, embed)
             } else {
-                const alertEmbed = require('../embeds/alertEmbed')
-                const embed = new Discord.MessageEmbed(alertEmbed)
+                const embed = new MessageEmbed(alertEmbed)
 
                 embed.setDescription(`${channel.message}`)
                 Reply(client, interaction, embed)
             }
         } else {
-            const alertEmbed = require('../embeds/alertEmbed')
-            const embed = new Discord.MessageEmbed(alertEmbed)
+            const embed = new MessageEmbed(alertEmbed)
 
             embed.setDescription(`${model.message}`)
             Reply(client, interaction, embed)
         }
-    } catch {
-        const alertEmbed = require('../embeds/alertEmbed')
-        const embed = new Discord.MessageEmbed(alertEmbed)
-
-        embed.setDescription(`API Error`)
-        Reply(client, interaction, embed)
+    } catch (err) {
+        console.log(err)
     }
 };
 
-exports.conf = {
-    enabled: true,
-    guildOnly: false,
-    aliases: [],
-    permLevel: 3
-};
-
-exports.help = {
-    name: 'setchannels',
+exports.command = {
     description: `Manage the Channels for your Server!`,
+    enabled: true,
+    name: 'setchannels',
     options: [
         {
             name: 'game',
@@ -127,5 +116,6 @@ exports.help = {
                 { name: 'name', description: 'The name of the channel you want to send welcome messages to', required: true, type: 7 },
             ]
         },
-    ]
+    ],
+    permLevel: 3
 };

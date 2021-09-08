@@ -1,5 +1,5 @@
 const reqEvent = (event) => require(`../events/${event}`);
-module.exports = client => {
+export const Events = (client) => {
   // Channel Events \\
   client.on('channelCreate', (channel) => reqEvent('channelCreate')(client, channel));
   client.on('channelDelete', (channel) => reqEvent('channelDelete')(client, channel));
@@ -23,7 +23,7 @@ module.exports = client => {
   client.on('inviteCreate', (invite) => reqEvent('inviteCreate')(client, invite));
   client.on('inviteDelete', (invite) => reqEvent('inviteDelete')(client, invite));
   // Message Events \\
-  client.on('message', (message) => reqEvent('message')(client, message));
+  client.on('messageCreate', (message) => reqEvent('messageCreate')(client, message));
   client.on('messageDelete', (message) => reqEvent('messageDelete')(client, message));
   client.on('messageDeleteBulk', (messages) => reqEvent('messageDeleteBulk')(client, messages));
   client.on('messageReactionAdd', (messageReaction, user) => reqEvent('messageReactionAdd')(client, messageReaction, user));
@@ -51,3 +51,5 @@ module.exports = client => {
   // Websocket Events \\
   client.ws.on('INTERACTION_CREATE', (interaction) => reqEvent('interactionCreate')(client, interaction));
 };
+
+export default (Events);

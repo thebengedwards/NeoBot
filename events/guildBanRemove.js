@@ -1,5 +1,6 @@
-const Discord = require("discord.js");
+const { MessageEmbed } = require("discord.js");
 const { GetServer } = require("../functions/http-functions/servers");
+const alertEmbed = require('../components/embeds/alertEmbed');
 
 module.exports = async (client, guild, user) => {
     try {
@@ -10,15 +11,16 @@ module.exports = async (client, guild, user) => {
 
         if (model.status === 'success') {
             if (model.resultItems.serverid === guild.id && guild.channels.cache.find(item => item.id === model.resultItems.generalchannelid)) {
-                const alertEmbed = require('../embeds/alertEmbed')
-                const embed = new Discord.MessageEmbed(alertEmbed)
+                const embed = new MessageEmbed(alertEmbed)
 
                 embed.setDescription(`${user.username} was Unbanned`)
-                embed.addField(`For more information please refer to:`, `<@${model.resultItems.ownerID}>`)
-                return client.channels.cache.get(model.resultItems.generalchannelid).send({ embed });
+                embed.addFields(
+                    { name: 'For more information please refer to:', value: `<@${model.resultItems.ownerid}>` },
+                )
+                return client.channels.cache.get(model.resultItems.generalchannelid).send({ embeds: [embed] });
             }
         }
-    } catch {
-        console.log('Error connecting to API')
+    } catch (err) {
+        console.log(err)
     }
 };

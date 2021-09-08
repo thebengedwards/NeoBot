@@ -1,8 +1,10 @@
-const Discord = require("discord.js");
+const { MessageEmbed } = require("discord.js");
 const moment = require("moment");
 const { GetServer } = require("../functions/http-functions/servers");
 const { CreateBirthday, GetAllBirthdays, DeleteBirthday, UpdateBirthday, GetBirthday } = require("../functions/http-functions/birthdays");
-const { Reply } = require("../functions/helpers");
+const { Reply } = require("../functions/reply");
+const alertEmbed = require('../components/embeds/alertEmbed');
+const commandEmbed = require('../components/embeds/commandEmbed');
 
 exports.run = async (client, interaction, options) => {
     try {
@@ -25,8 +27,7 @@ exports.run = async (client, interaction, options) => {
             };
 
             let birthday;
-            const commandEmbed = require('../embeds/commandEmbed');
-            let embed = new Discord.MessageEmbed(commandEmbed);
+            let embed = new MessageEmbed(commandEmbed);
             switch (type) {
                 case 'add':
                     await CreateBirthday(body)
@@ -39,8 +40,7 @@ exports.run = async (client, interaction, options) => {
                             { name: `You have added: ${body.fname} ${body.lname} to the birthday list`, value: `Date: ${moment(body.cron).format('Do MMMM YYYY')}` },
                         )
                     } else {
-                        const alertEmbed = require('../embeds/alertEmbed')
-                        embed = new Discord.MessageEmbed(alertEmbed)
+                        embed = new MessageEmbed(alertEmbed)
                         embed.setDescription(`${birthday.message}`)
                     }
                     break;
@@ -63,8 +63,7 @@ exports.run = async (client, interaction, options) => {
                             { name: `Birthdays for: ${guild.name}`, value: birthday.resultItems.map(item => `${item.fname} ${item.lname}, ${item.discordid}, ${moment(item.cron).format('Do MMMM YYYY')}, ${item.gender}`) },
                         )
                     } else {
-                        const alertEmbed = require('../embeds/alertEmbed')
-                        embed = new Discord.MessageEmbed(alertEmbed)
+                        embed = new MessageEmbed(alertEmbed)
                         embed.setDescription(`${birthday.message}`)
                     }
                     break;
@@ -79,8 +78,7 @@ exports.run = async (client, interaction, options) => {
                             { name: `You have deleted a birthday.`, value: `<@${body.discordid}> will no longer receive Birthday messages.` },
                         )
                     } else {
-                        const alertEmbed = require('../embeds/alertEmbed')
-                        embed = new Discord.MessageEmbed(alertEmbed)
+                        embed = new MessageEmbed(alertEmbed)
                         embed.setDescription(`${birthday.message}`)
                     }
                     break;
@@ -95,8 +93,7 @@ exports.run = async (client, interaction, options) => {
                             { name: `You have updated: ${body.fname} ${body.lname} on the birthday list`, value: `Date: ${moment(body.cron).format('Do MMMM YYYY')}` },
                         )
                     } else {
-                        const alertEmbed = require('../embeds/alertEmbed')
-                        embed = new Discord.MessageEmbed(alertEmbed)
+                        embed = new MessageEmbed(alertEmbed)
                         embed.setDescription(`${birthday.message}`)
                     }
                     break;
@@ -112,8 +109,7 @@ exports.run = async (client, interaction, options) => {
                             { name: `Birthday: ${moment(birthday.resultItems.cron).format('Do MMMM YYYY')}`, value: `Gender: ${birthday.resultItems.gender}` },
                         )
                     } else {
-                        const alertEmbed = require('../embeds/alertEmbed')
-                        embed = new Discord.MessageEmbed(alertEmbed)
+                        embed = new MessageEmbed(alertEmbed)
                         embed.setDescription(`${birthday.message}`)
                     }
                     break;
@@ -122,31 +118,20 @@ exports.run = async (client, interaction, options) => {
             }
             Reply(client, interaction, embed)
         } else {
-            const alertEmbed = require('../embeds/alertEmbed')
-            const embed = new Discord.MessageEmbed(alertEmbed)
+            const embed = new MessageEmbed(alertEmbed)
 
             embed.setDescription(`${model.message}`)
             Reply(client, interaction, embed)
         }
-    } catch {
-        const alertEmbed = require('../embeds/alertEmbed')
-        const embed = new Discord.MessageEmbed(alertEmbed)
-
-        embed.setDescription(`API Error`)
-        Reply(client, interaction, embed)
+    } catch (err) {
+        console.log(err)
     }
 };
 
-exports.conf = {
-    enabled: true,
-    guildOnly: false,
-    aliases: [],
-    permLevel: 3
-};
-
-exports.help = {
-    name: 'setbirthdays',
+exports.command = {
     description: 'Manage the Birthdays on your Server!',
+    enabled: true,
+    name: 'setbirthdays',
     options: [
         {
             name: 'add',
@@ -193,5 +178,6 @@ exports.help = {
                 { name: 'user', description: 'The user you would like to add', required: true, type: 6 },
             ]
         },
-    ]
+    ],
+    permLevel: 3
 };

@@ -1,5 +1,6 @@
-const Discord = require("discord.js");
+const { MessageEmbed } = require("discord.js");
 const { GetServer } = require("../functions/http-functions/servers");
+const eventEmbed = require('../components/embeds/eventEmbed');
 
 module.exports = async (client, emoji) => {
     try {
@@ -10,8 +11,7 @@ module.exports = async (client, emoji) => {
 
         if (model.status === 'success') {
             if (model.resultItems.serverid === emoji.guild.id && emoji.guild.channels.cache.find(item => item.id === model.resultItems.modchannelid)) {
-                const eventEmbed = require('../embeds/eventEmbed')
-                const embed = new Discord.MessageEmbed(eventEmbed)
+                const embed = new MessageEmbed(eventEmbed)
 
                 embed.setDescription('Emoji Creation')
                 embed.addFields(
@@ -20,10 +20,10 @@ module.exports = async (client, emoji) => {
                     { name: 'Emoji ID', value: `${emoji.id}` },
                     { name: 'Emoji Animated', value: `${emoji.animated}`, inline: true },
                 )
-                return client.channels.cache.get(model.resultItems.modchannelid).send({ embed });
+                return client.channels.cache.get(model.resultItems.modchannelid).send({ embeds: [embed] });
             }
         }
-    } catch {
-        console.log('Error connecting to API')
+    } catch (err) {
+        console.log(err)
     }
 };

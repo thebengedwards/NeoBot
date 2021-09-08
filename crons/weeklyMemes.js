@@ -1,8 +1,9 @@
-const Discord = require("discord.js")
+const { MessageEmbed } = require("discord.js")
 const cron = require("cron")
 const api = require("imageapi.js");
 const { AllServers } = require("../functions/http-functions/servers");
 const { GetAllSubreddits } = require("../functions/http-functions/subreddits");
+const eventEmbed = require('../components/embeds/eventEmbed')
 
 module.exports = async (client) => {
     try {
@@ -26,8 +27,7 @@ module.exports = async (client) => {
                         });
 
                         let event = new cron.CronJob(`00 00 20 * * 5`, () => {
-                            const eventEmbed = require('../embeds/eventEmbed')
-                            const embed = new Discord.MessageEmbed(eventEmbed)
+                            const embed = new MessageEmbed(eventEmbed)
 
                             let img;
                             getImg = async () => {
@@ -38,7 +38,7 @@ module.exports = async (client) => {
                                     embed.setDescription('Weekly Meme')
                                     embed.addField(`This meme is brought to you by:`, `r/${subreddit}`)
                                     embed.setImage(img);
-                                    return client.channels.cache.get(item.memeschannelid).send({ embed });
+                                    return client.channels.cache.get(item.memeschannelid).send({ embeds: [embed] });
                                 } else {
                                     getImg();
                                 }
@@ -50,7 +50,7 @@ module.exports = async (client) => {
                 }
             })
         }
-    } catch {
-        console.log('Error connecting to API')
+    } catch (err) {
+        console.log(err)
     }
 };
