@@ -3,20 +3,19 @@ const client = new Client({ intents: new Intents(32767) });
 import fs from "fs";
 import Settings from "./settings.js";
 // import { GetServer } from "./functions/http-functions/servers";
-import Events from "./functions/eventLoader.js";
+import EventLoader from './functions/eventLoader.js';
+EventLoader(client)
 
 client.commands = new Collection();
 fs.readdir('./commands', (err, files) => {
   files.map(file => {
     // import(`./commands/${file}`)
-    import(`./commands/accept.js`)
+    import(`./commands/test.js`)
       .then(module => {
-        client.commands.set(module.Run, module.Details.name);
+        client.commands.set(module.run, module.command);
       });
   });
 });
-
-client.on(Events(client))
 
 client.elevation = async (id) => {
   try {
