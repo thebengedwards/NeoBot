@@ -1,9 +1,9 @@
-const { MessageEmbed } = require("discord.js");
-const moment = require("moment");
-const { GetServer } = require("../functions/http-functions/servers");
-const alertEmbed = require('../components/embeds/alertEmbed');
+import { MessageEmbed } from "discord.js";
+import moment from "moment";
+import { GetServer } from "../functions/http-functions/servers.js";
+import AlertEmbed from "../components/embeds/alertEmbed.js";
 
-module.exports = async (client, messages) => {
+export const run = async (client, messages) => {
     try {
         let message = messages.first()
 
@@ -15,7 +15,7 @@ module.exports = async (client, messages) => {
 
             if (model.status === 'success') {
                 if (model.resultItems.serverid === message.guild.id && message.guild.channels.cache.find(item => item.id === model.resultItems.modchannelid)) {
-                    const embed = new MessageEmbed(alertEmbed)
+                    const embed = new MessageEmbed(AlertEmbed)
 
                     embed.setDescription(`Purge detected in chanel: ${message.channel.name}`)
                     embed.addFields(
@@ -28,4 +28,9 @@ module.exports = async (client, messages) => {
     } catch (err) {
         console.log(err)
     }
+};
+
+export const details = {
+    description: 'Bulk messages have been deleted',
+    name: 'messageDeleteBulk',
 };

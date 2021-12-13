@@ -1,8 +1,8 @@
-const { MessageEmbed } = require("discord.js");
-const { GetServer } = require("../functions/http-functions/servers");
-const eventEmbed = require('../components/embeds/eventEmbed');
+import { MessageEmbed } from "discord.js";
+import { GetServer } from "../functions/http-functions/servers.js";
+import EventEmbed from "../components/embeds/eventEmbed.js";
 
-module.exports = async (client, invite) => {
+export const run = async (client, invite) => {
     try {
         let model;
         await GetServer({ serverid: invite.guild.id })
@@ -11,7 +11,7 @@ module.exports = async (client, invite) => {
 
         if (model.status === 'success') {
             if (model.resultItems.serverid === invite.guild.id && invite.guild.channels.cache.find(item => item.id === model.resultItems.modchannelid)) {
-                const embed = new MessageEmbed(eventEmbed)
+                const embed = new MessageEmbed(EventEmbed)
 
                 embed.setDescription(`An Invite was Deleted`)
                 embed.addFields(
@@ -23,4 +23,9 @@ module.exports = async (client, invite) => {
     } catch (err) {
         console.log(err)
     }
+};
+
+export const details = {
+    description: 'Guild invite deleted',
+    name: 'inviteDelete',
 };

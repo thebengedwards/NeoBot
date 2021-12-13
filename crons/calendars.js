@@ -1,11 +1,11 @@
-const { MessageEmbed } = require("discord.js");
-const cron = require("cron");
-const moment = require("moment");
-const { AllServers } = require("../functions/http-functions/servers");
-const { GetAllCalendars } = require("../functions/http-functions/calendars");
-const eventEmbed = require('../components/embeds/eventEmbed')
+import { MessageEmbed } from "discord.js";
+import moment from "moment";
+import cron from "cron";
+import { AllServers } from "../functions/http-functions/servers.js";
+import { GetAllCalendars } from "../functions/http-functions/calendars.js";
+import EventEmbed from "../components/embeds/eventEmbed.js";
 
-module.exports = async (client) => {
+export default async (client) => {
     try {
         const guilds = [...client.guilds.cache];
         let model;
@@ -28,7 +28,7 @@ module.exports = async (client) => {
                                 let split = calendar.split(" ")
 
                                 let event = new cron.CronJob(`00 00 08 ${split[0]} ${split[1] - 1} *`, () => {
-                                    const embed = new MessageEmbed(eventEmbed)
+                                    const embed = new MessageEmbed(EventEmbed)
 
                                     embed.setDescription('Calendar')
                                     embed.addField(`📅 HAPPY ${item2.name.toUpperCase()} EVERYONE! 📅`, `@everyone, have a great ${item2.name}.`)

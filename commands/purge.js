@@ -1,12 +1,12 @@
-const { MessageEmbed } = require("discord.js");
-const { Reply } = require("../functions/reply");
-const alertEmbed = require('../components/embeds/alertEmbed');
+import { MessageEmbed } from "discord.js";
+import Reply from "../functions/reply.js";
+import AlertEmbed from "../components/embeds/alertEmbed.js";
 
-exports.run = async (client, interaction, options) => {
+export const run = async (client, interaction, options) => {
   try {
     const messagecount = options.find(item => item.name === 'amount').value
     if (messagecount > 100) {
-      const embed = new MessageEmbed(alertEmbed);
+      const embed = new MessageEmbed(AlertEmbed);
 
       embed.setDescription('Maximum 100 messages can be purged at once');
       Reply(client, interaction, embed)
@@ -15,14 +15,14 @@ exports.run = async (client, interaction, options) => {
         .then(async (messages) => {
           await client.guilds.resolve(interaction.guild_id).channels.resolve(interaction.channel_id).bulkDelete(messages)
             .catch(err => {
-              const embed = new MessageEmbed(alertEmbed);
+              const embed = new MessageEmbed(AlertEmbed);
 
               embed.setDescription('Messages older than 14 days cannot be purged');
               Reply(client, interaction, embed)
             })
         })
         .then(res => {
-          const embed = new MessageEmbed(alertEmbed);
+          const embed = new MessageEmbed(AlertEmbed);
 
           embed.setDescription(`${messagecount} messages purged`);
           Reply(client, interaction, embed)
@@ -33,7 +33,7 @@ exports.run = async (client, interaction, options) => {
   }
 };
 
-exports.command = {
+export const details = {
   description: 'Purges X amount of messages from a given channel.',
   enabled: true,
   name: 'purge',

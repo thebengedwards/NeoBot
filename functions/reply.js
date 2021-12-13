@@ -1,7 +1,7 @@
-const { MessageEmbed } = require("discord.js");
-const commandEmbed = require('../components/embeds/commandEmbed')
+import { MessageEmbed } from "discord.js";
+import commandEmbed from '../components/embeds/commandEmbed.js';
 
-exports.Reply = async (client, interaction, response, destination, components) => {
+export default async (client, interaction, response, destination, components) => {
     try {
         let data = response
         if (destination) {

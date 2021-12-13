@@ -1,10 +1,10 @@
-const { MessageEmbed } = require("discord.js");
-const { GetJoke } = require("../functions/http-functions/jokes");
-const { Reply } = require("../functions/reply");
-const alertEmbed = require('../components/embeds/alertEmbed');
-const commandEmbed = require('../components/embeds/commandEmbed');
+import { MessageEmbed } from "discord.js";
+import { GetJoke } from "../functions/http-functions/jokes.js";
+import Reply from "../functions/reply.js";
+import AlertEmbed from "../components/embeds/alertEmbed.js";
+import CommandEmbed from "../components/embeds/commandEmbed.js";
 
-exports.run = async (client, interaction) => {
+export const run = async (client, interaction) => {
   try {
     let joke;
     await GetJoke()
@@ -12,13 +12,13 @@ exports.run = async (client, interaction) => {
       .catch(err => joke = err.response.data);
 
     if (joke.status === 200) {
-      const embed = new MessageEmbed(commandEmbed)
+      const embed = new MessageEmbed(CommandEmbed)
 
       embed.setDescription('A Random Joke')
       embed.addField('Joke:', joke.joke)
       Reply(client, interaction, embed)
     } else {
-      const embed = new MessageEmbed(alertEmbed)
+      const embed = new MessageEmbed(AlertEmbed)
 
       embed.setDescription(`Joke API Error`)
       Reply(client, interaction, embed)
@@ -28,7 +28,7 @@ exports.run = async (client, interaction) => {
   }
 };
 
-exports.command = {
+export const details = {
   description: 'Makes NeoBot tell you a joke',
   enabled: true,
   name: 'joke',

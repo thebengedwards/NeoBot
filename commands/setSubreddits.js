@@ -1,11 +1,11 @@
-const { MessageEmbed } = require("discord.js");
-const { GetServer } = require("../functions/http-functions/servers");
-const { CreateSubreddit, GetAllSubreddits, DeleteSubreddit, GetSubreddit } = require("../functions/http-functions/subreddits");
-const { Reply } = require("../functions/reply");
-const alertEmbed = require('../components/embeds/alertEmbed');
-const commandEmbed = require('../components/embeds/commandEmbed');
+import { MessageEmbed } from "discord.js";
+import { GetServer } from "../functions/http-functions/servers.js";
+import { CreateSubreddit, GetAllSubreddits, DeleteSubreddit, GetSubreddit } from "../functions/http-functions/subreddits.js";
+import Reply from "../functions/reply.js";
+import AlertEmbed from "../components/embeds/alertEmbed.js";
+import CommandEmbed from "../components/embeds/commandEmbed.js";
 
-exports.run = async (client, interaction, options) => {
+export const run = async (client, interaction, options) => {
     try {
         let model;
         await GetServer({ serverid: interaction.guild_id })
@@ -21,7 +21,7 @@ exports.run = async (client, interaction, options) => {
             };
 
             let subreddit;
-            let embed = new MessageEmbed(commandEmbed);
+            let embed = new MessageEmbed(CommandEmbed);
             switch (type) {
                 case 'add':
                     await CreateSubreddit(body)
@@ -35,7 +35,7 @@ exports.run = async (client, interaction, options) => {
                             { name: 'This command is dev only', value: 'DO NOT USE IT' },
                         )
                     } else {
-                        embed = new MessageEmbed(alertEmbed)
+                        embed = new MessageEmbed(AlertEmbed)
                         embed.setDescription(`${subreddit.message}`)
                     }
                     break;
@@ -52,7 +52,7 @@ exports.run = async (client, interaction, options) => {
                             { name: 'This command is dev only', value: 'DO NOT USE IT' },
                         )
                     } else {
-                        embed = new MessageEmbed(alertEmbed)
+                        embed = new MessageEmbed(AlertEmbed)
                         embed.setDescription(`${subreddit.message}`)
                     }
                     break;
@@ -68,7 +68,7 @@ exports.run = async (client, interaction, options) => {
                             { name: 'This command is dev only', value: 'DO NOT USE IT' },
                         )
                     } else {
-                        embed = new MessageEmbed(alertEmbed)
+                        embed = new MessageEmbed(AlertEmbed)
                         embed.setDescription(`${subreddit.message}`)
                     }
                     break;
@@ -84,7 +84,7 @@ exports.run = async (client, interaction, options) => {
                             { name: 'This command is dev only', value: 'DO NOT USE IT' },
                         )
                     } else {
-                        embed = new MessageEmbed(alertEmbed)
+                        embed = new MessageEmbed(AlertEmbed)
                         embed.setDescription(`${subreddit.message}`)
                     }
                     break;
@@ -96,7 +96,7 @@ exports.run = async (client, interaction, options) => {
     }
 };
 
-exports.command = {
+export const details = {
     description: 'Add a Subreddit to NeoBot!',
     enabled: true,
     name: 'setsubreddits',

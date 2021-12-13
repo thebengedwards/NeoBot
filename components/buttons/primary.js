@@ -1,8 +1,6 @@
-const { MessageButton } = require('discord.js');
+import { MessageButton } from "discord.js";
 
-const row = new MessageButton()
+export default new MessageButton()
     .setCustomId('primary')
     .setLabel('Primary')
-    .setStyle('PRIMARY')
-
-module.exports = (row);
+    .setStyle('PRIMARY');

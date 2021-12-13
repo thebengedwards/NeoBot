@@ -1,4 +1,4 @@
-module.exports = async (interaction, action, embed, components) => {
+export default async (interaction, action, embed, components) => {
     try {
         add = (prevEmbed, ID) => {
             if (prevEmbed.fields.find(item => item.name === ID).value === 'None') {

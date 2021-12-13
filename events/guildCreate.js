@@ -1,9 +1,9 @@
-const { MessageEmbed } = require("discord.js");
-const moment = require("moment");
-const { CreateServer } = require("../functions/http-functions/servers");
-const alertEmbed = require('../components/embeds/alertEmbed');
+import { MessageEmbed } from "discord.js";
+import moment from "moment"
+import { CreateServer } from "../functions/http-functions/servers.js";
+import AlertEmbed from "../components/embeds/alertEmbed.js";
 
-module.exports = async (guild) => {
+export const run = async (guild) => {
   try {
     const body = {
       servername: guild.name,
@@ -33,7 +33,7 @@ module.exports = async (guild) => {
       .catch(err => model = err.response.data.model);
 
     if (model.status === 'success') {
-      const embed = new MessageEmbed(alertEmbed);
+      const embed = new MessageEmbed(AlertEmbed);
 
       embed.setDescription('Config Required');
       embed.addFields(
@@ -51,4 +51,9 @@ module.exports = async (guild) => {
   } catch (err) {
     console.log(err)
   }
+};
+
+export const details = {
+  description: 'Guild has added the bot',
+  name: 'guildCreate',
 };

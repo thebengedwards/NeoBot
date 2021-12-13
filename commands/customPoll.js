@@ -1,13 +1,12 @@
-const { MessageEmbed } = require("discord.js");
-const { MessageActionRow, MessageButton } = require('discord.js');
-const { v4: uuidv4 } = require('uuid');
-const { Reply } = require("../functions/reply");
-const pollEmbed = require('../components/embeds/pollEmbed');
-const primaryButton = require('../components/buttons/primary');
+import { MessageEmbed, MessageActionRow, MessageButton } from "discord.js";
+import { v4 as uuidv4 } from "uuid";
+import Reply from "../functions/reply.js";
+import PollEmbed from "../components/embeds/pollEmbed.js";
+import PrimaryButton from "../components/buttons/primary.js";
 
-exports.run = async (client, interaction, options) => {
+export const run = async (client, interaction, options) => {
     try {
-        const embed = new MessageEmbed(pollEmbed)
+        const embed = new MessageEmbed(PollEmbed)
         embed.setDescription('Custom poll')
         embed.addFields(
             { name: options._hoistedOptions[0].value, value: `Reply below` },
@@ -18,11 +17,11 @@ exports.run = async (client, interaction, options) => {
 
         const row = new MessageActionRow()
         row.addComponents(
-            new MessageButton(primaryButton)
+            new MessageButton(PrimaryButton)
                 .setCustomId(`TRUE-${uuidv4()}`)
                 .setLabel('Yes')
             ,
-            new MessageButton(primaryButton)
+            new MessageButton(PrimaryButton)
                 .setCustomId(`FALSE-${uuidv4()}`)
                 .setLabel('No')
         )
@@ -33,7 +32,7 @@ exports.run = async (client, interaction, options) => {
     }
 };
 
-exports.command = {
+export const details = {
     description: 'A custom poll',
     enabled: true,
     name: 'custompoll',

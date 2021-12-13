@@ -1,8 +1,8 @@
-const { MessageEmbed } = require("discord.js");
-const { GetServer } = require("../functions/http-functions/servers");
-const alertEmbed = require('../components/embeds/alertEmbed');
+import { MessageEmbed } from "discord.js";
+import { GetServer } from "../functions/http-functions/servers.js";
+import AlertEmbed from "../components/embeds/alertEmbed.js";
 
-module.exports = async (client, guild, user) => {
+export const run = async (client, guild, user) => {
     try {
         let model;
         await GetServer({ serverid: guild.id })
@@ -11,7 +11,7 @@ module.exports = async (client, guild, user) => {
 
         if (model.status === 'success') {
             if (model.resultItems.serverid === guild.id && guild.channels.cache.find(item => item.id === model.resultItems.generalchannelid)) {
-                const embed = new MessageEmbed(alertEmbed)
+                const embed = new MessageEmbed(AlertEmbed)
 
                 embed.setDescription(`${user.username} was Banned`)
                 embed.addFields(
@@ -23,4 +23,9 @@ module.exports = async (client, guild, user) => {
     } catch (err) {
         console.log(err)
     }
+};
+
+export const details = {
+    description: 'A ban has been added',
+    name: 'guildBanAdd',
 };

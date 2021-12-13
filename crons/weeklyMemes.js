@@ -1,11 +1,11 @@
-const { MessageEmbed } = require("discord.js")
-const cron = require("cron")
-const api = require("imageapi.js");
-const { AllServers } = require("../functions/http-functions/servers");
-const { GetAllSubreddits } = require("../functions/http-functions/subreddits");
-const eventEmbed = require('../components/embeds/eventEmbed')
+import { MessageEmbed } from "discord.js";
+import cron from "cron";
+import api from "imageapi.js";
+import { AllServers } from "../functions/http-functions/servers.js";
+import { GetAllSubreddits } from "../functions/http-functions/subreddits.js";
+import EventEmbed from "../components/embeds/eventEmbed.js";
 
-module.exports = async (client) => {
+export default async (client) => {
     try {
         const guilds = [...client.guilds.cache];
         let model;
@@ -27,7 +27,7 @@ module.exports = async (client) => {
                         });
 
                         let event = new cron.CronJob(`00 00 20 * * 5`, () => {
-                            const embed = new MessageEmbed(eventEmbed)
+                            const embed = new MessageEmbed(EventEmbed)
 
                             let img;
                             getImg = async () => {

@@ -1,8 +1,8 @@
-const { MessageEmbed } = require("discord.js");
-const { GetServer } = require("../functions/http-functions/servers");
-const eventEmbed = require('../components/embeds/eventEmbed');
+import { MessageEmbed } from "discord.js";
+import { GetServer } from "../functions/http-functions/servers.js";
+import EventEmbed from "../components/embeds/eventEmbed.js";
 
-module.exports = async (client, channel) => {
+export const run = async (client, channel) => {
     try {
         let model;
         if (channel.type !== 'dm') {
@@ -12,7 +12,7 @@ module.exports = async (client, channel) => {
 
             if (model.status === 'success') {
                 if (model.resultItems.serverid === channel.guild.id && channel.guild.channels.cache.find(item => item.id === model.resultItems.modchannelid)) {
-                    const embed = new MessageEmbed(eventEmbed)
+                    const embed = new MessageEmbed(EventEmbed)
 
                     embed.setDescription('Channel Deletion')
                     embed.addFields(
@@ -30,4 +30,9 @@ module.exports = async (client, channel) => {
     } catch (err) {
         console.log(err)
     }
+};
+
+export const details = {
+    description: 'A channel has been deleted',
+    name: 'channelDelete',
 };

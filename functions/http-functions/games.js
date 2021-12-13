@@ -1,68 +1,66 @@
-const {
+import {
     CREATE_GAME,
     GET_ALL_GAMES,
     GET_GAME,
     UPDATE_GAME,
     DELETE_GAME
-} = require("../endpoints")
-const { HTTP, HTTPn } = require("../http")
+} from "../endpoints.js";
+import { HTTP, HTTPn } from "../http.js";
 
-const KEY = process.env.API_KEY
-
-exports.CreateGame = async (DATA) => {
+export const CreateGame = async (DATA) => {
     return HTTP({
         Method: "POST",
         Url: CREATE_GAME,
         Headers: {
             'Content-Type': 'application/json',
-            'API_KEY': KEY
+            'API_KEY': process.env.API_KEY
         },
         Data: DATA
     })
 };
 
-exports.GetAllGames = async () => {
+export const GetAllGames = async () => {
     return HTTPn({
         Method: "GET",
         Url: GET_ALL_GAMES,
         Headers: {
             'Content-Type': 'application/json',
-            'API_KEY': KEY
+            'API_KEY': process.env.API_KEY
         },
     })
 };
 
-exports.GetGame = async (DATA) => {
+export const GetGame = async (DATA) => {
     return HTTP({
         Method: "PUT",
         Url: GET_GAME,
         Headers: {
             'Content-Type': 'application/json',
-            'API_KEY': KEY
+            'API_KEY': process.env.API_KEY
         },
         Data: DATA
     })
 };
 
-exports.UpdateGame = async (DATA) => {
+export const UpdateGame = async (DATA) => {
     return HTTP({
         Method: "PUT",
         Url: UPDATE_GAME,
         Headers: {
             'Content-Type': 'application/json',
-            'API_KEY': KEY
+            'API_KEY': process.env.API_KEY
         },
         Data: DATA
     })
 };
 
-exports.DeleteGame = async (DATA) => {
+export const DeleteGame = async (DATA) => {
     return HTTP({
         Method: "DELETE",
         Url: DELETE_GAME,
         Headers: {
             'Content-Type': 'application/json',
-            'API_KEY': KEY
+            'API_KEY': process.env.API_KEY
         },
         Data: DATA
     })

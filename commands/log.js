@@ -1,10 +1,10 @@
-const { MessageEmbed } = require("discord.js");
-const { GetServer } = require("../functions/http-functions/servers");
-const { Reply } = require("../functions/reply");
-const alertEmbed = require('../components/embeds/alertEmbed');
-const commandEmbed = require('../components/embeds/commandEmbed');
+import { MessageEmbed } from "discord.js";
+import { GetServer } from "../functions/http-functions/servers.js";
+import Reply from "../functions/reply.js";
+import AlertEmbed from "../components/embeds/alertEmbed.js";
+import CommandEmbed from "../components/embeds/commandEmbed.js";
 
-exports.run = async (client, interaction) => {
+export const run = async (client, interaction) => {
   try {
     let model;
     await GetServer({ serverid: interaction.member.guild.id })
@@ -12,7 +12,7 @@ exports.run = async (client, interaction) => {
       .catch(err => model = err.response.data.model);
 
     if (model.status === 'success') {
-      const embed = new MessageEmbed(commandEmbed)
+      const embed = new MessageEmbed(CommandEmbed)
 
       embed.setDescription('Log')
       embed.addFields(
@@ -34,7 +34,7 @@ exports.run = async (client, interaction) => {
       )
       Reply(client, interaction, embed)
     } else {
-      const embed = new MessageEmbed(alertEmbed)
+      const embed = new MessageEmbed(AlertEmbed)
 
       embed.setDescription(`${model.message}`)
       Reply(client, interaction, embed)
@@ -44,7 +44,7 @@ exports.run = async (client, interaction) => {
   }
 };
 
-exports.command = {
+export const details = {
   description: 'Logs all the differences between previous versions',
   enabled: true,
   name: 'log',

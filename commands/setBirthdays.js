@@ -1,12 +1,12 @@
-const { MessageEmbed } = require("discord.js");
-const moment = require("moment");
-const { GetServer } = require("../functions/http-functions/servers");
-const { CreateBirthday, GetAllBirthdays, DeleteBirthday, UpdateBirthday, GetBirthday } = require("../functions/http-functions/birthdays");
-const { Reply } = require("../functions/reply");
-const alertEmbed = require('../components/embeds/alertEmbed');
-const commandEmbed = require('../components/embeds/commandEmbed');
+import { MessageEmbed } from "discord.js";
+import moment from "moment";
+import { GetServer } from "../functions/http-functions/servers.js";
+import { CreateBirthday, GetAllBirthdays, DeleteBirthday, UpdateBirthday, GetBirthday } from "../functions/http-functions/birthdays.js";
+import Reply from "../functions/reply.js";
+import AlertEmbed from "../components/embeds/alertEmbed.js";
+import CommandEmbed from "../components/embeds/commandEmbed.js";
 
-exports.run = async (client, interaction, options) => {
+export const run = async (client, interaction, options) => {
     try {
         let model;
         await GetServer({ serverid: interaction.guild_id })
@@ -27,7 +27,7 @@ exports.run = async (client, interaction, options) => {
             };
 
             let birthday;
-            let embed = new MessageEmbed(commandEmbed);
+            let embed = new MessageEmbed(CommandEmbed);
             switch (type) {
                 case 'add':
                     await CreateBirthday(body)
@@ -40,7 +40,7 @@ exports.run = async (client, interaction, options) => {
                             { name: `You have added: ${body.fname} ${body.lname} to the birthday list`, value: `Date: ${moment(body.cron).format('Do MMMM YYYY')}` },
                         )
                     } else {
-                        embed = new MessageEmbed(alertEmbed)
+                        embed = new MessageEmbed(AlertEmbed)
                         embed.setDescription(`${birthday.message}`)
                     }
                     break;
@@ -63,7 +63,7 @@ exports.run = async (client, interaction, options) => {
                             { name: `Birthdays for: ${guild.name}`, value: birthday.resultItems.map(item => `${item.fname} ${item.lname}, ${item.discordid}, ${moment(item.cron).format('Do MMMM YYYY')}, ${item.gender}`) },
                         )
                     } else {
-                        embed = new MessageEmbed(alertEmbed)
+                        embed = new MessageEmbed(AlertEmbed)
                         embed.setDescription(`${birthday.message}`)
                     }
                     break;
@@ -78,7 +78,7 @@ exports.run = async (client, interaction, options) => {
                             { name: `You have deleted a birthday.`, value: `<@${body.discordid}> will no longer receive Birthday messages.` },
                         )
                     } else {
-                        embed = new MessageEmbed(alertEmbed)
+                        embed = new MessageEmbed(AlertEmbed)
                         embed.setDescription(`${birthday.message}`)
                     }
                     break;
@@ -93,7 +93,7 @@ exports.run = async (client, interaction, options) => {
                             { name: `You have updated: ${body.fname} ${body.lname} on the birthday list`, value: `Date: ${moment(body.cron).format('Do MMMM YYYY')}` },
                         )
                     } else {
-                        embed = new MessageEmbed(alertEmbed)
+                        embed = new MessageEmbed(AlertEmbed)
                         embed.setDescription(`${birthday.message}`)
                     }
                     break;
@@ -109,7 +109,7 @@ exports.run = async (client, interaction, options) => {
                             { name: `Birthday: ${moment(birthday.resultItems.cron).format('Do MMMM YYYY')}`, value: `Gender: ${birthday.resultItems.gender}` },
                         )
                     } else {
-                        embed = new MessageEmbed(alertEmbed)
+                        embed = new MessageEmbed(AlertEmbed)
                         embed.setDescription(`${birthday.message}`)
                     }
                     break;
@@ -118,7 +118,7 @@ exports.run = async (client, interaction, options) => {
             }
             Reply(client, interaction, embed)
         } else {
-            const embed = new MessageEmbed(alertEmbed)
+            const embed = new MessageEmbed(AlertEmbed)
 
             embed.setDescription(`${model.message}`)
             Reply(client, interaction, embed)
@@ -128,7 +128,7 @@ exports.run = async (client, interaction, options) => {
     }
 };
 
-exports.command = {
+export const details = {
     description: 'Manage the Birthdays on your Server!',
     enabled: true,
     name: 'setbirthdays',

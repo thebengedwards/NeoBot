@@ -1,10 +1,15 @@
-const { DeleteServer } = require("../functions/http-functions/servers");
+import { DeleteServer } from "../functions/http-functions/servers.js";
 
-module.exports = async (guild) => {
+export const run = async (guild) => {
   try {
     await DeleteServer({ serverid: guild.id })
       .catch((err) => { console.log(err) });
   } catch (err) {
     console.log(err)
   }
+};
+
+export const details = {
+  description: 'Guild has removed the bot',
+  name: 'guildDelete',
 };

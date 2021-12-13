@@ -1,8 +1,8 @@
-const { MessageEmbed } = require("discord.js");
-const { GetServer } = require("../functions/http-functions/servers");
-const alertEmbed = require('../components/embeds/alertEmbed');
+import { MessageEmbed } from "discord.js";
+import { GetServer } from "../functions/http-functions/servers.js";
+import AlertEmbed from "../components/embeds/alertEmbed.js";
 
-module.exports = async (client, oldMessage, newMessage) => {
+export const run = async (client, oldMessage, newMessage) => {
     try {
         if (oldMessage.channel.type !== 'dm') {
             let model;
@@ -12,7 +12,7 @@ module.exports = async (client, oldMessage, newMessage) => {
 
             if (model.status === 'success') {
                 if (oldMessage.content !== '') {
-                    const embed = new MessageEmbed(alertEmbed)
+                    const embed = new MessageEmbed(AlertEmbed)
 
                     embed.setDescription(`A Message by <@${oldMessage.author.id}> was just updated`)
                     embed.addFields(
@@ -27,4 +27,9 @@ module.exports = async (client, oldMessage, newMessage) => {
     } catch (err) {
         console.log(err)
     }
+};
+
+export const details = {
+    description: 'Message has been updated',
+    name: 'messageDeleteBulk',
 };

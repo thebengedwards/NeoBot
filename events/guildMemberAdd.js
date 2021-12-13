@@ -1,8 +1,8 @@
-const { MessageEmbed } = require("discord.js");
-const { GetServer } = require("../functions/http-functions/servers");
-const eventEmbed = require('../components/embeds/eventEmbed')
+import { MessageEmbed } from "discord.js";
+import { GetServer } from "../functions/http-functions/servers.js";
+import EventEmbed from "../components/embeds/eventEmbed.js";
 
-module.exports = async (client, member) => {
+export const run = async (client, member) => {
     try {
         let model;
         await GetServer({ serverid: member.guild.id })
@@ -11,7 +11,7 @@ module.exports = async (client, member) => {
 
         if (model.status === 'success') {
             if (model.resultItems.serverid === member.guild.id && member.guild.channels.cache.find(item => item.id === model.resultItems.modchannelid)) {
-                const embed = new MessageEmbed(eventEmbed)
+                const embed = new MessageEmbed(EventEmbed)
 
                 embed.setDescription(`${member.user.username} has joined the server`)
                 embed.addFields(
@@ -24,4 +24,9 @@ module.exports = async (client, member) => {
     } catch (err) {
         console.log(err)
     }
+};
+
+export const details = {
+    description: 'Member has joined the guild',
+    name: 'guildMemberAdd',
 };

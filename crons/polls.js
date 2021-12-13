@@ -1,10 +1,10 @@
-const { MessageEmbed } = require("discord.js");
-const cron = require("cron");
-const { AllServers } = require("../functions/http-functions/servers");
-const { GetAllGames } = require("../functions/http-functions/games");
-const pollEmbed = require('../components/embeds/pollEmbed')
+import { MessageEmbed } from "discord.js";
+import cron from "cron";
+import { AllServers } from "../functions/http-functions/servers.js";
+import { GetAllGames } from "../functions/http-functions/games.js";
+import PollEmbed from "../components/embeds/pollEmbed.js";
 
-module.exports = async (client) => {
+export default async (client) => {
     try {
         const guilds = [...client.guilds.cache];
         let model;
@@ -23,7 +23,7 @@ module.exports = async (client) => {
 
                         if (games.status == 'success') {
                             let weeklyGame = new cron.CronJob(`00 00 19 * * 5`, () => {
-                                const embed = new MessageEmbed(pollEmbed)
+                                const embed = new MessageEmbed(PollEmbed)
 
                                 getGame = async () => {
                                     let game = games.resultItems[Math.floor(Math.random() * games.resultItems.length)];

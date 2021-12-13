@@ -1,55 +1,53 @@
-const {
+import {
     CREATE_SUBREDDIT,
     GET_ALL_SUBREDDITS,
     GET_SUBREDDIT,
     DELETE_SUBREDDIT
-} = require("../endpoints")
-const { HTTP, HTTPn } = require("../http")
+} from "../endpoints.js";
+import { HTTP, HTTPn } from "../http.js";
 
-const KEY = process.env.API_KEY
-
-exports.CreateSubreddit = async (DATA) => {
+export const CreateSubreddit = async (DATA) => {
     return HTTP({
         Method: "POST",
         Url: CREATE_SUBREDDIT,
         Headers: {
             'Content-Type': 'application/json',
-            'API_KEY': KEY
+            'API_KEY': process.env.API_KEY
         },
         Data: DATA
     })
 };
 
-exports.GetAllSubreddits = async () => {
+export const GetAllSubreddits = async () => {
     return HTTPn({
         Method: "GET",
         Url: GET_ALL_SUBREDDITS,
         Headers: {
             'Content-Type': 'application/json',
-            'API_KEY': KEY
+            'API_KEY': process.env.API_KEY
         },
     })
 };
 
-exports.GetSubreddit = async (DATA) => {
+export const GetSubreddit = async (DATA) => {
     return HTTP({
         Method: "PUT",
         Url: GET_SUBREDDIT,
         Headers: {
             'Content-Type': 'application/json',
-            'API_KEY': KEY
+            'API_KEY': process.env.API_KEY
         },
         Data: DATA
     })
 };
 
-exports.DeleteSubreddit = async (DATA) => {
+export const DeleteSubreddit = async (DATA) => {
     return HTTP({
         Method: "DELETE",
         Url: DELETE_SUBREDDIT,
         Headers: {
             'Content-Type': 'application/json',
-            'API_KEY': KEY
+            'API_KEY': process.env.API_KEY
         },
         Data: DATA
     })

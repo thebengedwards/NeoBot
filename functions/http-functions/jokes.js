@@ -1,9 +1,9 @@
-const {
+import {
     GET_JOKE
-} = require("../endpoints")
-const { HTTPn } = require("../http")
+} from "../endpoints.js";
+import { HTTPn } from "../http.js";
 
-exports.GetJoke = async () => {
+export const GetJoke = async () => {
     return HTTPn({
         Method: "GET",
         Url: GET_JOKE,

@@ -1,17 +1,17 @@
-const { MessageEmbed } = require("discord.js");
-const settings = require("../settings.json");
-const { Reply } = require("../functions/reply");
-const alertEmbed = require('../components/embeds/alertEmbed');
-const commandEmbed = require('../components/embeds/commandEmbed');
+import { MessageEmbed } from "discord.js";
+import Settings from "../settings.js";
+import Reply from "../functions/reply.js";
+import AlertEmbed from "../components/embeds/alertEmbed.js";
+import CommandEmbed from "../components/embeds/commandEmbed.js";
 
-exports.run = async (client, interaction, options, perms) => {
+export const run = async (client, interaction, options, perms) => {
   try {
     if (!options) {
-      const embed = new MessageEmbed(commandEmbed)
+      const embed = new MessageEmbed(CommandEmbed)
 
       embed.setDescription('Help')
       embed.addFields(
-        { name: `Below are all the commands for NeoBot.`, value: `[Use ${settings.prefix}help <command name> for details]` },
+        { name: `Below are all the commands for NeoBot.`, value: `[Use ${Settings.prefix}help <command name> for details]` },
         { name: `Games`, value: client.commands.filter(item => item.command.permLevel <= perms).map(item => item.command.name) },
         { name: 'More Help Commands:', value: 'help \nhelp <command> \nhelp channels \nhelp events \nhelp roles' },
       )
@@ -19,7 +19,7 @@ exports.run = async (client, interaction, options, perms) => {
     } else {
       let command = options.find(item => item.name === 'details').value
 
-      const embed = new MessageEmbed(commandEmbed)
+      const embed = new MessageEmbed(CommandEmbed)
 
       if (client.commands.has(command)) {
         clientCommand = client.commands.get(command)
@@ -79,7 +79,7 @@ exports.run = async (client, interaction, options, perms) => {
             throw 'err'
         }
       } else {
-        const embed = new MessageEmbed(alertEmbed)
+        const embed = new MessageEmbed(AlertEmbed)
 
         embed.setDescription(`Command does not extist`)
         Reply(client, interaction, embed)
@@ -90,7 +90,7 @@ exports.run = async (client, interaction, options, perms) => {
   }
 };
 
-exports.command = {
+export const details = {
   description: 'Displays all the available commands for your permission level.',
   enabled: true,
   name: 'help',

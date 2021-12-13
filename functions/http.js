@@ -1,7 +1,7 @@
-const axios = require("axios")
+import axios from "axios";
 
 // HTTP Requests with DATA
-exports.HTTP = async ({ Method, Url, Data = {}, Headers = {} }) => {
+export const HTTP = async ({ Method, Url, Data = {}, Headers = {} }) => {
     return axios({
         method: Method,
         url: Url,
@@ -11,7 +11,7 @@ exports.HTTP = async ({ Method, Url, Data = {}, Headers = {} }) => {
 };
 
 // HTTP Requests without DATA
-exports.HTTPn = async ({ Method, Url, Headers = {} }) => {
+export const HTTPn = async ({ Method, Url, Headers = {} }) => {
     return axios({
         method: Method,
         url: Url,

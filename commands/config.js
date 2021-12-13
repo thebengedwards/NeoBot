@@ -1,10 +1,10 @@
-const { MessageEmbed } = require("discord.js");
-const { GetServer, UpdateServer } = require("../functions/http-functions/servers");
-const { Reply } = require("../functions/reply");
-const alertEmbed = require('../components/embeds/alertEmbed');
-const commandEmbed = require('../components/embeds/commandEmbed');
+import { MessageEmbed } from "discord.js";
+import { GetServer, UpdateServer } from "../functions/http-functions/servers.js";
+import Reply from "../functions/reply.js";
+import AlertEmbed from '../components/embeds/alertEmbed.js';
+import CommandEmbed from '../components/embeds/commandEmbed.js';
 
-exports.run = async (client, interaction) => {
+export const run = async (client, interaction) => {
   try {
     let model;
     await GetServer({ serverid: interaction.member.guild.id })
@@ -13,7 +13,7 @@ exports.run = async (client, interaction) => {
 
     if (model.status === 'success') {
       if (model.resultItems.setupcomplete) {
-        const embed = new MessageEmbed(commandEmbed)
+        const embed = new MessageEmbed(CommandEmbed)
 
         embed.setDescription('Config')
         embed.addField('Completed Setup:', model.resultItems.setupcomplete ? `Complete 🟩` : `Incomplete 🟥`)
@@ -67,7 +67,7 @@ exports.run = async (client, interaction) => {
           .catch(err => updateModel = err.response.data.model);
 
         if (updateModel.status === 'success') {
-          const embed = new MessageEmbed(commandEmbed)
+          const embed = new MessageEmbed(CommandEmbed)
 
           embed.setDescription('Start Config')
           embed.addFields(
@@ -90,14 +90,14 @@ exports.run = async (client, interaction) => {
           )
           Reply(client, interaction, embed)
         } else {
-          const embed = new MessageEmbed(alertEmbed)
+          const embed = new MessageEmbed(AlertEmbed)
 
           embed.setDescription(`${updateModel.message}`)
           Reply(client, interaction, embed)
         }
       }
     } else {
-      const embed = new MessageEmbed(alertEmbed)
+      const embed = new MessageEmbed(AlertEmbed)
 
       embed.setDescription(`${model.message}`)
       Reply(client, interaction, embed)
@@ -107,7 +107,7 @@ exports.run = async (client, interaction) => {
   }
 };
 
-exports.command = {
+export const details = {
   description: 'Configure Neo',
   enabled: true,
   name: 'config',

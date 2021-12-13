@@ -1,11 +1,10 @@
-const { MessageEmbed } = require("discord.js");
-const { GetServer } = require("../functions/http-functions/servers");
-const { UpdateServer } = require("../functions/http-functions/servers");
-const { Reply } = require("../functions/reply");
-const alertEmbed = require('../components/embeds/alertEmbed');
-const commandEmbed = require('../components/embeds/commandEmbed');
+import { MessageEmbed } from "discord.js";
+import { GetServer, UpdateServer } from "../functions/http-functions/servers.js";
+import Reply from "../functions/reply.js";
+import AlertEmbed from "../components/embeds/alertEmbed.js";
+import CommandEmbed from "../components/embeds/commandEmbed.js";
 
-exports.run = async (client, interaction, options) => {
+export const run = async (client, interaction, options) => {
     try {
         let model;
         await GetServer({ serverid: interaction.guild_id })
@@ -41,19 +40,19 @@ exports.run = async (client, interaction, options) => {
                 .catch(err => role = err.response.data.model);
 
             if (role.status === 'success') {
-                const embed = new MessageEmbed(commandEmbed)
+                const embed = new MessageEmbed(CommandEmbed)
 
                 embed.setDescription(`Role Setup: ${type}`)
                 embed.addField(`Role ${type} has been set to:`, `${roleData.value}`)
                 Reply(client, interaction, embed)
             } else {
-                const embed = new MessageEmbed(alertEmbed)
+                const embed = new MessageEmbed(AlertEmbed)
 
                 embed.setDescription(`${role.message}`)
                 Reply(client, interaction, embed)
             }
         } else {
-            const embed = new MessageEmbed(alertEmbed)
+            const embed = new MessageEmbed(AlertEmbed)
 
             embed.setDescription(`${model.message}`)
             Reply(client, interaction, embed)
@@ -63,7 +62,7 @@ exports.run = async (client, interaction, options) => {
     }
 };
 
-exports.command = {
+export const details = {
     description: `Manage the Roles of your Server!`,
     enabled: true,
     name: 'setrole',

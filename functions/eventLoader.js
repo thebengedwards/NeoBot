@@ -1,56 +1,39 @@
-const reqEvent = (event) => import(`../events/${event}`);
-export const EventLoader = (client) => {
-  console.log(client)
-  // //Channel Events \\
-  // client.on('channelCreate', (channel) => reqEvent('channelCreate')(client, channel));
-  // client.on('channelDelete', (channel) => reqEvent('channelDelete')(client, channel));
-  // client.on('channelPinsUpdate', (channel, time) => reqEvent('channelPinsUpdate')(client, channel, time));
-  // client.on('channelUpdate', (oldChannel, newChannel) => reqEvent('channelUpdate')(client, oldChannel, newChannel));
-  // // Emoji Events \\
-  // client.on('emojiCreate', (emoji) => reqEvent('emojiCreate')(client, emoji));
-  // client.on('emojiDelete', (emoji) => reqEvent('emojiDelete')(client, emoji));
-  // client.on('emojiUpdate', (oldEmoji, newEmoji) => reqEvent('emojiUpdate')(client, oldEmoji, newEmoji));
-  // // Guild Events \\
-  // client.on('guildBanAdd', (guild, user) => reqEvent('guildBanAdd')(client, guild, user));
-  // client.on('guildBanRemove', (guild, user) => reqEvent('guildBanRemove')(client, guild, user));
-  // client.on('guildCreate', (guild) => reqEvent('guildCreate')(guild));
-  // client.on('guildDelete', (guild) => reqEvent('guildDelete')(guild));
-  // client.on('guildMemberAdd', (member) => reqEvent('guildMemberAdd')(client, member));
-  // client.on('guildMemberRemove', (member) => reqEvent('guildMemberRemove')(client, member));
-  // client.on('guildMemberUpdate', (oldMember, newMember) => reqEvent('guildMemberUpdate')(client, oldMember, newMember));
-  // client.on('guildUnavailable', (guild) => reqEvent('guildUnavailable')(guild));
-  // client.on('guildUpdate', (oldGuild, newGuild) => reqEvent('guildUpdate')(client, oldGuild, newGuild));
-  // // Invite Events \\
-  // client.on('inviteCreate', (invite) => reqEvent('inviteCreate')(client, invite));
-  // client.on('inviteDelete', (invite) => reqEvent('inviteDelete')(client, invite));
-  // // Message Events \\
-  // client.on('messageCreate', (message) => reqEvent('messageCreate')(client, message));
-  // client.on('messageDelete', (message) => reqEvent('messageDelete')(client, message));
-  // client.on('messageDeleteBulk', (messages) => reqEvent('messageDeleteBulk')(client, messages));
-  // client.on('messageReactionAdd', (messageReaction, user) => reqEvent('messageReactionAdd')(client, messageReaction, user));
-  // client.on('messageReactionRemove', (messageReaction, user) => reqEvent('messageReactionRemove')(client, messageReaction, user));
-  // //client.on('messageReactionRemoveAll', (message) => reqEvent('messageReactionRemoveAll')(client, message));
-  // client.on('messageUpdate', (oldMessage, newMessage) => reqEvent('messageUpdate')(client, oldMessage, newMessage));
-  // // Presence Events \\
-  // //client.on('presenceUpdate', (oldMember, newMember) => reqEvent('presenceUpdate')(client, oldMember, newMember));
-  // // Ready Events \\
-  // client.on('ready', () => reqEvent('ready')(client));
-  // // Role Events \\
-  // client.on('roleCreate', (role) => reqEvent('roleCreate')(client, role));
-  // client.on('roleDelete', (role) => reqEvent('roleDelete')(client, role));
-  // client.on('roleUpdate', (oldRole, newRole) => reqEvent('roleUpdate')(client, oldRole, newRole));
-  // // Shard Events \\
-  // client.on('shardDisconnect', (event, id) => reqEvent('shardDisconnect')(client, event, id));
-  // client.on('shardError', (error, shardID) => reqEvent('shardError')(client, error, shardID));
-  // client.on('shardReconnecting', (id) => reqEvent('shardReconnecting')(client, id));
-  // // Typing Events \\
-  // //client.on('typingStart', (channel, user) => reqEvent('typingStart')(client, channel, user));
-  // // Voice State Events \\
-  // //client.on('voiceStateUpdate', (oldState, newState) => reqEvent('voiceStateUpdate')(client, oldState, newState));
-  // // Webhook Events \\
-  // client.on('webhookUpdate', (channel) => reqEvent('webhookUpdate')(client, channel));
-  // // Websocket Events \\
-  // client.ws.on('INTERACTION_CREATE', (interaction) => reqEvent('interactionCreate')(client, interaction));
+export default async (client) => {
+  // Channel Events \\
+  client.on('channelCreate', (channel) => client.events.find(event => event.name == 'channelCreate').run(client, channel));
+  client.on('channelDelete', (channel) => client.events.find(event => event.name == 'channelDelete').run(client, channel));
+  client.on('channelDelete', (oldChannel, newChannel) => client.events.find(event => event.name == 'channelUpdate').run(client, oldChannel, newChannel));
+  // Emoji Events \\
+  client.on('emojiCreate', (emoji) => client.events.find(event => event.name == 'emojiCreate').run(client, emoji));
+  client.on('emojiDelete', (emoji) => client.events.find(event => event.name == 'emojiDelete').run(client, emoji));
+  client.on('emojiUpdate', (oldEmoji, newEmoji) => client.events.find(event => event.name == 'emojiUpdate').run(client, oldEmoji, newEmoji));
+  // Guild Events \\
+  client.on('guildBanAdd', (guild, user) => client.events.find(event => event.name == 'guildBanAdd').run(client, guild, user));
+  client.on('guildBanRemove', (guild, user) => client.events.find(event => event.name == 'guildBanRemove').run(client, guild, user));
+  client.on('guildBanAdd', (guild) => client.events.find(event => event.name == 'guildCreate').run(guild));
+  client.on('guildBanAdd', (guild) => client.events.find(event => event.name == 'guildDelete').run(guild));
+  client.on('guildMemberAdd', (member) => client.events.find(event => event.name == 'guildMemberAdd').run(client, member));
+  client.on('guildMemberRemove', (member) => client.events.find(event => event.name == 'guildMemberRemove').run(client, member));
+  client.on('guildMemberUpdate', (oldMember, newMember) => client.events.find(event => event.name == 'guildMemberUpdate').run(client, oldMember, newMember));
+  client.on('guildUpdate', (oldGuild, newGuild) => client.events.find(event => event.name == 'guildUpdate').run(client, oldGuild, newGuild));
+  // Invite Events \\
+  client.on('inviteCreate', (invite) => client.events.find(event => event.name == 'inviteCreate').run(client, invite));
+  client.on('inviteDelete', (invite) => client.events.find(event => event.name == 'inviteDelete').run(client, invite));
+  // Message Events \\
+  client.on('messageCreate', (message) => client.events.find(event => event.name == 'messageCreate').run(client, message));
+  client.on('messageDelete', (message) => client.events.find(event => event.name == 'messageDelete').run(client, message));
+  client.on('messageDeleteBulk', (messages) => client.events.find(event => event.name == 'messageDeleteBulk').run(client, messages));
+  client.on('messageUpdate', (oldMessage, newMessage) => client.events.find(event => event.name == 'messageUpdate').run(client, oldMessage, newMessage));
+  // Ready Events \\
+  client.on('ready', (client) => client.events.find(event => event.name == 'ready').run(client));
+  // Role Events \\
+  client.on('roleCreate', (role) => client.events.find(event => event.name == 'roleCreate').run(client, role));
+  client.on('roleDelete', (role) => client.events.find(event => event.name == 'roleDelete').run(client, role));
+  client.on('roleUpdate', (role) => client.events.find(event => event.name == 'roleUpdate').run(client, oldRole, newRole));
+  // Shard Events \\
+  client.on('shardDisconnect', (event, id) => client.events.find(event => event.name == 'shardDisconnect').run(client, event, id));
+  client.on('shardError', (event, shardId) => client.events.find(event => event.name == 'shardError').run(client, event, shardId));
+  client.on('shardReconnecting', (id) => client.events.find(event => event.name == 'shardReconnecting').run(client, id));
+  // Websocket Events \\
+  client.ws.on('INTERACTION_CREATE', (interaction) => client.events.find(event => event.name == 'interactionCreate').run(client, interaction));
 };
-
-export default EventLoader;

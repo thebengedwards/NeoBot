@@ -1,8 +1,8 @@
-const { MessageEmbed } = require("discord.js");
-const { GetServer } = require("../functions/http-functions/servers");
-const eventEmbed = require('../components/embeds/eventEmbed');
+import { MessageEmbed } from "discord.js";
+import { GetServer } from "../functions/http-functions/servers.js";
+import EventEmbed from "../components/embeds/eventEmbed.js";
 
-module.exports = async (client, emoji) => {
+export const run = async (client, emoji) => {
     try {
         let model;
         await GetServer({ serverid: emoji.guild.id })
@@ -11,7 +11,7 @@ module.exports = async (client, emoji) => {
 
         if (model.status === 'success') {
             if (model.serverid === emoji.guild.id && emoji.guild.channels.cache.find(item => item.id === model.modchannelid)) {
-                const embed = new MessageEmbed(eventEmbed)
+                const embed = new MessageEmbed(EventEmbed)
 
                 embed.setDescription('Emoji Deletion')
                 embed.addFields(
@@ -26,4 +26,9 @@ module.exports = async (client, emoji) => {
     } catch (err) {
         console.log(err)
     }
+};
+
+export const details = {
+    description: 'An emoji has been deleted',
+    name: 'emojiDelete',
 };

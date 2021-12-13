@@ -1,11 +1,11 @@
-const { MessageEmbed } = require("discord.js");
-const cron = require("cron");
-const moment = require("moment");
-const { AllServers } = require("../functions/http-functions/servers");
-const { GetAllBirthdays } = require("../functions/http-functions/birthdays");
-const eventEmbed = require('../components/embeds/eventEmbed')
+import { MessageEmbed } from "discord.js";
+import moment from "moment";
+import cron from "cron";
+import { AllServers } from "../functions/http-functions/servers.js";
+import { GetAllBirthdays } from "../functions/http-functions/birthdays.js";
+import EventEmbed from "../components/embeds/eventEmbed.js";
 
-module.exports = async (client) => {
+export default async (client) => {
     try {
         const guilds = [...client.guilds.cache];
         let model;
@@ -28,7 +28,7 @@ module.exports = async (client) => {
                                 let split = birthday.split(" ")
 
                                 let event = new cron.CronJob(`00 00 08 ${split[0]} ${split[1] - 1} *`, () => {
-                                    const embed = new MessageEmbed(eventEmbed)
+                                    const embed = new MessageEmbed(EventEmbed)
 
                                     embed.setDescription('Birthday')
                                     embed.addField(`🎂 ${item2.fname.toUpperCase()}, IT\'S YOUR BIRTHDAY! 🎂`, `Can we all please wish <@${item2.discordid}> a happy Birthday!!!`)

@@ -1,13 +1,13 @@
-const { MessageEmbed } = require("discord.js");
-const moment = require("moment");
-const { GetServer } = require("../functions/http-functions/servers");
-const profanities = require('profanities');
-const alertEmbed = require('../components/embeds/alertEmbed');
+import { MessageEmbed } from "discord.js";
+import moment from "moment";
+import { profanities as Profanities } from "profanities";
+import { GetServer } from "../functions/http-functions/servers.js";
+import AlertEmbed from "../components/embeds/alertEmbed.js";
 
-module.exports = async (client, message) => {
+export const run = async (client, message) => {
     try {
         let messageItems = message.content.split(" ");
-        if (profanities.some(index => messageItems.indexOf(index) >= 0)) return;
+        if (Profanities.some(index => messageItems.indexOf(index) >= 0)) return;
         if (message.channel.type !== 'dm') {
             let model;
             await GetServer({ serverid: message.guild.id })
@@ -16,7 +16,7 @@ module.exports = async (client, message) => {
 
             if (model.status === 'success') {
                 if (model.resultItems.serverid === message.guild.id && message.guild.channels.cache.find(item => item.id === model.resultItems.modchannelid)) {
-                    const embed = new MessageEmbed(alertEmbed)
+                    const embed = new MessageEmbed(AlertEmbed)
 
                     embed.setDescription(`A Message was deleted from ${message.channel}`)
                     embed.addFields(
@@ -30,4 +30,9 @@ module.exports = async (client, message) => {
     } catch (err) {
         console.log(err)
     }
+};
+
+export const details = {
+    description: 'Message has been deleted',
+    name: 'messageDelete',
 };

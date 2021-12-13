@@ -1,12 +1,12 @@
-const { MessageEmbed } = require("discord.js");
-const moment = require("moment");
-const { GetServer } = require("../functions/http-functions/servers");
-const { CreateCalendar, GetAllCalendars, DeleteCalendar, GetCalendar } = require("../functions/http-functions/calendars");
-const { Reply } = require("../functions/reply");
-const alertEmbed = require('../components/embeds/alertEmbed');
-const commandEmbed = require('../components/embeds/commandEmbed');
+import { MessageEmbed } from "discord.js";
+import moment from "moment";
+import { GetServer } from "../functions/http-functions/servers.js";
+import { CreateCalendar, GetAllCalendars, DeleteCalendar, GetCalendar } from "../functions/http-functions/calendars.js";
+import Reply from "../functions/reply.js";
+import AlertEmbed from "../components/embeds/alertEmbed.js";
+import CommandEmbed from "../components/embeds/commandEmbed.js";
 
-exports.run = async (client, interaction, options) => {
+export const run = async (client, interaction, options) => {
     try {
         let model;
         await GetServer({ serverid: interaction.guild_id })
@@ -23,7 +23,7 @@ exports.run = async (client, interaction, options) => {
             };
 
             let calendar;
-            let embed = new MessageEmbed(commandEmbed);
+            let embed = new MessageEmbed(CommandEmbed);
             switch (type) {
                 case 'add':
                     await CreateCalendar(body)
@@ -37,7 +37,7 @@ exports.run = async (client, interaction, options) => {
                             { name: 'This command is dev only', value: 'DO NOT USE IT' },
                         )
                     } else {
-                        embed = new MessageEmbed(alertEmbed)
+                        embed = new MessageEmbed(AlertEmbed)
                         embed.setDescription(`${calendar.message}`)
                     }
                     break;
@@ -60,7 +60,7 @@ exports.run = async (client, interaction, options) => {
                             { name: 'This command is dev only', value: 'DO NOT USE IT' },
                         )
                     } else {
-                        embed = new MessageEmbed(alertEmbed)
+                        embed = new MessageEmbed(AlertEmbed)
                         embed.setDescription(`${calendars.message}`)
                     }
                     break;
@@ -76,7 +76,7 @@ exports.run = async (client, interaction, options) => {
                             { name: 'This command is dev only', value: 'DO NOT USE IT' },
                         )
                     } else {
-                        embed = new MessageEmbed(alertEmbed)
+                        embed = new MessageEmbed(AlertEmbed)
                         embed.setDescription(`${calendar.message}`)
                     }
                     break;
@@ -92,14 +92,14 @@ exports.run = async (client, interaction, options) => {
                             { name: 'This command is dev only', value: 'DO NOT USE IT' },
                         )
                     } else {
-                        embed = new MessageEmbed(alertEmbed)
+                        embed = new MessageEmbed(AlertEmbed)
                         embed.setDescription(`${calendar.message}`)
                     }
                     break;
             }
             Reply(client, interaction, embed)
         } else {
-            const embed = new MessageEmbed(alertEmbed)
+            const embed = new MessageEmbed(AlertEmbed)
 
             embed.setDescription(`${model.message}`)
             Reply(client, interaction, embed)
@@ -109,7 +109,7 @@ exports.run = async (client, interaction, options) => {
     }
 };
 
-exports.command = {
+export const details = {
     description: 'Manage the Calendars on NeoBot!',
     enabled: true,
     name: 'setcalendars',
