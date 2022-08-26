@@ -1,9 +1,37 @@
-# dependencies
-/node_modules
-
-# files
-package-lock.json
-.env
-
-# MacOS Specific
+/build/
+bower_components
+/coverage
+dist/
 .DS_Store
+.env
+.env.build
+.env*.local
+.env.development.local
+.env.test.local
+.env.production.local
+jspm_packages/
+logs
+*.log
+lib-cov
+npm-debug.log*
+next-env.d.ts
+/node_modules
+/.next/
+.nyc_output
+.npm
+/out/
+pids
+.pnp*
+.pnpm-debug.log*
+*.pid
+*.pid.lock
+*.pem
+*.seed
+*.tgz
+*.tsbuildinfo
+.vercel
+.vscode
+/.yarn
+.yarn-integrity
+yarn-debug.log*
+yarn-error.log*
